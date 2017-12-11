@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
 
 /// Routes ///
 myApp.config(function($routeProvider, $locationProvider) {
@@ -59,7 +59,7 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })
-    .when('/newadvocate', {
+    .when('/casemanage', {
       templateUrl: '/views/templates/casemanage.html',
       controller: 'CaseController as cc',
       resolve: {

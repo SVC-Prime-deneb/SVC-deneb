@@ -2,32 +2,6 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
     <h1>GREEN FORM</h1>
-    <md-content class="tabDiv">
-        <md-card>
-            <form id="newTripForm" name="newTripForm" layout="column">
-                <h1>New Trip!</h1>
-                <md-input-container>
-                    <label>Destination: </label>
-                    <input ng-model="nc.tripToSend.tripDestination" required type="text" name="destination">
-                    <div ng-messages="projectForm.description.$error">
-                        <div ng-message="required">This is reqired</div>
-                    </div>
-                </md-input-container>
-                <md-input-container>
-                    <label>How many Travellers: </label>
-                    <input ng-model="nc.tripToSend.travellers" required type="text">
-                    <div ng-messages="userForm.email.$error">
-                        <div ng-message="required">This is required!</div>
-                    </div>
-                </md-input-container>
-                <md-datepicker ng-model="nc.tripToSend.leaveDate" required md-placeholder="Leave Date"></md-datepicker>
-                <md-datepicker ng-model="nc.tripToSend.returnDate" required md-placeholder="Return Date"></md-datepicker>
-                <div>
-                    <a href="#/user">Cancel</a>
-                    <md-button type="submit" class="md-raised md-primary" ng-click="nc.submitTrip(nc.tripToSend)">Make My Trip!</md-button>
-                </div>
-            </form>
-        </md-card>
-    </md-content>
+    
 </div>
 
