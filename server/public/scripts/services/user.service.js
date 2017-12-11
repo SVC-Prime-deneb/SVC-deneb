@@ -28,4 +28,5 @@ myApp.service('UserService', function($http, $location){
       $location.path("/home");
     });
   }
+  
 });

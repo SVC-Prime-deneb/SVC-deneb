@@ -24,9 +24,46 @@ myApp.config(function($routeProvider, $locationProvider) {
     })
     .when('/info', {
       templateUrl: '/views/templates/info.html',
-      controller: 'InfoController',
+      controller: 'InfoController as ic',
       resolve: {
         getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    })
+    //if the get user doesnt work, might need to change the service
+    .when('/green', {
+      templateUrl: '/views/templates/green.html',
+      controller: 'GreenController as gc',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/report', {
+      templateUrl: '/views/templates/report.html',
+      controller: 'ReportController as rc',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/newadvocate', {
+      templateUrl: '/views/templates/newadvocate.html',
+      controller: 'NewAdController as nc',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/newadvocate', {
+      templateUrl: '/views/templates/casemanage.html',
+      controller: 'CaseController as cc',
+      resolve: {
+        getuser: function (UserService) {
           return UserService.getuser();
         }
       }
