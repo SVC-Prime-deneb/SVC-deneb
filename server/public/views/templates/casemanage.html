@@ -2,4 +2,37 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
     <h1>CASE MANAGMENT</h1>
+    
+    <md-table-container>
+        <table class="casemanagment">
+            <tbody>
+                <tr>
+                    <th>Date and Time</th>
+                    <th>Green Form</th>
+                    <th>Medical Advocacy Form</th>
+                    <th>Legal Advocacy Form</th>
+                    <th>Referral for Contact Info</th>
+                    <th>Release of Information</th>
+                    <th>Yellow Form</th>
+                    <th>Bill of Rights</th>
+                </tr>
+
+                <!-- this table row ng repeats over each case (20) -->
+                <tr>
+                    <!-- date and time -->
+                    <td>12/11/17 12:00PM</td>
+                    <!-- all ng-models will be send with get route -->
+                    <td><md-checkbox class="md-primary" ng-disabled="true" ng-model="cc.greencb" ng-init="cc.greencb=true" aria-label="Checkbox 1"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
+                    <td><md-checkbox class="md-primary" aria-label="Checkbox 2"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
+                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
+                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
+                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
+                    <td><md-checkbox  class="md-primary" aria-label="Checkbox 1"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
+                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
+                </tr>
+            </tbody>
+        </table>
+    </md-table-container>
+    
 </div>
+
