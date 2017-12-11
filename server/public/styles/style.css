@@ -62,7 +62,7 @@ ul {
 }
 
 li {
-  float: left;
+  /* float: left; */
 }
 
 li a {
@@ -78,3 +78,22 @@ li a:hover {
   text-decoration: underline;
   color: #eee;
 }
+
+ .logout {
+  float:right !important;
+  /* position: absolute;
+  top: 0px;
+  right: 5px;
+  z-index: 9999;
+  position:fixed;
+  right:10px;
+  top:5px; */
+}
+/* 
+.logout {
+  margin-top: 1px;
+     margin-right: 2px;
+     position:absolute;
+     top:0;
+     right:0;
+} */
