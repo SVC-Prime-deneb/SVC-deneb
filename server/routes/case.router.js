@@ -5,14 +5,14 @@ var pool = require('../modules/pool.js');
 
 router.get('/form', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated()) {
+    // if (req.isAuthenticated()) {
         // send back user object from database    
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
                 console.log('Error connecting', errorConnectingToDb);
                 res.sendStatus(500);
             } else {
-                var queryText = 'SELECT*FROM "form" ORDER BY "form_row_id" DESC LIMIT "15" ;';
+                var queryText = 'SELECT*FROM "form" ORDER BY "form_row_id" DESC LIMIT 15 ;';
                 db.query(queryText, function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
@@ -24,18 +24,19 @@ router.get('/form', function (req, res) {
                 }); // END QUERY
             }
         });
-    } else {
-        // failure best handled on the server. do redirect here.
-        console.log('not logged in');
-        res.send(false);
-    }
+    // } else {
+    //     // failure best handled on the server. do redirect here.
+    //     console.log('not logged in');
+    //     res.send(false);
+    // }
 });
 
-    router.get('/green', function (req, res) {
+    router.get('/green/:id', function (req, res) {
         // check if logged in
-        if (req.isAuthenticated()) {
-            // send back user object from database  
-            var green = req.body.green_form_id
+        // if (req.isAuthenticated()) {
+            // send back user object from database 
+            
+            var green = req.params.id
             pool.connect(function (errorConnectingToDb, db, done) {
                 if (errorConnectingToDb) {
                     console.log('Error connecting', errorConnectingToDb);
@@ -53,25 +54,25 @@ router.get('/form', function (req, res) {
                     }); // END QUERY
                 }
             });
-        } else {
-            // failure best handled on the server. do redirect here.
-            console.log('not logged in');
-            res.send(false);
-        }
+        // } else {
+        //     // failure best handled on the server. do redirect here.
+        //     console.log('not logged in');
+        //     res.send(false);
+        // }
 });
 
-router.get('/demo', function (req, res) {
+router.get('/demo/:id', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated()) {
+    // if (req.isAuthenticated()) {
         // send back user object from database   
-        var demo = req.body.demo_id
+        var demo = req.params.id
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
                 console.log('Error connecting', errorConnectingToDb);
                 res.sendStatus(500);
             } else {
                 var queryText = 'SELECT*FROM "demographics" WHERE "demo_id" = $1;';
-                db.query(queryText, [username], function (errorMakingQuery, result) {
+                db.query(queryText, [demo], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
                         console.log('Error making query', errorMakingQuery);
@@ -82,18 +83,18 @@ router.get('/demo', function (req, res) {
                 }); // END QUERY
             }
         });
-    } else {
-        // failure best handled on the server. do redirect here.
-        console.log('not logged in');
-        res.send(false);
-    }
+    // } else {
+    //     // failure best handled on the server. do redirect here.
+    //     console.log('not logged in');
+    //     res.send(false);
+    // }
 });
 
-router.get('/la', function (req, res) {
+router.get('/la/:id', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated()) {
-        // send back user object from database
-        var la = req.body.la_form_id
+    // if (req.isAuthenticated()) {
+        // send back user object from database        
+        var la = req.params.id
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
                 console.log('Error connecting', errorConnectingToDb);
@@ -111,24 +112,24 @@ router.get('/la', function (req, res) {
                 }); // END QUERY
             }
         });
-    } else {
-        // failure best handled on the server. do redirect here.
-        console.log('not logged in');
-        res.send(false);
-    }
+    // } else {
+    //     // failure best handled on the server. do redirect here.
+    //     console.log('not logged in');
+    //     res.send(false);
+    // }
 });
 
-router.get('/ma', function (req, res) {
+router.get('/ma/:id', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated()) {
+    // if (req.isAuthenticated()) {
         // send back user object from database
-        var ma = req.body.ma_form_id 
+        var ma = req.params.id 
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
                 console.log('Error connecting', errorConnectingToDb);
                 res.sendStatus(500);
             } else {
-                var queryText = 'SELECT*FROM "ma_form_data" WHERE "ma_form_id" = $1;';
+                var queryText = 'SELECT*FROM "ma_form_data" WHERE "ma_id" = $1;';
                 db.query(queryText, [ma], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
@@ -140,18 +141,18 @@ router.get('/ma', function (req, res) {
                 }); // END QUERY
             }
         });
-    } else {
-        // failure best handled on the server. do redirect here.
-        console.log('not logged in');
-        res.send(false);
-    }
+    // } else {
+    //     // failure best handled on the server. do redirect here.
+    //     console.log('not logged in');
+    //     res.send(false);
+    // }
 });
 
-router.get('/referral', function (req, res) {
+router.get('/referral/:id', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated()) {
+    // if (req.isAuthenticated()) {
         // send back user object from database
-        var referral = req.body.referral_form_id
+        var referral = req.params.id
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
                 console.log('Error connecting', errorConnectingToDb);
@@ -169,18 +170,18 @@ router.get('/referral', function (req, res) {
                 }); // END QUERY
             }
         });
-    } else {
-        // failure best handled on the server. do redirect here.
-        console.log('not logged in');
-        res.send(false);
-    }
+    // } else {
+    //     // failure best handled on the server. do redirect here.
+    //     console.log('not logged in');
+    //     res.send(false);
+    // }
 });
 
-router.get('/release', function (req, res) {
+router.get('/release/:id', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated()) {
+    // if (req.isAuthenticated()) {
         // send back user object from database 
-        var release = req.body.release_form_id
+        var release = req.params.id
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
                 console.log('Error connecting', errorConnectingToDb);
@@ -198,11 +199,11 @@ router.get('/release', function (req, res) {
                 }); // END QUERY
             }
         });
-    } else {
-        // failure best handled on the server. do redirect here.
-        console.log('not logged in');
-        res.send(false);
-    }
+    // } else {
+    //     // failure best handled on the server. do redirect here.
+    //     console.log('not logged in');
+    //     res.send(false);
+    // }
 });
 
 
