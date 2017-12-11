@@ -50,6 +50,33 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })
+    .when('/nursereport', {
+      templateUrl: '/views/templates/nursereport.html',
+      controller: 'NurseReportController as nrc',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/createnursereport', {
+      templateUrl: '/views/templates/createnursereport.html',
+      controller: 'CreateNurseReportController as cnrc',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/advocatemanage', {
+      templateUrl: '/views/templates/advocatemanage.html',
+      controller: 'AdvocateController as avc',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
     .when('/newadvocate', {
       templateUrl: '/views/templates/newadvocate.html',
       controller: 'NewAdController as nc',
