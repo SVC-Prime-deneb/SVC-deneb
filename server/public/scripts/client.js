@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
 
 /// Routes ///
 myApp.config(function($routeProvider, $locationProvider) {
@@ -24,9 +24,64 @@ myApp.config(function($routeProvider, $locationProvider) {
     })
     .when('/info', {
       templateUrl: '/views/templates/info.html',
-      controller: 'InfoController',
+      controller: 'InfoController as ic',
       resolve: {
         getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    })
+    //if the get user doesnt work, might need to change the service
+    .when('/green', {
+      templateUrl: '/views/templates/green.html',
+      controller: 'GreenController as gc',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/report', {
+      templateUrl: '/views/templates/report.html',
+      controller: 'ReportController as rc',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/newadvocate', {
+      templateUrl: '/views/templates/newadvocate.html',
+      controller: 'NewAdController as nc',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/casemanage', {
+      templateUrl: '/views/templates/casemanage.html',
+      controller: 'CaseController as cc',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/adminmanage', {
+      templateUrl: '/views/templates/adminmanage.html',
+      controller: 'AdminController as ac',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/dispatch', {
+      templateUrl: '/views/templates/dispatch.html',
+      controller: 'DispatchController as dc',
+      resolve: {
+        getuser: function (UserService) {
           return UserService.getuser();
         }
       }
