@@ -68,6 +68,24 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })
+    .when('/adminmanage', {
+      templateUrl: '/views/templates/adminmanage.html',
+      controller: 'AdminController as ac',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/dispatch', {
+      templateUrl: '/views/templates/dispatch.html',
+      controller: 'DispatchController as dc',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
     .otherwise({
       redirectTo: 'home'
     });
