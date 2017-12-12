@@ -9,24 +9,24 @@ router.get('/get', function (req, res) {
   console.log('get dem admins');
   // check if logged in
   // if (req.isAuthenticated()) {
-    pool.connect(function (errorConnectingToDB, db, done) {
-      if (errorConnectingToDB) {
-        console.log('Error connecting to db', errorConnectingToDB);
-        res.sendStatus(500);
-      } else {
-        var queryText = 'SELECT * FROM "users" WHERE is_admin = true ;';
-        db.query(queryText, function (errorMakingQuery, result) {
-          done();
-          if (errorMakingQuery) {
-            console.log('Error making query', errorMakingQuery, result)
-            res.sendStatus(500);
-          } else {
-            console.log(result.rows);
-            res.send(result.rows);
-          }
-        });
-      }
-    });
+  pool.connect(function (errorConnectingToDB, db, done) {
+    if (errorConnectingToDB) {
+      console.log('Error connecting to db', errorConnectingToDB);
+      res.sendStatus(500);
+    } else {
+      var queryText = 'SELECT * FROM "users" WHERE is_admin = true ;';
+      db.query(queryText, function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('Error making query', errorMakingQuery, result)
+          res.sendStatus(500);
+        } else {
+          console.log(result.rows);
+          res.send(result.rows);
+        }
+      });
+    }
+  });
   // } else {
   //   console.log('not logged in');
   //   res.send(false);
@@ -35,36 +35,6 @@ router.get('/get', function (req, res) {
 
 
 //                          POST ROUTES
-router.post('/new', function (req, res, next) {
-
-  var saveUser = {
-    username: req.body.username,
-    password: encryptLib.encryptPassword(req.body.password),
-    is_admin : req.body.is_admin,
-    is_super_admin : req.body.is_super_admin
-  };
-  console.log('new user:', saveUser);
-
-  pool.connect(function (err, client, done) {
-    if (err) {
-      console.log("Error connecting: ", err);
-      res.sendStatus(500);
-    }
-    client.query("INSERT INTO users (username, password, is_admin, is_super_admin) VALUES ($1, $2, $3, $4) RETURNING user_id",
-      [saveUser.username, saveUser.password, saveUser.is_admin, saveUser.is_super_admin],
-      function (err, result) {
-        client.end();
-
-        if (err) {
-          console.log("Error inserting data: ", err);
-          res.sendStatus(500);
-        } else {
-          res.sendStatus(201);
-        }
-      });
-  });
-
-});
 
 
 //                            UPDATE ROUTES
@@ -74,32 +44,33 @@ router.put('/update/:id', function (req, res) {
   console.log('update admin');
   // check if logged in
 
-  if (req.isAuthenticated()) {
-    var id = req.params.id;
-    var is_admin = req.body.is_admin;
-    var is_super_admin = req.body.is_super_admin
-    pool.connect(function (errorConnectingToDB, db, done) {
-      if (errorConnectingToDB) {
-        console.log('Error connecting to db', errorConnectingToDB);
-        res.sendStatus(500);
-      } else {
-        var queryText = 'UPDATE "users" WHERE user_id = $1 ;';
-        db.query(queryText, function (errorMakingQuery, result) {
-          done();
-          if (errorMakingQuery) {
-            console.log('Error making query', errorMakingQuery, result)
-            res.sendStatus(500);
-          } else {
-            console.log(result.rows);
-            res.send(result.rows);
-          }
-        });
-      }
-    });
-  } else {
-    console.log('not logged in');
-    res.send(false);
-  }
+  // if (req.isAuthenticated()) {
+  var id = req.params.id;
+  var is_super_admin = req.headers.is_super_admin
+  console.log('here',req.headers.is_super_admin);
+  
+  pool.connect(function (errorConnectingToDB, db, done) {
+    if (errorConnectingToDB) {
+      console.log('Error connecting to db', errorConnectingToDB);
+      res.sendStatus(500);
+    } else {
+      var queryText = 'UPDATE "users" SET is_super_admin = $1 WHERE user_id = $2 ;';
+      db.query(queryText, [is_super_admin, id], function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('Error making query', errorMakingQuery, result)
+          res.sendStatus(500);
+        } else {
+          console.log(result.rows);
+          res.send(result.rows);
+        }
+      });
+    }
+  });
+  // } else {
+  //   console.log('not logged in');
+  //   res.send(false);
+  // }
 });
 
 //                      DELETE ROUTES
@@ -108,7 +79,7 @@ router.delete('/del/:id', function (req, res) {
   console.log('del admin');
   // check if logged in
   if (req.isAuthenticated()) {
-  var id = req.params.id;
+    var id = req.params.id;
 
     pool.connect(function (errorConnectingToDB, db, done) {
       if (errorConnectingToDB) {
@@ -116,7 +87,7 @@ router.delete('/del/:id', function (req, res) {
         res.sendStatus(500);
       } else {
         var queryText = 'DELETE FROM "users" WHERE user_id = $1 ;';
-        db.query(queryText,[id] ,function (errorMakingQuery, result) {
+        db.query(queryText, [id], function (errorMakingQuery, result) {
           done();
           if (errorMakingQuery) {
             console.log('Error making query', errorMakingQuery, result);
