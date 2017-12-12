@@ -90,7 +90,7 @@ router.get('/demo/:id', function (req, res) {
 
 router.get('/la/:id', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated()) {
+    // if (req.isAuthenticated()) {
         var la = req.params.id
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
@@ -109,11 +109,11 @@ router.get('/la/:id', function (req, res) {
                 }); // END QUERY
             }
         });
-    } else {
-        // failure best handled on the server. do redirect here.
-        console.log('not logged in');
-        res.send(false);
-    }
+    // } else {
+    //     // failure best handled on the server. do redirect here.
+    //     console.log('not logged in');
+    //     res.send(false);
+    // }
 });
 
 router.get('/ma/:id', function (req, res) {
@@ -199,6 +199,15 @@ router.get('/release/:id', function (req, res) {
         res.send(false);
     }
 });
+
+
+//                      POST
+
+
+
+
+
+
 
 
 module.exports = router;
