@@ -16,14 +16,14 @@ myApp.controller('ReportController', function (ReportService, $http) {
     // GET CHART
     vm.requestChart = function () {
         hospitalName = ['HCMC', 'St.Francis', 'Fairview', 'Northeastern'];
-        advocateData = [10,20,24,30];
+        advocateData = [15,20,24,30];
 
         vm.hospitalChart = new Chart(myChart, {
             type: 'bar',
             data: {
                 labels: hospitalName,
                 datasets: [{
-                    label: 'Hospitals',
+                    label: 'Advocates',
                     data: advocateData,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.6)',
