@@ -61,7 +61,11 @@ ul {
   overflow: hidden;
 }
 
-li {
+/* li {
+  float: left;
+} */
+
+.alignLeft {
   float: left;
 }
 
@@ -77,4 +81,97 @@ li a {
 li a:hover {
   text-decoration: underline;
   color: #eee;
+}
+
+/* drop-down menu */
+li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+    background-color: teal;
+}
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: white;
+  color: black;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+ .logout {
+  float:right !important;
+  /* position: absolute;
+  top: 0px;
+  right: 5px;
+  z-index: 9999;
+  position:fixed;
+  right:10px;
+  top:5px; */
+}
+/* 
+.logout {
+  margin-top: 1px;
+     margin-right: 2px;
+     position:absolute;
+     top:0;
+     right:0;
+} */
+
+.md-button.md-default-theme.md-primary.md-fab, .md-button.md-primary.md-fab, .md-button.md-default-theme.md-primary.md-raised, .md-button.md-primary.md-raised {
+  background-color: #027292;
+  color: white;
+}
+
+.teal {
+  background-color: #027292;
+}
+
+.md-button.md-small {
+    min-width: 1%;
+}
+
+/* .welcome {
+  width: 70%;
+  text-align: center;
+  vertical-align: middle; 
+  position: relative;
+
+} */
+
+.container {
+  height: 100%;
+}
+
+.welcome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* padding: 60px; */
 }
