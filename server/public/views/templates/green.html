@@ -1,40 +1,47 @@
 <!-- GreenController as gc -->
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-    <h1>GREEN FORM</h1>
     <md-content class="greenForm">
         <md-card>
             <form name="Green Form" layout="column">
-                <h1>New Advocate</h1>
+                <h1>New Green Sheet</h1>
+
                 <md-input-container>
-                    <label>First Name </label>
-                    <input ng-model="gc.newAdvocate.firstName" type="text">
+                    <label>Hospital</label>
+                    <md-select ng-model="gc.newGreen.location">
+                        <md-option ng-value="type" ng-repeat="type in gc.hospitals">
+                            {{type.hospital}}
+                        </md-option>
+                    </md-select>
                 </md-input-container>
-                <md-input-container>
-                    <label>Last Two Initials </label>
-                    <input ng-model="gc.newAdvocate.lastInitals" type="text">
-                </md-input-container>
-                <md-datepicker ng-model="gc.newAdvocate.startDate" required md-placeholder="Starting Date"></md-datepicker>
-                <!-- language check boxes here -->
-                <md-input-container>
-                    <label for="languages">Languages Spoken</label>
-                <md-checkbox class="md-primary" aria-label="English">English</md-checkbox>
-                <md-checkbox ng-material="gc.newAdvocate.spanish" class="md-primary" aria-label="Spanish">Spanish</md-checkbox>
-                <md-checkbox ng-material="gc.newAdvocate.somali" class="md-primary" aria-label="Somali">Somali</md-checkbox>
-                <!-- certified check boxes here -->
-                <!-- Text op in check boxes -->
-                </md-input-container>
-                <md-input-container>
-                    <label>Phone Number</label>
-                    <input ng-model="gc.newAdvocate.phoneNumber" type="number">
-                </md-input-container>
-                <div>
-                    <!-- goes to advocate management page -->
-                    <a href="#/user">Cancel</a>
-                    <md-button type="submit" class="md-raised md-primary" ng-click="gc.submitAdvocate(gc.newAdvocate)">Make My Trip!</md-button>
+
+                    <md-datepicker ng-model="gc.newGreen.date" required md-placeholder="Date"></md-datepicker>
+                    <md-input-container>
+                        <label>Time</label>
+                        <input type="time">
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Crisis Line Advocate</label>
+                        <input ng-model="gc.newGreen.crisisAdvocate" type="text">
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Contacted Medical Advocate</label>
+                        <input ng-model="gc.newGreen.medicalAdvocate" type="text">
+                    </md-input-container>
+                    <md-checkbox ng-material="gc.newGreen.responded" class="md-primary" aria-label="Did Advocate Respond">Did Advocate Respond</md-checkbox>
+                    <md-input-container>
+                        <label>Notes:</label>
+                        <textarea rows="5" cols="30" type="text" ng-model="gc.newGreen.notes"></textarea>
+                    </md-input-container>
+                <div> 
+                    <!-- goes to case management page -->
+                <a href="#/casemanage">Cancel</a>
+                    <md-button type="submit" class="md-raised md-primary" ng-click="gc.submitGreen(gc.newGreen)">Create</md-button>
                 </div>
             </form>
         </md-card>
     </md-content>
+
+
 </div>
 
