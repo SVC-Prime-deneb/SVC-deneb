@@ -1,5 +1,61 @@
 <!-- Advocate Controller as avc -->
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
-    <h1>Advocate Controller!</h1>
+    <div class="container">
+        {{4===4}}
+            <div>
+                <h1 class="md-title">ADVOCATE MANAGEMENT</h1><br>
+            </div>
+            <!-- <div flex layout="row" layout-align="center center"> -->
+            <div class="searchBar">
+                <md-icon md-svg-icon="pictures/search.svg"></md-icon>
+                <input type="text" placeholder="Search..." ng-model="searchText" />
+
+                <md-button class="md-raised md-primary" href="#/newadvocate.html">
+                    <md-icon md-svg-icon="pictures/add.svg"></md-icon>
+                    Create New Advocate
+                </md-button>
+            </div>
+            <br>
+       
+        
+        <br>
+        <div>
+            <md-table-container>
+                <table md-table>
+                    <thead md-head>
+                        <tr md-row>
+                            <th>NAME</th>
+                            <th>STARTING DATE</th>
+                            <th>LANGUAGE</th>
+                            <th>CERTIFIED FOR HCMC?</th>
+                            <th>TEXT OPT-IN</th>
+                            <th>PHONE NO.</th>
+                            <th>ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row ng-repeat="advocate in avc.advocate.data">
+                            <td md-cell>{{advocate.advocate_first_name}}</td>
+                            <td md-cell>{{advocate.advocacy_start}}</td>
+                            <td md-cell>{{advocate.language}}</td>
+                            <td md-cell>{{advocate.is_hcmc_approved}}</td>                           
+                            <td md-cell>{{advocate.allow_text}}</td>
+                            <td md-cell>{{advocate.main_contact_phone}}</td>
+                            <td>
+                                <md-button class="sm-raised sm-secondary" type="submit" ng-click="avc.deleteAdvocate(advocate.id)">
+                                <md-icon md-svg-icon="pictures/trash.svg"></md-icon>                   
+                                </md-button>
+                            </td>
+                            <td>
+                                <md-button class="sm-raised sm-secondary" type="submit" ng-click="tc.editClicked(advocate)">
+                                <md-icon md-svg-icon="pictures/edit.svg"></md-icon>
+                                </md-button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <br>
+        </div>    
+    </div>
 </div>
