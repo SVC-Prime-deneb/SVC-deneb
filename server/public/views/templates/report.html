@@ -2,4 +2,12 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
     <h1>Report Controller! - VIEW CHARTS</h1>
+    <p>
+        <md-button class="md-raised md-primary" ng-click="rc.requestChart()">
+            <md-icon md-svg-icon="images/lineChart.svg"></md-icon> Show Chart</md-button>
+    </p>
+    <div style="width: 70%;">
+        <canvas id="myChart" height="750" width="700"></canvas>
+    </div>
+
 </div>

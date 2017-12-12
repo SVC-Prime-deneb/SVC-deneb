@@ -6,24 +6,24 @@ myApp.controller('ReportController', function (ReportService, $http) {
     // CHART
     vm.chartData = [];
 
-    // vm.myChart = document.getElementById('myChart').getContext('2d');
+    vm.myChart = document.getElementById('myChart').getContext('2d');
 
     // Chart: Global Options
-    // Chart.defaults.global.defaultFontFamily = 'Lato';
-    // Chart.defaults.global.defaultFontSize = 15;
-    // Chart.defaults.global.defaultFontColor = '#777';
+    Chart.defaults.global.defaultFontFamily = 'Lato';
+    Chart.defaults.global.defaultFontSize = 15;
+    Chart.defaults.global.defaultFontColor = '#777';
 
     // GET CHART
     vm.requestChart = function () {
         hospitalName = ['HCMC', 'St.Francis', 'Fairview', 'Northeastern'];
-        advocateData = [10,20,24,30];
+        advocateData = [15,20,24,30];
 
         vm.hospitalChart = new Chart(myChart, {
             type: 'bar',
             data: {
                 labels: hospitalName,
                 datasets: [{
-                    label: 'Hospitals',
+                    label: 'Advocates',
                     data: advocateData,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.6)',
