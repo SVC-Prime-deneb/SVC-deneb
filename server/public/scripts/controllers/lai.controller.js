@@ -3,4 +3,5 @@ myApp.controller('LaiController', function (FormService) {
     var vm = this;
     vm.formService = FormService;
     vm.formObject = FormService.formObject;
+    vm.contact = ['Police Report', 'Court', 'Restraining Order'];
 });
