@@ -34,6 +34,7 @@ app.use('/advocate', advocateManageRouter);
 app.use('/register', registerRouter);
 app.use('/user', userRouter);
 app.use('/case', caseRouter);
+app.use('/admin', adminManageRouter);
 
 
 // Catch all bucket, must be last!
@@ -41,5 +42,5 @@ app.use('/', indexRouter);
 
 // Listen //
 app.listen(port, function(){
-   console.log('Listening on port:', port);
+console.log('Listening on port:', port);
 });
