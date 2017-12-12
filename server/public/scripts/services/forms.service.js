@@ -3,6 +3,9 @@ myApp.service('FormService', function ($http, $location) {
     var self = this;
     self.userObject = {};
 
+    self.advocateList = {data: []};
+    self.selectedAdvocate = {data: {}};
+
     
 
 });

@@ -169,9 +169,50 @@ li.dropdown {
   height: 100%;
 }
 
+h1 #welcome {
+
+  position: relative;
+}
 .welcome {
   display: flex;
   align-items: center;
   justify-content: center;
   /* padding: 60px; */
+}
+
+.container h1 {
+  font-size: 32px;
+  font-weight: 600;
+  
+}
+
+th,td {
+  text-align: center !important;
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 10px solid black;
+  display: inline-block;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 10px solid black;
+  display: inline-block;
+}
+
+.showChart {
+  display: center;
+  /* width: 70%; */  
+}
+
+section {
+  padding-bottom: 5px;
 }
