@@ -1,5 +1,3 @@
-import { ENGINE_METHOD_NONE } from 'constants';
-
 var express = require('express');
 var router = express.Router();
 var pool = require('../modules/pool.js');
@@ -10,7 +8,7 @@ var pg = require('pg');
 router.get('/get', function (req, res) {
   console.log('get dem admins');
   // check if logged in
-  if (req.isAuthenticated()) {
+  // if (req.isAuthenticated()) {
     pool.connect(function (errorConnectingToDB, db, done) {
       if (errorConnectingToDB) {
         console.log('Error connecting to db', errorConnectingToDB);
@@ -29,10 +27,10 @@ router.get('/get', function (req, res) {
         });
       }
     });
-  } else {
-    console.log('not logged in');
-    res.send(false);
-  }
+  // } else {
+  //   console.log('not logged in');
+  //   res.send(false);
+  // }
 });
 
 
@@ -42,8 +40,8 @@ router.post('/new', function (req, res, next) {
   var saveUser = {
     username: req.body.username,
     password: encryptLib.encryptPassword(req.body.password),
-    is_admin = req.body.is_admin,
-    is_super_admin = req.body.is_super_admin
+    is_admin : req.body.is_admin,
+    is_super_admin : req.body.is_super_admin
   };
   console.log('new user:', saveUser);
 
