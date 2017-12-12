@@ -6,9 +6,12 @@ var passport = require('./strategies/sql.localstrategy');
 var sessionConfig = require('./modules/session.config');
 
 // Route includes
+var adminManageRouter = require('./routes/admin.management.js');
+var advocateManageRouter = require('./routes/advocate.management.js');
 var indexRouter = require('./routes/index.router');
 var userRouter = require('./routes/user.router');
 var registerRouter = require('./routes/register.router');
+var caseRouter = require('./routes/case.router.js')
 
 var port = process.env.PORT || 5000;
 
@@ -27,13 +30,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
+app.use('/advocate', advocateManageRouter);
 app.use('/register', registerRouter);
 app.use('/user', userRouter);
+app.use('/case', caseRouter);
+app.use('/admin', adminManageRouter);
+
 
 // Catch all bucket, must be last!
 app.use('/', indexRouter);
 
 // Listen //
 app.listen(port, function(){
-   console.log('Listening on port:', port);
+console.log('Listening on port:', port);
 });
