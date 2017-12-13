@@ -173,6 +173,11 @@ h1 #welcome {
 
   position: relative;
 }
+
+/* h1 #advocateTitle {
+  position: relative;
+  justify-content: center;
+} */
 .welcome {
   display: flex;
   align-items: center;
@@ -232,6 +237,14 @@ section {
     display: block;
 }
 
+.caseTbl {
+  margin: 0 auto;
+  width: 73%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  display: table;
+  /* @media screen and (max-width: 580px); */
+    display: block;
+}
 
 .row {
   display: table-row;
@@ -250,5 +263,13 @@ thead th {
   color: #ffffff;
   font-weight: 900;
   background: #027292;
+}
+
+h1 {
+  text-align: center;
+}
+
+.searchBar {
+  text-align: center;
 }
 
