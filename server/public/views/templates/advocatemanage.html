@@ -2,6 +2,7 @@
 <div ng-include="'views/partials/nav.html'"></div>
     <div class="container">
         {{4===4}}
+        
             <div>
                 <h1 class="md-title">ADVOCATE MANAGEMENT</h1><br>
             </div>
@@ -34,6 +35,7 @@
                     </thead>
                     <tbody md-body>
                         <tr md-row ng-repeat="advocate in avc.myAdvocateList">
+                            {{advocate}}
                             <td md-cell>{{advocate.advocate_first_name}}</td>
                             <td md-cell>{{advocate.advocate_last_name}}</td>
                             <td md-cell>{{advocate.advocacy_start | date: "MM/dd/yyyy"}}</td>
@@ -49,6 +51,7 @@
                                     <option value="other">Other Language</option>
                                 </select>
                                 {{advocate.language}}</td> -->
+
                             <td md-cell>{{advocate.is_hcmc_approved}}</td>                           
                             <td md-cell>{{advocate.allow_text}}</td>
                             <td md-cell>{{advocate.main_contact_phone}}</td>

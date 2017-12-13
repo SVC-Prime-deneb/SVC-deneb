@@ -16,8 +16,6 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
     //     main_contact_phone: ''
     // }
     vm.myAdvocateList = [];
-    
-
     vm.languages = [];
     // PUSH language to language array
     // vm.pushLanguage = function (){
@@ -49,7 +47,10 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
         $http.get('/advocate/get').then(function (response) {
             console.log('success');
             vm.advocateList.data = response.data;
+
             console.log('advocateList:::::', vm.advocateList.data.length);
+            console.log('advocateList', vm.advocateList.data);
+            
             for (var i = 0; i < vm.advocateList.data.length; i++){
                 console.log('advocate first name:::::', vm.advocateList.data[i].advocate_first_name);
                 vm.languages = [];
