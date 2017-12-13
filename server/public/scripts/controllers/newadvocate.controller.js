@@ -3,4 +3,6 @@ myApp.controller('NewAdController', function (FormService) {
     var vm = this;
     vm.formService = FormService;
     vm.formObject = FormService.formObject;
+    vm.submitAdvocate = function(objectTosend){
+    }
 });

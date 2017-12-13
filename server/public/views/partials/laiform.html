@@ -1,0 +1,47 @@
+<!-- LaiController as lc -->
+<md-dialog class="dialog" aria-label="Lai Form">
+<form ng-cloak>
+    <h1>New Legal Advocacy Information Form</h1>
+    <md-input-container>
+        <label>Type of Contact</label>
+        <md-select ng-model="lc.newLai.type_of_report">
+            <md-option ng-value="type" ng-repeat="type in mc.contact">
+                {{type}}
+            </md-option>
+        </md-select>
+        <input type="text" ng-material="lc.newLai.type_of_report" placeholder="Type of Contact">
+    </md-input-container>
+
+    <md-input-container>
+        <md-datepicker ng-model="lc.newLai.date" md-placeholder="Date and Time"></md-datepicker>
+    </md-input-container>
+
+    <md-input-container>
+        <label>Case Number</label>
+        <input type="text" ng-model="lc.newLai.case_number">
+    </md-input-container>
+
+    <md-input-container>
+        <label>County</label>
+        <input type="text" ng-model="lc.newLai.county">
+    </md-input-container>
+
+    <md-input-container>
+        <label>Officer Badge Number</label>
+        <input type="text" ng-model="lc.newLai.officer_involved">
+    </md-input-container>
+
+    <md-input-container ng-show="lc.newLai.officer_involved">
+        <label>Additional Officer Badge Number</label>
+        <input type="text" ng-model="lc.newLai.officer_involved_additional">
+    </md-input-container>
+
+    <md-input-container ng-show="lc.newLai.officer_involved_additional">
+        <label>Additional Officer Badge Number</label>
+        <input type="text" ng-model="lc.newLai.officer_involved_additional_two">
+    </md-input-container>
+
+    <md-button type="submit" class="md-primary md-raised" ng-click="lc.sendLai(lc.newLai)" class="md-raised">Submit</md-button>
+    <md-button class="md-raised">Cancel</md-button>
+</form>
+</md-dialog>
