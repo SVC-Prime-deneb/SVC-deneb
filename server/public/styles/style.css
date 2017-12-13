@@ -216,3 +216,39 @@ th,td {
 section {
   padding-bottom: 5px;
 }
+
+.container {
+  margin: 0 auto;
+  padding: 40px;
+  max-width: 1000px;
+}
+
+.transactionTbl {
+  margin: 0 0 40px 0;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  display: table;
+  /* @media screen and (max-width: 580px); */
+    display: block;
+}
+
+
+.row {
+  display: table-row;
+  background: #f6f6f6;
+}  
+.transactionTbl tr:nth-child(odd){
+    background: #a5cdd8;
+}  
+
+.transactionTbl tr:hover {
+    background: silver;
+    cursor: pointer;
+}
+
+thead th {
+  color: #ffffff;
+  font-weight: 900;
+  background: #027292;
+}
+

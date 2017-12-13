@@ -15,32 +15,27 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
     //     allow_text: '',
     //     main_contact_phone: ''
     // }
+
     vm.myAdvocateList = [];
     vm.languages = [];
-    // PUSH language to language array
-    // vm.pushLanguage = function (){
-    //     if (spanish = true) {
-    //         vm.languages.push(spanish);
-    //     }
-    //     if (somali = true) {
-    //         m.languages.push(somali);
-    //     }
-    //     if (french = true) {
-    //         vm.languages.push(french);
-    //     }
-    //     if (german = true) {
-    //         vm.languages.push(german);
-    //     }
-    //     if (liberian = true) {
-    //         vm.languages.push(liberian);
-    //     }
-    //     if (asl = true) {
-    //         vm.languages.push(asl);
-    //     }
-    //     return vm.languages;
-    // }
-    
 
+    // Column sorting
+    vm.sortColumn = "advocate_first_name";
+    vm.reverseSort = false;
+
+    vm.sortData = function (column) {
+        if (vm.sortColumn == column) {
+            return vm.reverseSort ? 'arrow-down' : 'arrow-up';
+        }
+            return '';
+    }
+
+    vm.getSortClass = function (column) {
+        if (vm.sortColumn == column) {
+            return vm.reverseSort ? 'arrow-down' : 'arrow-up';
+        }
+        return '';
+    }
 
     // VIEW advocates 
     vm.viewAdvocate = function () {
@@ -48,11 +43,11 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
             console.log('success');
             vm.advocateList.data = response.data;
 
-            console.log('advocateList:::::', vm.advocateList.data.length);
-            console.log('advocateList', vm.advocateList.data);
+            console.log('advocateList.data.length', vm.advocateList.data.length);
+            console.log('advocateList.data', vm.advocateList.data);
             
             for (var i = 0; i < vm.advocateList.data.length; i++){
-                console.log('advocate first name:::::', vm.advocateList.data[i].advocate_first_name);
+                console.log('advocate first name:', vm.advocateList.data[i].advocate_first_name);
                 vm.languages = [];
                 var tempData = {};
                 tempData.advocate_first_name = vm.advocateList.data[i].advocate_first_name;
@@ -88,9 +83,7 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
                     vm.languages.push(vm.advocateList.data[i].other_language);
                 }
                 tempData.language = vm.languages;
-                vm.myAdvocateList.push(tempData);
-               
-                
+                vm.myAdvocateList.push(tempData);                            
             }   
             
             // getUser();           
