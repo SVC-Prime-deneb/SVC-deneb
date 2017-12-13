@@ -14,6 +14,7 @@
                     <th>Referral for Contact Info</th>
                     <th>Release of Information</th>
                     <th>Yellow Form</th>
+                    <th>Client Contact Form</th>                   
                     <th>Bill of Rights</th>
                 </tr>
 
@@ -24,11 +25,35 @@
                     <!-- all ng-models will be send with get route -->
                     <!-- need to replace id in edit function -->
                     <td><md-checkbox class="md-primary" ng-disabled="true" ng-model="cc.greencb" ng-init="cc.greencb=true" aria-label="Checkbox 1"></md-checkbox></td>
-                    <td><md-checkbox class="md-primary" aria-label="Checkbox 2"></md-checkbox><md-button ng-click="cc.showMa($event, id)" class="md-raised md-small">Edit</md-button></td>
-                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox><md-button ng-click="cc.showLa($event, id)" class="md-raised md-small">Edit</md-button></td>
-                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox><md-button ng-click="cc.showRefer($event, id)" class="md-raised md-small">Edit</md-button></td>
-                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox><md-button ng-click="cc.showRelease($event, id)" class="md-raised md-small">Edit</md-button></td>
-                    <td><md-checkbox  class="md-primary" aria-label="Checkbox 1"></md-checkbox></td>
+                    <td><md-checkbox class="md-primary" aria-label="Checkbox 2"></md-checkbox>
+                        <button ng-click="cc.showMa($event, id)" md-button class="sm-raised sm-secondary">
+                            <md-icon md-svg-icon="pictures/edit.svg"></md-icon>    
+                        </button>
+                    </td>
+                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox>
+                        <button ng-click="cc.showLa($event, id)" md-button class="sm-raised sm-secondary">
+                            <md-icon md-svg-icon="pictures/edit.svg"></md-icon>
+                        </button>
+                    </td>
+                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox>
+                        <button ng-click="cc.showRefer($event, id)" md-button class="sm-raised sm-secondary">
+                            <md-icon md-svg-icon="pictures/edit.svg"></md-icon>
+                        </button>
+                        </td>
+                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox>
+                        <button ng-click="cc.showRelease($event, id)" md-button class="sm-raised sm-secondary">
+                            <md-icon md-svg-icon="pictures/edit.svg"></md-icon>
+                        </button>
+                    </td>
+                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox>
+                        <button md-button class="sm-raised sm-secondary">
+                            <md-icon md-svg-icon="pictures/edit.svg"></md-icon>
+                        </button>
+                    </td>
+                    <td>
+                        <md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox>
+                    
+                    </td>
                     <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox></td>
                 </tr>
             </tbody>
