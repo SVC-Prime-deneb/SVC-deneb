@@ -20,10 +20,10 @@
         <label>Principal Victimization:</label>
         <md-select ng-model="mc.newMa.victimization">
             <md-option ng-value="type" ng-repeat="type in mc.victimization">
-                {{type}}
+                {{type.string}}
             </md-option>
         </md-select>
-        <input type="text" ng-material="mc.newMa." placeholder="Other Languages">
+        <input ng-show="'mc.newMa.victimization.string === 'other'" type="text" ng-material="mc.newMa.additional_notes" placeholder="Victimization">
     </md-input-container>
 
     <md-input-container>
