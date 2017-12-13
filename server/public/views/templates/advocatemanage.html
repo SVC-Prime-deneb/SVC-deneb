@@ -50,7 +50,7 @@
                     </thead>
                     <tbody md-body>
                         <tr md-row ng-repeat="advocate in avc.myAdvocateList | orderBy: avc.sortColumn:avc.reverseSort | filter:searchText">
-                        
+                            {{avc.myAdvocateList}}
                             <td md-cell>{{advocate.advocate_first_name}}</td>
                             <td md-cell>{{advocate.advocate_last_name}}</td>
                             <td md-cell>{{advocate.advocacy_start | date: "MM/dd/yyyy"}}</td>
@@ -59,7 +59,7 @@
                             <td md-cell>{{advocate.allow_text}}</td>
                             <td md-cell>{{advocate.main_contact_phone}}</td>
                             <td>
-                                <md-button class="sm-raised sm-secondary" type="submit" ng-click="avc.deleteAdvocate(advocate.id)">
+                                <md-button class="sm-raised sm-secondary" type="submit" ng-click="avc.deleteAdvocate(advocate_id)">
                                 <md-icon md-svg-icon="pictures/trash.svg"></md-icon>                   
                                 </md-button>
                             </td>
