@@ -33,7 +33,7 @@
                         </tr>
                     </thead>
                     <tbody md-body>
-                        <tr md-row ng-repeat="advocate in avc.formService.advocateList.data">
+                        <tr md-row ng-repeat="advocate in avc.myAdvocateList">
                             <td md-cell>{{advocate.advocate_first_name}}</td>
                             <td md-cell>{{advocate.advocate_last_name}}</td>
                             <td md-cell>{{advocate.advocacy_start | date: "MM/dd/yyyy"}}</td>

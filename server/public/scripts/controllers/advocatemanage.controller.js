@@ -6,40 +6,41 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
 
     vm.advocate = FormService.selectedAdvocate;
     vm.advocateList = FormService.advocateList;
-
-
-    vm.advocate.data = {
-        advocate_first_name: '',
-        language: vm.languages,
-        is_hcmc_approved: '',
-        advocacy_start: '',
-        allow_text: '',
-        main_contact_phone: ''
-    }
+    // data = {
+    //     advocate_first_name: '',
+    //     advocate_last_name: '',
+    //     language: vm.languages,
+    //     is_hcmc_approved: false,
+    //     advocacy_start: '',
+    //     allow_text: '',
+    //     main_contact_phone: ''
+    // }
+    vm.myAdvocateList = [];
+    
 
     vm.languages = [];
     // PUSH language to language array
-    vm.pushLanguage = function (){
-        if (spanish = true) {
-            vm.languages.push(spanish);
-        }
-        if (somali = true) {
-            m.languages.push(somali);
-        }
-        if (french = true) {
-            vm.languages.push(french);
-        }
-        if (german = true) {
-            vm.languages.push(german);
-        }
-        if (liberian = true) {
-            vm.languages.push(liberian);
-        }
-        if (asl = true) {
-            vm.languages.push(asl);
-        }
-        return vm.languages;
-    }
+    // vm.pushLanguage = function (){
+    //     if (spanish = true) {
+    //         vm.languages.push(spanish);
+    //     }
+    //     if (somali = true) {
+    //         m.languages.push(somali);
+    //     }
+    //     if (french = true) {
+    //         vm.languages.push(french);
+    //     }
+    //     if (german = true) {
+    //         vm.languages.push(german);
+    //     }
+    //     if (liberian = true) {
+    //         vm.languages.push(liberian);
+    //     }
+    //     if (asl = true) {
+    //         vm.languages.push(asl);
+    //     }
+    //     return vm.languages;
+    // }
     
 
 
@@ -48,9 +49,49 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
         $http.get('/advocate/get').then(function (response) {
             console.log('success');
             vm.advocateList.data = response.data;
-            console.log('advocateList', vm.advocateList);
+            console.log('advocateList:::::', vm.advocateList.data.length);
+            for (var i = 0; i < vm.advocateList.data.length; i++){
+                console.log('advocate first name:::::', vm.advocateList.data[i].advocate_first_name);
+                vm.languages = [];
+                var tempData = {};
+                tempData.advocate_first_name = vm.advocateList.data[i].advocate_first_name;
+                tempData.advocate_last_name = vm.advocateList.data[i].advocate_last_name;
+                tempData.advocacy_start = vm.advocateList.data[i].advocacy_start;
+                if (vm.advocateList.data[i].is_hcmc_approved){
+                    tempData.is_hcmc_approved = true;
+                }
+                else{
+                    tempData.is_hcmc_approved = false;
+                }
+                tempData.allow_text = vm.advocateList.data[i].allow_text;
+                tempData.main_contact_phone = vm.advocateList.data[i].main_contact_phone;
+                if (vm.advocateList.data[i].asl) {
+                    vm.languages.push("ASL");
+                }
+                if (vm.advocateList.data[i].french) {
+                    vm.languages.push("French");
+                }
+                if (vm.advocateList.data[i].german) {
+                    vm.languages.push("German");
+                }
+                if (vm.advocateList.data[i].liberian) {
+                    vm.languages.push("Liberian");
+                }
+                if (vm.advocateList.data[i].somali) {
+                    vm.languages.push("Somalian");
+                }
+                if (vm.advocateList.data[i].spanish) {
+                    vm.languages.push("Spanish");
+                }
+                if (vm.advocateList.data[i].other_language != null) {
+                    vm.languages.push(vm.advocateList.data[i].other_language);
+                }
+                tempData.language = vm.languages;
+                vm.myAdvocateList.push(tempData);
+               
                 
-
+            }   
+            
             // getUser();           
         }).catch(function(error){
             console.log('failureee', error);           
