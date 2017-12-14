@@ -69,5 +69,16 @@ myApp.controller('CaseController', function (FormService, $http, $mdDialog) {
 
     vm.getCases();
 
+    vm.checkClicked = function(id, value, name){
+        var objectTosend = {
+            formName: name,
+            formValue: !value
+        }
+        $http.put('/case/update/checkbox/' + id, objectTosend).then(function (response) {
+            console.log('updated', name);
+        }).catch(function (error) {
+            console.log('update not sent :(');
+        })
+    }
 
 });

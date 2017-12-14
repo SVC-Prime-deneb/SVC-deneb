@@ -543,7 +543,7 @@ router.put('/update/ma/:id', function (req, res) {
 
     if (req.isAuthenticated()) {
         var id = req.params.id;
-        console.log(req.body, "here");
+        console.log(req.body.additional_notes, "here");
 
         var ma = {
             advocate_name: req.body.advocate_name,
