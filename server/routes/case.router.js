@@ -203,11 +203,11 @@ router.get('/release/:id', function (req, res) {
 
 //                      POST
 router.post('/new/green', function (req, res) {
-    console.log('update green');
+    console.log('post green');
 
-    if (req.isAuthenticated()) {
-        var id = req.params.id;
+    // if (req.isAuthenticated()) {
         var green = {
+            advocate_id: req.body.advocate_id,
             date: req.body.date,
             start_time: req.body.start_time,
             end_time: req.body.end_time,
@@ -217,8 +217,6 @@ router.post('/new/green', function (req, res) {
             was_advocate_dispatched: req.body.was_advocate_dispatched,
             advocate_name_dispatched: req.body.advocate_name_dispatched,
             dispatch_notes: req.body.dispatch_notes,
-            is_completed: req.body.is_complete,
-            date_completed: req.body.date_completed,
             green_form_notes: req.body.green_form_notes
         }
         console.log('here', req.body);
@@ -227,12 +225,13 @@ router.post('/new/green', function (req, res) {
                 console.log('Error connecting to db', errorConnectingToDB);
                 res.sendStatus(500);
             } else {
-                var queryText = 'UPDATE"green_form_data"SET "date" = $1, "start_time" = $2 , "end_time"= $3, ' +
-                    '"location_id"=$4, "nurse"=$5, "contact_phone"=$6,"was_advocate_dispatched"=$7, "advocate_name_dispatched"=$8,' +
-                    '"dispatch_notes"=$9, "is_completed"=$10, "date_completed"=$11, "green_form_notes"=$12 WHERE "green_form_id" = $13;';
-                db.query(queryText, [green.date, green.start_time, green.end_time, green.location_id,
+                var queryText = 'INSERT INTO "green_form_data"("advocate_id","date","start_time","end_time",' +
+                    '"location_id","nurse",' +
+                    '"contact_phone","was_advocate_dispatched","advocate_name_dispatched",' +
+                    '"dispatch_notes", green_form_notes) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11);'
+                db.query(queryText, [green.advocate_id,green.date, green.start_time, green.end_time, green.location_id,
                 green.nurse, green.contact_phone, green.was_advocate_dispatched, green.advocate_name_dispatched,
-                green.dispatch_notes, green.is_completed, green.date_completed, green.green_form_notes, id],
+                green.dispatch_notes, green.green_form_notes],
                     function (errorMakingQuery, result) {
                         done();
                         if (errorMakingQuery) {
@@ -241,18 +240,80 @@ router.post('/new/green', function (req, res) {
                         } else {
                             console.log(result.rows);
                             res.send(result.rows);
-                            
+                            let id = result.rows.green_form_id
+                            return id
                         }
-                    });
-            }
+                    })
+                }
         });
-    } else {
-        console.log('not logged in');
-        res.send(false);
-    }
+    // } else {
+    //     console.log('not logged in');
+    //     res.send(false);
+    // }
 });
 
+router.post('/new/table/:id', function (req, res) {
+    var id = req.params.id
+
+    pool.connect(function (errorConnectingToDb, db, done) {
+        if (errorConnectingToDb) {
+            console.log('Error connecting', errorConnectingToDb);
+            res.sendStatus(500);
+        } else {
+            var queryText = 'SELECT form_creation($1);';
+            db.query(queryText, [id], function (errorMakingQuery, result) {
+                    done();
+                    if (errorMakingQuery) {
+                        console.log('Error making query', errorMakingQuery);
+                        res.sendStatus(500);
+                    } else {
+                        res.sendStatus(201);
+                    }
+                }); // END QUERY
+        }
+    });
+});//End POST route
+
 //                      PUT 
+
+router.put('/update/checkbox/:id', function (req, res) {
+    console.log('update checkbox');
+    // check if logged in
+
+    // if (req.isAuthenticated()) {
+    var id = req.params.id;
+    var form = {
+        formName:req.body.formName,
+        formValue:req.body.formValue,
+
+    }
+    console.log("form",form);
+    
+
+    pool.connect(function (errorConnectingToDB, db, done) {
+        if (errorConnectingToDB) {
+            console.log('Error connecting to db', errorConnectingToDB);
+            res.sendStatus(500);
+        } else {
+            // TODO: This isn't ideal but works for now. Fix before deployment.
+            var queryText = 'UPDATE "form" SET "' + form.formName + '" = $2 WHERE "form_row_id" = $3 ;';
+            db.query(queryText, [form.formValue , id], function (errorMakingQuery, result) {
+                done();
+                if (errorMakingQuery) {
+                    console.log('Error making query', errorMakingQuery, result)
+                    res.sendStatus(500);
+                } else {
+                    console.log(result.rows);
+                    res.send(result.rows);
+                }
+            });
+        }
+    });
+    // } else {
+    //   console.log('not logged in');
+    //   res.send(false);
+    // }
+});
 
 
 router.put('/update/green/:id', function (req, res) {
@@ -449,7 +510,7 @@ router.put('/update/referral/:id', function (req, res) {
     console.log('update admin');
     // check if logged in
 
-    // if (req.isAuthenticated()) {
+    if (req.isAuthenticated()) {
     var id = req.params.id;
     var referral = {
         referral_location_name: req.body.referral_location_name,
@@ -483,17 +544,17 @@ router.put('/update/referral/:id', function (req, res) {
             });
         }
     });
-    // } else {
-    //   console.log('not logged in');
-    //   res.send(false);
-    // }
+    } else {
+    console.log('not logged in');
+    res.send(false);
+    }
 });
 
 router.put('/update/release/:id', function (req, res) {
     console.log('update admin');
     // check if logged in
 
-    // if (req.isAuthenticated()) {
+    if (req.isAuthenticated()) {
     var id = req.params.id;
     var release = {
         purpose: req.body.purpose,
@@ -523,10 +584,10 @@ router.put('/update/release/:id', function (req, res) {
             });
         }
     });
-    // } else {
-    //   console.log('not logged in');
-    //   res.send(false);
-    // }
+    } else {
+      console.log('not logged in');
+      res.send(false);
+    }
 });
 
 // router.put('/update/:id', function (req, res) {
