@@ -34,7 +34,7 @@
         </md-radio-group>
     </md-input-container>
     <!-- shows if mandate was triggered -->
-    <div ng-show="mc.newMa.was_mandatory_report">
+    <div ng-show="mc.newMa.was_mandatory_report === 'true'">
         <md-input-container>
             <label for="mandated report">Name of Advocate Reporting</label>
             <input type="text" ng-model="mc.newMa.reporting_advocate_name">
@@ -56,7 +56,7 @@
         </md-radio-group>
     </md-input-container>
     <!-- appears if evidentiary exam is true -->
-    <div ng-show="mc.newMa.location_evidentiary">
+    <div ng-show="mc.newMa.location_evidentiary === 'True'">
         <md-input-container>
             <label for="hospital">Hospital</label>
             <input type="text" ng-model="mc.newMa.location_evidentiary_name">
@@ -77,7 +77,7 @@
 
 
     <!-- drop down for services appears if referral is true-->
-    <md-input-container ng-show="mc.newMa.immediate_referral">
+    <md-input-container ng-show="mc.newMa.immediate_referral === 'True'">
         <label>Services Provided:</label>
         <md-select ng-model="mc.newMa.immediate_referral_notes">
             <md-option ng-value="type" ng-repeat="type in mc.services">
@@ -94,7 +94,8 @@
         </md-radio-group>
     </md-input-container>
 
-    <md-input-container ng-show="mc.newMa.shelter_referral">
+    <!-- shows if shelter referral was made -->
+    <md-input-container ng-show="mc.newMa.shelter_referral === 'True'">
         <label for="Shelters">Which Shelters?</label>
         <input type="text" ng-model="mc.newMa.shelter_referral_name">
     </md-input-container>
@@ -107,7 +108,8 @@
         </md-radio-group>
     </md-input-container>
 
-    <md-input-container ng-show="mc.newMa.taxi_provided">
+    <!-- shows if taxi was provided -->
+    <md-input-container ng-show="mc.newMa.taxi_provided === 'True'">
         <label for="taxi">Taxi Cost</label>
         <input type="text" ng-model="mc.newMa.taxi_cost">
     </md-input-container>
@@ -119,8 +121,8 @@
             <md-radio-button value="False" class="md-primary">No</md-radio-button>
         </md-radio-group>
     </md-input-container>
-
-    <div ng-show="mc.newMa.release_completed">
+<!-- shows if release of info was completed -->
+    <div ng-show="mc.newMa.release_completed === 'True'">
         <md-datepicker ng-model="mc.newMa.release_completed_date" md-placeholder="Release Date"></md-datepicker>
         <md-input-container>
             <label for="Notes">Reason For Release</label>
@@ -141,8 +143,8 @@
             <md-radio-button value="false" class="md-primary">No</md-radio-button>
         </md-radio-group>
     </md-input-container>
-
-    <div ng-show="mc.newMa.debrief_complete">
+<!-- shows if debrief is completed -->
+    <div ng-show="mc.newMa.debrief_complete === 'true'">
         <md-datepicker ng-model="mc.newMa.debrief_complete_date" md-placeholder="Debrief Date"></md-datepicker>
         <md-input-container>
             <label for="Notes">Staff Member Who Conducted Debrief</label>
@@ -157,8 +159,8 @@
             <md-radio-button value="false" class="md-primary">No</md-radio-button>
         </md-radio-group>
     </md-input-container>
-
-    <div ng-show="mc.newMa.followup_complete">
+<!-- shows if follow up was completed -->
+    <div ng-show="mc.newMa.followup_complete === 'true'">
         <md-datepicker ng-model="mc.newMa.followup_complete_date" md-placeholder="Followup Date"></md-datepicker>
         <md-input-container>
             <label for="Notes">For What Agency?</label>
