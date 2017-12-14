@@ -42,7 +42,7 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
         $http.get('/advocate/get').then(function (response) {
             console.log('success');
             vm.advocateList.data = response.data;
-
+            vm.myAdvocateList = [];
             console.log('advocateList.data.length', vm.advocateList.data.length);
             console.log('advocateList.data', vm.advocateList.data);
             
@@ -50,6 +50,7 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
                 console.log('advocate first name:', vm.advocateList.data[i].advocate_first_name);
                 vm.languages = [];
                 var tempData = {};
+                tempData.advocate_id = vm.advocateList.data[i].advocate_id;
                 tempData.advocate_first_name = vm.advocateList.data[i].advocate_first_name;
                 tempData.advocate_last_name = vm.advocateList.data[i].advocate_last_name;
                 tempData.advocacy_start = vm.advocateList.data[i].advocacy_start;
@@ -109,7 +110,7 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
     // DELETE advocate
     vm.deleteAdvocate = function (advocateId) {
         console.log('deleted', advocateId);
-        $http.delete('/advocate/delete' + advocateId).then(function (response) {
+        $http.delete('/advocate/del/' + advocateId).then(function (response) {
             console.log('success');
             vm.viewAdvocate();           
         }).catch(function (error) {
@@ -118,12 +119,12 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
     }
 
     //EDIT Advocate
-    vm.editAdvocate = function () {
-        console.log('vm.advocate', vm.advocate);
-        $http.put('/advocate/update' + advocate.id, vm.advocate).then(function (response){
+    vm.editAdvocate = function (advocateToEdit, advocateId) {
+        console.log('vm.advocate', vm.advocateToEdit);
+        $http.put('/advocate/update/' + advocateToEdit.id, advocateToEdit).then(function (response){
             console.log('success');
             vm.viewAdvocate();
-            $mdDialog.hide();
+            // $mdDialog.hide();
         }).catch(function (error) {
             console.log('failure', error);         
         });        
