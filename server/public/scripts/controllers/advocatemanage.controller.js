@@ -42,7 +42,7 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
         $http.get('/advocate/get').then(function (response) {
             console.log('success');
             vm.advocateList.data = response.data;
-
+            vm.myAdvocateList = [];
             console.log('advocateList.data.length', vm.advocateList.data.length);
             console.log('advocateList.data', vm.advocateList.data);
             
@@ -119,12 +119,12 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
     }
 
     //EDIT Advocate
-    vm.editAdvocate = function () {
-        console.log('vm.advocate', vm.advocate);
-        $http.put('/advocate/update/' + advocate.id, vm.advocate).then(function (response){
+    vm.editAdvocate = function (advocateToEdit, advocateId) {
+        console.log('vm.advocate', vm.advocateToEdit);
+        $http.put('/advocate/update/' + advocateToEdit.id, advocateToEdit).then(function (response){
             console.log('success');
             vm.viewAdvocate();
-            $mdDialog.hide();
+            // $mdDialog.hide();
         }).catch(function (error) {
             console.log('failure', error);         
         });        
