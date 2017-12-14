@@ -9,7 +9,7 @@ var pg = require('pg');
 router.get('/get', function (req, res) {
   console.log('get dem admins');
   // check if logged in
-  // if (req.isAuthenticated()) {
+   if (req.isAuthenticated()) {
     pool.connect(function (errorConnectingToDB, db, done) {
       if (errorConnectingToDB) {
         console.log('Error connecting to db', errorConnectingToDB);
@@ -28,10 +28,10 @@ router.get('/get', function (req, res) {
         });
       }
     });
-  // } else {
-  //   console.log('not logged in');
-  //   res.send(false);
-  // }
+   } else {
+     console.log('not logged in');
+     res.send(false);
+   }
 });
 
 
