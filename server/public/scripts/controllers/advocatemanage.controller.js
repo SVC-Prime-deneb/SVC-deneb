@@ -7,7 +7,7 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
     vm.advocate = FormService.selectedAdvocate;
     vm.advocateList = FormService.advocateList;
 
-    vm.selectedIndex;
+    // vm.selectedIndex;
 
     // data = {
     //     advocate_first_name: '',
@@ -157,7 +157,18 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
 
     //     }
 
+    // vm.selectedIndex = {};
 
+    // vm.getTemplate = function (advocate) {
+    //     if(advocate.advocate_id === vm.selected.advocate_id) {
+    //         return 'edit';
+    //     }
+    //     else return 'display';
+    // }
+
+    // vm.selectedEdit = function (advocate) {
+    //     vm.selectedIndex = angular.copy(advocate);
+    // }
 
     vm.viewAdvocate();
 });

@@ -20,6 +20,14 @@ body, html {
   margin-top: 14px;
 }
 
+#greenForm {
+  flex:20%;
+}
+
+form {
+  padding:20px;
+}
+
 #container {
   margin-top: 10px;
 }

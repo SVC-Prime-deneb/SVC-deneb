@@ -1,8 +1,6 @@
 <!-- Advocate Controller as avc -->
 <div ng-include="'views/partials/nav.html'"></div>
-    <div class="container">
-        {{4===4}}
-        
+    <div class="container">       
             <div class="advocateContainer">
                 <h1 id="advocateTitle" class="md-title">ADVOCATE MANAGEMENT</h1><br>
             </div>
@@ -55,8 +53,10 @@
                     </thead>
                     <tbody md-body >
                         <tr md-row ng-repeat="advocate in avc.myAdvocateList track by $index">
-                            <div ng-hide="avc.selectedIndex === $index">
-                                <td md-cell>{{$index}}</td> {{avc.selectedIndex===$index}}
+                            <div>
+                                <!-- <td ng-hide="avc.selectedIndex === $index" md-cell>{{$index}}</td> {{avc.selectedIndex}}-{{avc.selectedIndex==$index}} -->
+                                <td ng-hide="avc.selectedIndex === $index" md-cell>{{advocate.advocate_first_name}}></td>
+                                <td ng-show="avc.selectedIndex === $index" md-cell>###</td>
                                 <td md-cell>{{advocate.advocate_last_name}}</td>
                                 <td md-cell>{{advocate.advocacy_start | date: "MM/dd/yyyy"}}</td>
                                 <td md-cell><span ng-repeat="language in advocate.language">{{language}} </span></td>
@@ -69,9 +69,13 @@
                                     </md-button>
                                 </td>
                                 <td>
-                                    <md-button class="sm-raised sm-secondary" ng-click="avc.selectedEdit($index)">
+                                    <md-button  class="sm-raised sm-secondary" ng-click="avc.selectedEdit($index)">
                                     <!-- <md-icon md-svg-icon="pictures/edit.svg"></md-icon> -->Edit
                                     </md-button>
+
+                                    <!-- <md-button ng-show="" class="sm-raised sm-secondary" ng-click="avc.selectedEdit($index)">
+                                    Cancel
+                                    </md-button> -->
                                 </td>
                             </div>
                         </tr>
