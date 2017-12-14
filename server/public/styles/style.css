@@ -11,8 +11,8 @@ body, html {
 }
 
 .instructions {
-  background-color: #333333;
-  color: #DDDDDD;
+  background-color: white;
+  color: #027292;
   padding: 15px;
 }
 
@@ -49,7 +49,7 @@ body, html {
 }
 
 .navbar {
-  background-color: #333333;
+  background-color: #027292;
   width: 100%;
   border-radius: 0px;
 }
@@ -93,7 +93,7 @@ li a, .dropbtn {
 }
 
 li a:hover, .dropdown:hover .dropbtn {
-    background-color: teal;
+    background-color: #027292;
 }
 
 li.dropdown {
@@ -267,6 +267,13 @@ thead th {
 
 h1 {
   text-align: center;
+  color: #027292;
+  font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.title {
+  font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-align: center;
 }
 
 .searchBar {
@@ -276,5 +283,13 @@ h1 {
 .dialog {
   width: 40%;
   padding: 6px;
+}
+
+#svcIcon {
+  height: 65px;
+}
+
+#svcBanner {
+  height: 80px;
 }
 

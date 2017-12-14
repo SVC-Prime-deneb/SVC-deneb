@@ -11,9 +11,7 @@
             Create New Case
         </md-button>
     </div>
-    <br><br>
 <div class="container">
-    <h1>CASE MANAGMENT</h1>
     <md-table-container>
         <table md-table class="caseTbl">
             <thead md-head>
@@ -52,7 +50,6 @@
                             <md-icon ng-click="cc.showRelease($event, case.release_form_id)" md-svg-icon="pictures/edit.svg"></md-icon>
                     </td>
                     <td><md-checkbox ng-model="case.is_ys_complete" class="md-primary" aria-label="Checkbox 6"></md-checkbox>
-                            <md-icon md-svg-icon="pictures/edit.svg"></md-icon>
                     </td>
                     <td>
                         <md-checkbox ng-model="case.is_client_contact_complete" class="md-primary" aria-label="Checkbox 7"></md-checkbox>
