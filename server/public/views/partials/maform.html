@@ -23,8 +23,8 @@
                 {{type.string}}
             </md-option>
         </md-select>
-        <input ng-show="'mc.newMa.victimization.string === 'other'" type="text" ng-material="mc.newMa.additional_notes" placeholder="Victimization">
     </md-input-container>
+    <md-input-container ng-show=" mc.newMa.victimization.string === 'Other' "><input type="text" ng-material="mc.newMa.additional_notes" placeholder="Specify Victimization"></md-input-container>
 
     <md-input-container>
         <p>Was a Mandated Report Triggered?</p>
@@ -166,7 +166,7 @@
         </md-input-container>
     </div>
 
-    <md-button type="submit" class="md-primary md-raised" ng-click="ic.newDetail()" type="submit" class="md-raised">Submit</md-button>
+    <md-button type="submit" class="md-primary md-raised" ng-click="mc.submitNewMa(mc.newMa)" type="submit" class="md-raised">Submit</md-button>
     <md-button class="md-raised" ng-click="ic.cancel()">Cancel</md-button>
 </form>
 

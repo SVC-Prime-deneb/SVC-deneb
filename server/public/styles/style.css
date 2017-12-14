@@ -252,3 +252,8 @@ thead th {
   background: #027292;
 }
 
+.dialog {
+  width: 40%;
+  padding: 6px;
+}
+

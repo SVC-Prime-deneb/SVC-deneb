@@ -1,23 +1,61 @@
-myApp.controller('CaseController', function (FormService, $http) {
+myApp.controller('CaseController', function (FormService, $http, $mdDialog) {
     console.log('Caseontroller created');
     var vm = this;
     vm.formService = FormService;
 
+    //function to set formId
+    vm.saveFormId = function(id){
+        FormService.saveFormId(id);
+    }
+    
     //function to show MA form popup
-    vm.showMa = function($event, id){
-
+    vm.showMa = function(ev, id){
+        console.log(id);
+        vm.saveFormId(id);
+        $mdDialog.show({
+            templateUrl: '../views/partials/maform.html',
+            controller: 'MaController as mc',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+        })
     }
     //function to show LA form popup
-    vm.showLa = function ($event, id) {
-
+    vm.showLa = function (ev, id) {
+        console.log(id);
+        vm.saveFormId(id);
+        $mdDialog.show({
+            templateUrl: '../views/partials/laiform.html',
+            controller: 'LaiController as lc',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+        })
     }
     //function to show Refer form popup
-    vm.showRefer = function ($event, id) {
-
+    vm.showRefer = function (ev, id) {
+        console.log(id);
+        vm.saveFormId(id);
+        $mdDialog.show({
+            templateUrl: '../views/partials/releaseform.html',
+            controller: 'ReleaseController as rc',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+        })
     }
-    //function to show Release form popup
-    vm.showRelease= function ($event, id) {
 
+    //function to show Release form popup
+    vm.showRelease= function (ev, id) {
+        console.log(id);
+        vm.saveFormId(id);
+        $mdDialog.show({
+            templateUrl: '../views/partials/releaseinfoform.html',
+            controller: 'ReleaseInfoController as ric',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+        })
     }
 
    vm.getCases = function () {
