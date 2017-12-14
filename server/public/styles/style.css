@@ -273,3 +273,8 @@ h1 {
   text-align: center;
 }
 
+.dialog {
+  width: 40%;
+  padding: 6px;
+}
+

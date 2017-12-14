@@ -8,7 +8,7 @@ var pg = require('pg');
 router.get('/get', function (req, res) {
   console.log('get dem admins');
   // check if logged in
-  // if (req.isAuthenticated()) {
+  if (req.isAuthenticated()) {
   pool.connect(function (errorConnectingToDB, db, done) {
     if (errorConnectingToDB) {
       console.log('Error connecting to db', errorConnectingToDB);
@@ -27,10 +27,10 @@ router.get('/get', function (req, res) {
       });
     }
   });
-  // } else {
-  //   console.log('not logged in');
-  //   res.send(false);
-  // }
+  } else {
+    console.log('not logged in');
+    res.send(false);
+  }
 });
 
 
@@ -39,15 +39,14 @@ router.get('/get', function (req, res) {
 
 //                            UPDATE ROUTES
 
-//TODO add forgot password and finish this route.
 router.put('/update/:id', function (req, res) {
   console.log('update admin');
   // check if logged in
 
-  // if (req.isAuthenticated()) {
+  if (req.isAuthenticated()) {
   var id = req.params.id;
-  var is_super_admin = req.headers.is_super_admin
-  console.log('here',req.headers.is_super_admin);
+  var is_super_admin = req.body.is_super_admin
+  console.log('here',is_super_admin);
   
   pool.connect(function (errorConnectingToDB, db, done) {
     if (errorConnectingToDB) {
@@ -67,10 +66,10 @@ router.put('/update/:id', function (req, res) {
       });
     }
   });
-  // } else {
-  //   console.log('not logged in');
-  //   res.send(false);
-  // }
+  } else {
+    console.log('not logged in');
+    res.send(false);
+  }
 });
 
 //                      DELETE ROUTES
