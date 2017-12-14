@@ -1,5 +1,83 @@
 <!-- Advocate Controller as avc -->
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
-    <h1>Advocate Controller!</h1>
+    <div class="container">
+        {{4===4}}
+        
+            <div class="advocateContainer">
+                <h1 id="advocateTitle" class="md-title">ADVOCATE MANAGEMENT</h1><br>
+            </div>
+            <!-- <div flex layout="row" layout-align="center center"> -->
+            <div class="searchBar">
+                <md-icon md-svg-icon="pictures/search.svg"></md-icon>
+                <input type="text" placeholder="Search..." ng-model="searchText" />
+
+                <md-button class="md-raised md-primary" href="#/newadvocate">
+                    <md-icon md-svg-icon="pictures/add.svg"></md-icon>
+                    Create New Advocate
+                </md-button>
+
+                <md-button class="md-raised md-primary" href="#/resetAdvocatePw">
+                    <!-- <md-icon md-svg-icon="pictures/reset.png"></md-icon> -->
+                    Reset Advocate Password
+                </md-button>
+            </div>
+            <br>       
+        <br>
+        <div>
+            <md-table-container>
+                <table md-table class="transactionTbl">
+                    <thead md-head>
+                        <tr md-row>
+                            <th ng-click="avc.sortData('advocate_first_name')">FIRST NAME
+                                <div ng-class="avc.getSortClass('advocate_first_name')"></div>
+                            </th>
+                            <th ng-click="avc.sortData('advocate_last_name')">LAST NAME
+                                <div ng-class="avc.getSortClass('advocate_last_name')"></div>
+                            </th>
+                            <th ng-click="avc.sortData('advocacy_start')">STARTING DATE
+                                <div ng-class="avc.getSortClass('advocacy_start')"></div>
+                            </th>
+                            <th ng-click="avc.sortData('language')">LANGUAGE
+                                <div ng-class="avc.getSortClass('language')"></div>
+                            </th>
+                            <th ng-click="avc.sortData('is_hcmc_approved')">CERTIFIED FOR HCMC?
+                                <div ng-class="avc.getSortClass('is_hcmc_approved')"></div>
+                            </th>
+                            <th ng-click="avc.sortData('allow_text')">TEXT OPT-IN
+                                <div ng-class="avc.getSortClass('allow_text')"></div>
+                            </th>
+                            <th ng-click="avc.sortData('main_contact_phone')">PHONE NO.
+                                <div ng-class="avc.getSortClass('main_contact_phone')"></div>
+                            </th>
+                            <th>DELETE</th>
+                            <th>EDIT</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row ng-repeat="advocate in avc.myAdvocateList | orderBy: avc.sortColumn:avc.reverseSort | filter:searchText">
+                            
+                            <td md-cell>{{advocate.advocate_first_name}}</td>
+                            <td md-cell>{{advocate.advocate_last_name}}</td>
+                            <td md-cell>{{advocate.advocacy_start | date: "MM/dd/yyyy"}}</td>
+                            <td md-cell><span ng-repeat="language in advocate.language">{{language}} </span></td>
+                            <td md-cell>{{advocate.is_hcmc_approved}}</td>                           
+                            <td md-cell>{{advocate.allow_text}}</td>
+                            <td md-cell>{{advocate.main_contact_phone}}</td>
+                            <td>
+                                <md-button class="sm-raised sm-secondary" type="submit" ng-click="avc.deleteAdvocate(advocate.advocate_id)">
+                                <md-icon md-svg-icon="pictures/trash.svg"></md-icon>                   
+                                </md-button>
+                            </td>
+                            <td>
+                                <md-button class="sm-raised sm-secondary" type="submit" ng-click="tc.editAdvocate(advocate.advocate_id)">
+                                <md-icon md-svg-icon="pictures/edit.svg"></md-icon>
+                                </md-button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <br>
+        </div>    
+    </div>
 </div>

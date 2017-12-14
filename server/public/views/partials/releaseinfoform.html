@@ -1,0 +1,32 @@
+<!-- ReleaseInfoController as ric -->
+<md-dialog class="dialog" aria-label="Release Info Form">
+    <form ng-cloak>
+        <h1>Release of Information Form</h1>
+
+        <md-input-container>
+            <label>Purpose of Release</label>
+            <input type="text" ng-model="ric.newRelease.purpose">
+        </md-input-container>
+
+        <md-input-container>
+            <p>Was The Contact Made?</p>
+            <md-radio-group ng-model="ric.newRelease.was_contact_made">
+                <md-radio-button value="true" class="md-primary">Yes</md-radio-button>
+                <md-radio-button value="false" class="md-primary">No</md-radio-button>
+            </md-radio-group>
+        </md-input-container>
+
+       
+            <md-input-container ng-show="ric.newRelease.was_contact_made">
+                <md-datepicker ng-model="ric.newRelease.contact_date" md-placeholder="Contact Date"></md-datepicker>
+            </md-input-container>
+
+            <md-input-container>
+                <label>Who Contacted</label>
+                <input type="text" ng-model="ric.newRelease.contacted_by">
+            </md-input-container>
+
+        <md-button type="submit" class="md-primary md-raised" ng-click="ric.sendRelease(ric.newRelease)" class="md-raised">Submit</md-button>
+        <md-button class="md-raised">Cancel</md-button>
+    </form>
+</md-dialog>

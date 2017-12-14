@@ -2,30 +2,44 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
     <h1>NEW ADVOCATE PAGE</h1>
-    <md-content class="tabDiv">
+    <md-content class="New Advocate">
         <md-card>
-            <form name="newadvocate" layout="column">
+            <form name="New Advocate" layout="column">
                 <h1>New Advocate</h1>
                 <md-input-container>
                     <label>First Name </label>
-                    <input ng-model="gc.newAdvocate.firstName" type="text">
+                    <input ng-model="nc.newAdvocate.advocate_first_name" type="text">
                 </md-input-container>
                 <md-input-container>
                     <label>Last Two Initials </label>
-                    <input ng-model="gc.newAdvocate.lastInitals" type="text">
+                    <input ng-model="nc.newAdvocate.advocate_last_name" type="text">
                 </md-input-container>
-                <md-datepicker ng-model="gc.newAdvocate.startDate" required md-placeholder="Starting Date"></md-datepicker>
+                <md-datepicker ng-model="nc.newAdvocate.advocacy_start" required md-placeholder="Starting Date"></md-datepicker>
+                <br/>
                 <!-- language check boxes here -->
-                <!-- certified check boxes here -->
-                <!-- Text op in check boxes -->
+                <md-input-container>
+                    <label for="languages">Languages Spoken</label>
+                    <md-checkbox class="md-primary" aria-label="English">English</md-checkbox>
+                    <md-checkbox ng-material="nc.newAdvocate.spanish" class="md-primary" aria-label="Spanish">Spanish</md-checkbox>
+                    <md-checkbox ng-material="nc.newAdvocate.somali" class="md-primary" aria-label="Somali">Somali</md-checkbox>
+                    <md-checkbox ng-material="nc.newAdvocate.french" class="md-primary" aria-label="French">French</md-checkbox>
+                    <md-checkbox ng-material="nc.newAdvocate.german" class="md-primary" aria-label="German">German</md-checkbox>
+                    <md-checkbox ng-material="nc.newAdvocate.liberian" class="md-primary" aria-label="Liberian">Liberian</md-checkbox>
+                    <md-checkbox ng-material="nc.newAdvocate.asl" class="md-primary" aria-label="ASL">ASL</md-checkbox>
+                    <input type="text" ng-material="nc.newAdvocate.other_language" placeholder="Other Languages">
+                </md-input-container>
                 <md-input-container>
                     <label>Phone Number</label>
-                    <input ng-model="gc.newAdvocate.phoneNumber" type="number">
+                    <input ng-model="nc.newAdvocate.main_contact_phone" type="number">
                 </md-input-container>
+                <!-- certified check boxes here -->
+                <md-checkbox ng-material="nc.newAdvocate.is_hcmc_approved" class="md-primary" aria-label="HCMC Certified">HCMC Certified</md-checkbox>
+                <!-- Text op in check boxes -->
+                <md-checkbox ng-material="nc.newAdvocate.allow_text" class="md-primary" aria-label="Text Op In">Text Op In</md-checkbox>
                 <div>
                     <!-- goes to advocate management page -->
-                    <a href="#/user">Cancel</a>
-                    <md-button type="submit" class="md-raised md-primary" ng-click="gc.submitAdvocate(gc.newAdvocate)">Make My Trip!</md-button>
+                    <a href="#/advocatemanage">Cancel</a>
+                    <md-button type="submit" class="md-raised md-primary" ng-click="nc.submitAdvocate(gc.newAdvocate)">Create</md-button>
                 </div>
             </form>
         </md-card>

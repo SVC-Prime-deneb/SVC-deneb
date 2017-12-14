@@ -1,12 +1,23 @@
 <!-- CaseController as cc -->
 <div ng-include="'views/partials/nav.html'"></div>
+<div>
+    <h1>CASE MANAGMENT</h1><br>
+    <div class="searchBar">
+        <md-icon md-svg-icon="pictures/search.svg"></md-icon>
+        <input type="text" placeholder="Search..." ng-model="searchCase" />
+    
+        <md-button class="md-raised md-primary" href="#/green">
+            <md-icon md-svg-icon="pictures/add.svg"></md-icon>
+            Create New Case
+        </md-button>
+    </div>
+    <br><br>
 <div class="container">
     <h1>CASE MANAGMENT</h1>
-    
     <md-table-container>
-        <table class="casemanagment">
-            <tbody>
-                <tr>
+        <table md-table class="caseTbl">
+            <thead md-head>
+                <tr md-row>
                     <th>Date and Time</th>
                     <th>Green Form</th>
                     <th>Medical Advocacy Form</th>
@@ -14,21 +25,40 @@
                     <th>Referral for Contact Info</th>
                     <th>Release of Information</th>
                     <th>Yellow Form</th>
+                    <th>Client Contact Form</th>                   
                     <th>Bill of Rights</th>
                 </tr>
-
+            </thead>
+            <tbody md-body>
                 <!-- this table row ng repeats over each case (20) -->
-                <tr>
+                <tr md-row>
+                <tr ng-repeat="case in cc.caseObject">
+                
                     <!-- date and time -->
-                    <td>12/11/17 12:00PM</td>
+                    <td>{{case.gs_complete_date| date}}</td>
                     <!-- all ng-models will be send with get route -->
-                    <td><md-checkbox class="md-primary" ng-disabled="true" ng-model="cc.greencb" ng-init="cc.greencb=true" aria-label="Checkbox 1"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
-                    <td><md-checkbox class="md-primary" aria-label="Checkbox 2"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
-                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
-                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
-                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
-                    <td><md-checkbox  class="md-primary" aria-label="Checkbox 1"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
-                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
+                    <!-- need to replace id in edit function -->
+                    <td><md-checkbox ng-disabled="true" ng-model="case.is_gs_complete" aria-label="Checkbox 1"></md-checkbox></td>
+                    <td><md-checkbox ng-model="case.is_ma_complete" class="md-primary" aria-label="Checkbox 2"></md-checkbox>
+                            <md-icon ng-click="cc.showMa($event, case.ma_form_id)" md-svg-icon="pictures/edit.svg"></md-icon>
+                    </td>
+                    <td><md-checkbox ng-model="case.is_la_complete" class="md-primary" aria-label="Checkbox 3"></md-checkbox>
+                            <md-icon ng-click="cc.showLa($event, case.la_form_id)" md-svg-icon="pictures/edit.svg"></md-icon>
+                    </td>
+                    <td><md-checkbox ng-model="case.is_referral_complete" class="md-primary" aria-label="Checkbox 4"></md-checkbox>
+                            <md-icon ng-click="cc.showRefer($event, case.referral_form_id)" md-svg-icon="pictures/edit.svg"></md-icon>
+                        </td>
+                    <td><md-checkbox ng-model="case.is_release_complete" class="md-primary" aria-label="Checkbox 5"></md-checkbox>
+                            <md-icon ng-click="cc.showRelease($event, case.release_form_id)" md-svg-icon="pictures/edit.svg"></md-icon>
+                    </td>
+                    <td><md-checkbox ng-model="case.is_ys_complete" class="md-primary" aria-label="Checkbox 6"></md-checkbox>
+                            <md-icon md-svg-icon="pictures/edit.svg"></md-icon>
+                    </td>
+                    <td>
+                        <md-checkbox ng-model="case.is_client_contact_complete" class="md-primary" aria-label="Checkbox 7"></md-checkbox>
+                    
+                    </td>
+                    <td><md-checkbox ng-model="case.is_bor_complete" class="md-primary" aria-label="Checkbox 8"></md-checkbox></td>
                 </tr>
             </tbody>
         </table>

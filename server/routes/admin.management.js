@@ -9,6 +9,7 @@ var pg = require('pg');
 router.get('/get', function (req, res) {
   console.log('get dem admins');
   // check if logged in
+<<<<<<< HEAD
    if (req.isAuthenticated()) {
     pool.connect(function (errorConnectingToDB, db, done) {
       if (errorConnectingToDB) {
@@ -49,54 +50,66 @@ router.post('/new', function (req, res, next) {
   pool.connect(function (err, client, done) {
     if (err) {
       console.log("Error connecting: ", err);
+=======
+  if (req.isAuthenticated()) {
+  pool.connect(function (errorConnectingToDB, db, done) {
+    if (errorConnectingToDB) {
+      console.log('Error connecting to db', errorConnectingToDB);
+>>>>>>> 23a9a4e282dbfce8cd9b75c4de64378c2cb0c7b0
       res.sendStatus(500);
-    }
-    client.query("INSERT INTO users (username, password, is_admin, is_super_admin) VALUES ($1, $2, $3, $4) RETURNING user_id",
-      [saveUser.username, saveUser.password, saveUser.is_admin, saveUser.is_super_admin],
-      function (err, result) {
-        client.end();
-
-        if (err) {
-          console.log("Error inserting data: ", err);
+    } else {
+      var queryText = 'SELECT * FROM "users" WHERE is_admin = true ;';
+      db.query(queryText, function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('Error making query', errorMakingQuery, result)
           res.sendStatus(500);
         } else {
-          res.sendStatus(201);
+          console.log(result.rows);
+          res.send(result.rows);
         }
       });
+    }
   });
-
+  } else {
+    console.log('not logged in');
+    res.send(false);
+  }
 });
+
+
+//                          POST ROUTES
 
 
 //                            UPDATE ROUTES
 
-//TODO add forgot password and finish this route.
 router.put('/update/:id', function (req, res) {
   console.log('update admin');
   // check if logged in
 
   if (req.isAuthenticated()) {
-    var id = req.params.id;
-    var is_admin = req.body.is_admin;
-    var is_super_admin = req.body.is_super_admin
-    pool.connect(function (errorConnectingToDB, db, done) {
-      if (errorConnectingToDB) {
-        console.log('Error connecting to db', errorConnectingToDB);
-        res.sendStatus(500);
-      } else {
-        var queryText = 'UPDATE "users" WHERE user_id = $1 ;';
-        db.query(queryText, function (errorMakingQuery, result) {
-          done();
-          if (errorMakingQuery) {
-            console.log('Error making query', errorMakingQuery, result)
-            res.sendStatus(500);
-          } else {
-            console.log(result.rows);
-            res.send(result.rows);
-          }
-        });
-      }
-    });
+  var id = req.params.id;
+  var is_super_admin = req.body.is_super_admin
+  console.log('here',is_super_admin);
+  
+  pool.connect(function (errorConnectingToDB, db, done) {
+    if (errorConnectingToDB) {
+      console.log('Error connecting to db', errorConnectingToDB);
+      res.sendStatus(500);
+    } else {
+      var queryText = 'UPDATE "users" SET is_super_admin = $1 WHERE user_id = $2 ;';
+      db.query(queryText, [is_super_admin, id], function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('Error making query', errorMakingQuery, result)
+          res.sendStatus(500);
+        } else {
+          console.log(result.rows);
+          res.send(result.rows);
+        }
+      });
+    }
+  });
   } else {
     console.log('not logged in');
     res.send(false);
@@ -109,7 +122,7 @@ router.delete('/del/:id', function (req, res) {
   console.log('del admin');
   // check if logged in
   if (req.isAuthenticated()) {
-  var id = req.params.id;
+    var id = req.params.id;
 
     pool.connect(function (errorConnectingToDB, db, done) {
       if (errorConnectingToDB) {
@@ -117,7 +130,7 @@ router.delete('/del/:id', function (req, res) {
         res.sendStatus(500);
       } else {
         var queryText = 'DELETE FROM "users" WHERE user_id = $1 ;';
-        db.query(queryText,[id] ,function (errorMakingQuery, result) {
+        db.query(queryText, [id], function (errorMakingQuery, result) {
           done();
           if (errorMakingQuery) {
             console.log('Error making query', errorMakingQuery, result);

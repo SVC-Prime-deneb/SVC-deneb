@@ -169,9 +169,112 @@ li.dropdown {
   height: 100%;
 }
 
+h1 #welcome {
+
+  position: relative;
+}
+
+/* h1 #advocateTitle {
+  position: relative;
+  justify-content: center;
+} */
 .welcome {
   display: flex;
   align-items: center;
   justify-content: center;
   /* padding: 60px; */
 }
+
+.container h1 {
+  font-size: 32px;
+  font-weight: 600;
+  
+}
+
+th,td {
+  text-align: center !important;
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 10px solid black;
+  display: inline-block;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 10px solid black;
+  display: inline-block;
+}
+
+.showChart {
+  display: center;
+  /* width: 70%; */  
+}
+
+section {
+  padding-bottom: 5px;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 40px;
+  max-width: 1000px;
+}
+
+.transactionTbl {
+  margin: 0 0 40px 0;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  display: table;
+  /* @media screen and (max-width: 580px); */
+    display: block;
+}
+
+.caseTbl {
+  margin: 0 auto;
+  width: 73%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  display: table;
+  /* @media screen and (max-width: 580px); */
+    display: block;
+}
+
+.row {
+  display: table-row;
+  background: #f6f6f6;
+}  
+.transactionTbl tr:nth-child(odd){
+    background: #a5cdd8;
+}  
+
+.transactionTbl tr:hover {
+    background: silver;
+    cursor: pointer;
+}
+
+thead th {
+  color: #ffffff;
+  font-weight: 900;
+  background: #027292;
+}
+
+h1 {
+  text-align: center;
+}
+
+.searchBar {
+  text-align: center;
+}
+
+.dialog {
+  width: 40%;
+  padding: 6px;
+}
+
