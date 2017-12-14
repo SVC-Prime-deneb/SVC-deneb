@@ -92,7 +92,7 @@ router.put('/update/:id', function (req, res) {
   console.log('update admin');
   // check if logged in
 
-  // if (req.isAuthenticated()) {
+  if (req.isAuthenticated()) {
     var id = req.params.id;
 
     var updateAd = {
@@ -139,10 +139,10 @@ router.put('/update/:id', function (req, res) {
         });
       }
     });
-  // } else {
-  //   console.log('not logged in');
-  //   res.send(false);
-  // }
+  } else {
+    console.log('not logged in');
+    res.send(false);
+  }
 });
 
 //                      DELETE ROUTES
