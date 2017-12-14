@@ -86,6 +86,15 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })
+    .when('/editadvocate', {
+      templateUrl: '/views/templates/editadvocate.html',
+      controller: 'EditAdController as eac',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
     .when('/casemanage', {
       templateUrl: '/views/templates/casemanage.html',
       controller: 'CaseController as cc',
