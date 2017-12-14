@@ -430,6 +430,53 @@ router.put('/update/checkbox/:id', function (req, res) {
             }
         });
     }
+    else if (form.formName === "is_demo_complete") {
+        pool.connect(function (errorConnectingToDB, db, done) {
+            if (errorConnectingToDB) {
+                console.log('Error connecting to db', errorConnectingToDB);
+                res.sendStatus(500);
+            } else {
+                // TODO: This isn't ideal but works for now. Fix before deployment.
+                var queryText = 'UPDATE "form" SET "is_demo_complete" = $1 WHERE "form_row_id" = $2 ;';
+                db.query(queryText, [form.formValue, id], function (errorMakingQuery, result) {
+                    done();
+                    if (errorMakingQuery) {
+                        console.log('Error making query', errorMakingQuery, result)
+                        res.sendStatus(500);
+                    } else {
+                        console.log('referral checkbox');
+
+                        console.log(result.rows);
+                        res.send(result.rows);
+                    }
+                });
+            }
+        });
+    }
+
+    else if (form.formName === "is_ps_complete") {
+        pool.connect(function (errorConnectingToDB, db, done) {
+            if (errorConnectingToDB) {
+                console.log('Error connecting to db', errorConnectingToDB);
+                res.sendStatus(500);
+            } else {
+                // TODO: This isn't ideal but works for now. Fix before deployment.
+                var queryText = 'UPDATE "form" SET "is_ps_complete" = $1 WHERE "form_row_id" = $2 ;';
+                db.query(queryText, [form.formValue, id], function (errorMakingQuery, result) {
+                    done();
+                    if (errorMakingQuery) {
+                        console.log('Error making query', errorMakingQuery, result)
+                        res.sendStatus(500);
+                    } else {
+                        console.log('referral checkbox');
+
+                        console.log(result.rows);
+                        res.send(result.rows);
+                    }
+                });
+            }
+        });
+    }
     // } else {
     //   console.log('not logged in');
     //   res.send(false);
@@ -496,7 +543,7 @@ router.put('/update/ma/:id', function (req, res) {
 
     if (req.isAuthenticated()) {
         var id = req.params.id;
-        console.log(req.body, "here");
+        console.log(req.body.additional_notes, "here");
 
         var ma = {
             advocate_name: req.body.advocate_name,
