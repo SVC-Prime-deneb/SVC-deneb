@@ -15,6 +15,11 @@
                     <md-icon md-svg-icon="pictures/add.svg"></md-icon>
                     Create New Advocate
                 </md-button>
+
+                <md-button class="md-raised md-primary" href="#/resetAdvocatePw">
+                    <!-- <md-icon md-svg-icon="pictures/reset.png"></md-icon> -->
+                    Reset Advocate Password
+                </md-button>
             </div>
             <br>       
         <br>
@@ -64,7 +69,7 @@
                                 </md-button>
                             </td>
                             <td>
-                                <md-button class="sm-raised sm-secondary" type="submit" ng-click="tc.editAdvocate(advocate)">
+                                <md-button class="sm-raised sm-secondary" type="submit" ng-click="tc.editAdvocate(advocate.advocate_id)">
                                 <md-icon md-svg-icon="pictures/edit.svg"></md-icon>
                                 </md-button>
                             </td>
