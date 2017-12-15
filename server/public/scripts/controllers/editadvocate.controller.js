@@ -1,9 +1,9 @@
-myApp.controller('EditAdController', function ($http, FormService) {
+myApp.controller('EditAdController', function ($http, FormService, $routeParams) {
     console.log('EditAdController created');
     var vm = this;
     vm.formService = FormService;
     vm.formObject = FormService.formObject;
-    
+    console.log($routeParams);
     
     // VIEW advocates 
     vm.viewAdvocate = function () {
