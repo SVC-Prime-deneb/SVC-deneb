@@ -12,7 +12,7 @@ myApp.controller('GreenController', function (FormService, $location, $http) {
         $http.post('/case/new/green', objectTosend).then(function (response) {            
             console.log(response.data[0].green_form_id);
 
-            vm.formId = response.data[0].green_form_id
+            vm.formId = response.data[0].green_form_id;
             
             
         }).catch(function (err) {
