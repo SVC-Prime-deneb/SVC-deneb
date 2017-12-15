@@ -8,7 +8,6 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  console.log('called deserializeUser - pg');
 
   pool.connect(function (err, client, release) {
     if(err) {
@@ -55,8 +54,6 @@ passport.use('local', new localStrategy({
         client.query("SELECT * FROM users WHERE username = $1", [username],
           function(err, result) {
             var user = {};
-
-
             // Handle Errors
             if (err) {
               console.log('connection err ', err);

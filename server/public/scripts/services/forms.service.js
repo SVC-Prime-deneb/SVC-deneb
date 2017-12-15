@@ -8,6 +8,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     //holds formId of the form that was clicked
     self.currentFormId = {currentId: 0};
     self.caseObject = {cases: []};
+    self.selectedForm = {form: []};
 
     //function to set current formId
     self.saveFormId = function(id){
@@ -24,7 +25,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose: true,
-        })
+        });
     }
 
     //show legal advocate dialog function
@@ -68,6 +69,16 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
             self.caseObject.cases = response.data;
         }).catch(function (error) {
             console.log('failure on GET Case Route');
+        });
+    }
+
+    //get route for forms
+    self.getForm = function(form) {
+        console.log(self.currentFormId.currentId);
+        $http.get('/case/'+ form + '/' + self.currentFormId.currentId).then(function(response){
+            self.selectedForm.form = response.data;
+        }).catch(function(error){
+            console.log('failure on get Form Route');
         });
     }
 
