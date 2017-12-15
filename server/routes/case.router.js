@@ -60,34 +60,6 @@ router.get('/green/:id', function (req, res) {
     }
 });
 
-router.get('/demo/:id', function (req, res) {
-    // check if logged in
-    if (req.isAuthenticated()) {
-        var demo = req.params.id
-        pool.connect(function (errorConnectingToDb, db, done) {
-            if (errorConnectingToDb) {
-                console.log('Error connecting', errorConnectingToDb);
-                res.sendStatus(500);
-            } else {
-                var queryText = 'SELECT*FROM "demographics" WHERE "demo_id" = $1;';
-                db.query(queryText, [demo], function (errorMakingQuery, result) {
-                    done();
-                    if (errorMakingQuery) {
-                        console.log('Error making query', errorMakingQuery);
-                        res.sendStatus(500);
-                    } else {
-                        res.send(result.rows);
-                    }
-                }); // END QUERY
-            }
-        });
-    } else {
-        // failure best handled on the server. do redirect here.
-        console.log('not logged in');
-        res.send(false);
-    }
-});
-
 router.get('/la/:id', function (req, res) {
     // check if logged in
     if (req.isAuthenticated()) {
