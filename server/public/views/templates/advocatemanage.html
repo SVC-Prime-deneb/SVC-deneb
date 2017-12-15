@@ -1,8 +1,6 @@
 <!-- Advocate Controller as avc -->
 <div ng-include="'views/partials/nav.html'"></div>
-    <div class="container">
-        {{4===4}}
-        
+    <div class="container">       
             <div class="advocateContainer">
                 <h1 id="advocateTitle" class="md-title">ADVOCATE MANAGEMENT</h1><br>
             </div>
@@ -53,28 +51,61 @@
                             <th>EDIT</th>
                         </tr>
                     </thead>
-                    <tbody md-body>
-                        <tr md-row ng-repeat="advocate in avc.myAdvocateList | orderBy: avc.sortColumn:avc.reverseSort | filter:searchText">
-                            
-                            <td md-cell>{{advocate.advocate_first_name}}</td>
-                            <td md-cell>{{advocate.advocate_last_name}}</td>
-                            <td md-cell>{{advocate.advocacy_start | date: "MM/dd/yyyy"}}</td>
-                            <td md-cell><span ng-repeat="language in advocate.language">{{language}} </span></td>
-                            <td md-cell>{{advocate.is_hcmc_approved}}</td>                           
-                            <td md-cell>{{advocate.allow_text}}</td>
-                            <td md-cell>{{advocate.main_contact_phone}}</td>
-                            <td>
-                                <md-button class="sm-raised sm-secondary" type="submit" ng-click="avc.deleteAdvocate(advocate.advocate_id)">
-                                <md-icon md-svg-icon="pictures/trash.svg"></md-icon>                   
-                                </md-button>
-                            </td>
-                            <td>
-                                <md-button class="sm-raised sm-secondary" type="submit" ng-click="tc.editAdvocate(advocate.advocate_id)">
-                                <md-icon md-svg-icon="pictures/edit.svg"></md-icon>
-                                </md-button>
-                            </td>
+                    <tbody md-body >
+                        <tr md-row ng-repeat="advocate in avc.myAdvocateList track by $index">
+                            <div>
+                                <!-- <td ng-hide="avc.selectedIndex === $index" md-cell>{{$index}}</td> {{avc.selectedIndex}}-{{avc.selectedIndex==$index}} -->
+                                <td ng-hide="avc.selectedIndex === $index" md-cell>{{advocate.advocate_first_name}}></td>
+                                <td ng-show="avc.selectedIndex === $index" md-cell>###</td>
+                                <td md-cell>{{advocate.advocate_last_name}}</td>
+                                <td md-cell>{{advocate.advocacy_start | date: "MM/dd/yyyy"}}</td>
+                                <td md-cell><span ng-repeat="language in advocate.language">{{language}} </span></td>
+                                <td md-cell>{{advocate.is_hcmc_approved}}</td>                           
+                                <td md-cell>{{advocate.allow_text}}</td>
+                                <td md-cell>{{advocate.main_contact_phone}}</td>
+                                <td>
+                                    <md-button class="sm-raised sm-secondary" ng-click="avc.deleteAdvocate(advocate.advocate_id)">
+                                    <md-icon md-svg-icon="pictures/trash.svg"></md-icon>                   
+                                    </md-button>
+                                </td>
+                                <td>
+                                    <md-button  class="sm-raised sm-secondary" ng-click="avc.selectedEdit($index)">
+                                    <!-- <md-icon md-svg-icon="pictures/edit.svg"></md-icon> -->Edit
+                                    </md-button>
+
+                                    <!-- <md-button ng-show="" class="sm-raised sm-secondary" ng-click="avc.selectedEdit($index)">
+                                    Cancel
+                                    </md-button> -->
+                                </td>
+                            </div>
                         </tr>
                     </tbody>
+                    <!-- EDIT DIV SHOWS UP WHEN EDIT BUTTON IS CLICKED -->
+                    <!-- <tbody md-body ng-show="avc.showEdit">
+                        <tr md-row ng-repeat="advocate in avc.myAdvocateList | orderBy: avc.sortColumn:avc.reverseSort | filter:searchText">
+                    
+                            <td md-cell ng-model="advocate.advocate_first_name"></td>
+                            <td md-cell ng-model="advocate.advocate_last_name"></td>
+                            <td md-cell ng-model="advocate.advocacy_start"></td>
+                            <td md-cell>
+                                <span ng-repeat="language in advocate.language" ng-model="language"> </span>
+                            </td>
+                            <td md-cell ng-model="advocate.is_hcmc_approved"></td>
+                            <td md-cell ng-model="advocate.allow_text"></td>
+                            <td md-cell ng-model="advocate.main_contact_phone"></td>
+                            <! <td>
+                                <md-button class="sm-raised sm-secondary" type="submit" ng-click="avc.deleteAdvocate(advocate.advocate_id)">
+                                    <md-icon md-svg-icon="pictures/trash.svg"></md-icon>
+                                </md-button>
+                            </td> -->
+                            <!-- <td>
+                                <md-button class="sm-raised sm-secondary" type="submit" ng-click="avc.editInputs(advocate)">
+                                    <md-icon md-svg-icon="pictures/edit.svg"></md-icon>
+                                </md-button>
+                            </td>
+
+                        </tr>
+                    </tbody> --> -->
                 </table>
             </md-table-container>
             <br>
