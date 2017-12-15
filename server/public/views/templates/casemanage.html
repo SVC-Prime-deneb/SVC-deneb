@@ -30,7 +30,7 @@
             <tbody md-body >
                 <!-- this table row ng repeats over each case (20) -->
                 <tr md-row>
-                <tr ng-repeat="case in cc.formService.caseObject.cases">
+                <tr ng-repeat="case in cc.formService.caseObject.cases | filter:searchCase">
                     
                     <!-- date and time -->
                     <td>{{case.gs_complete_date| date}}</td>

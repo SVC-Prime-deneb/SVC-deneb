@@ -52,11 +52,10 @@
                         </tr>
                     </thead>
                     <tbody md-body >
-                        <tr md-row ng-repeat="advocate in avc.myAdvocateList track by $index">
+                        <tr md-row ng-repeat="advocate in avc.myAdvocateList">
                             <div>
                                 <!-- <td ng-hide="avc.selectedIndex === $index" md-cell>{{$index}}</td> {{avc.selectedIndex}}-{{avc.selectedIndex==$index}} -->
-                                <td ng-hide="avc.selectedIndex === $index" md-cell>{{advocate.advocate_first_name}}></td>
-                                <td ng-show="avc.selectedIndex === $index" md-cell>###</td>
+                                <td md-cell>{{advocate.advocate_first_name}}</td>
                                 <td md-cell>{{advocate.advocate_last_name}}</td>
                                 <td md-cell>{{advocate.advocacy_start | date: "MM/dd/yyyy"}}</td>
                                 <td md-cell><span ng-repeat="language in advocate.language">{{language}} </span></td>
@@ -69,7 +68,7 @@
                                     </md-button>
                                 </td>
                                 <td>
-                                    <md-button  class="sm-raised sm-secondary" ng-click="avc.selectedEdit($index)">
+                                    <md-button  class="sm-raised sm-secondary" ng-click="avc.selectedEdit()">
                                     <!-- <md-icon md-svg-icon="pictures/edit.svg"></md-icon> -->Edit
                                     </md-button>
 
