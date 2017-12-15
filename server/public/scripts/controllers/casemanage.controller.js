@@ -39,7 +39,7 @@ myApp.controller('CaseController', function (FormService, $http, $mdDialog) {
 
     vm.getCases();
 
-    vm.checkClicked = function (id, value, name) {
+    vm.checkClicked = function(id, value, name){
         var objectTosend = {
             formName: name,
             formValue: !value

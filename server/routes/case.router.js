@@ -207,10 +207,8 @@ router.post('/new/green', function (req, res) {
 
     // if (req.isAuthenticated()) {
     var green = {
-        advocate_id: req.body.advocate_id,
         date: req.body.date,
         start_time: req.body.start_time,
-        end_time: req.body.end_time,
         location_id: req.body.location_id,
         nurse: req.body.nurse,
         contact_phone: req.body.contact_phone,
@@ -225,11 +223,11 @@ router.post('/new/green', function (req, res) {
             console.log('Error connecting to db', errorConnectingToDB);
             res.sendStatus(500);
         } else {
-            var queryText = 'INSERT INTO "green_form_data"("advocate_id","date","start_time","end_time",' +
+            var queryText = 'INSERT INTO "green_form_data" ("date","start_time",' +
                 '"location_id","nurse",' +
                 '"contact_phone","was_advocate_dispatched","advocate_name_dispatched",' +
-                '"dispatch_notes", green_form_notes) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11);'
-            db.query(queryText, [green.advocate_id, green.date, green.start_time, green.end_time, green.location_id,
+                '"dispatch_notes", green_form_notes) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING "green_form_id";'
+            db.query(queryText, [green.date, green.start_time, green.location_id,
             green.nurse, green.contact_phone, green.was_advocate_dispatched, green.advocate_name_dispatched,
             green.dispatch_notes, green.green_form_notes],
                 function (errorMakingQuery, result) {
@@ -238,10 +236,8 @@ router.post('/new/green', function (req, res) {
                         console.log('Error making query', errorMakingQuery, result)
                         res.sendStatus(500);
                     } else {
-                        console.log(result.rows);
+                        console.log('rows', result);
                         res.send(result.rows);
-                        let id = result.rows.green_form_id
-                        return id
                     }
                 })
         }
@@ -543,17 +539,17 @@ router.put('/update/ma/:id', function (req, res) {
 
     if (req.isAuthenticated()) {
         var id = req.params.id;
-        console.log(req.body, "here");
+        console.log(req.body.additional_notes, "here");
 
         var ma = {
             advocate_name: req.body.advocate_name,
             advocate_name_additional: req.body.advocate_name_additional,
             location_name: req.body.location_name,
-            // was_adult_sexual_assault: req.body.victimization.was_adult_sexual_assault,
-            // was_sexual_exploitation : req.body.victimization.was_sexual_exploitation,
-            // was_minor_family: req.body.victimization.was_minor_family,
-            // was_minor_other : req.body.victimization.was_minor_other,
-            // was_other : req.body.victimization.was_other,
+            was_adult_sexual_assault: req.body.victimization.was_adult_sexual_assault,
+            was_sexual_exploitation : req.body.victimization.was_sexual_exploitation,
+            was_minor_family: req.body.victimization.was_minor_family,
+            was_minor_other : req.body.victimization.was_minor_other,
+            was_other : req.body.victimization.was_other,
             additional_notes: req.body.additional_notes,
             was_mandatory_report: req.body.was_mandatory_report,
             reporting_advocate_name: req.body.reporting_advocate_name,

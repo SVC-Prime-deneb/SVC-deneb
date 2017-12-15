@@ -6,6 +6,9 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
 
     vm.advocate = FormService.selectedAdvocate;
     vm.advocateList = FormService.advocateList;
+
+    // vm.selectedIndex;
+
     // data = {
     //     advocate_first_name: '',
     //     advocate_last_name: '',
@@ -121,7 +124,7 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
     //EDIT Advocate
     vm.editAdvocate = function (advocateToEdit, advocateId) {
         console.log('vm.advocate', vm.advocateToEdit);
-        $http.put('/advocate/update/' + advocateToEdit.id, advocateToEdit).then(function (response){
+        $http.put('/advocate/update/' + advocateToEdit.id, {advocateToEdit}).then(function (response){
             console.log('success');
             vm.viewAdvocate();
             // $mdDialog.hide();
@@ -130,13 +133,42 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
         });        
     }
 
+    // vm.selectedItem = null;
+    // vm.selectedDetail = null;
+
+    // Edit advocate's in-line data
+    // vm.editInputs = function () {
+    //     vm.showEdit = true;
+    // }
+    // functions for hiding
+    // vm.hideEdit = function () {
+    //     vm.showEdit = false;
+    // }
+
+    vm.selectedEdit = function(index){
+        vm.selectedIndex = index;
+        console.log(vm.selectedIndex);
+        
+    }
+
     // EDIT Clicked
     // vm.editClicked = function ()
     //     FormService.selectedAdvocate.data = {
 
     //     }
 
+    // vm.selectedIndex = {};
 
+    // vm.getTemplate = function (advocate) {
+    //     if(advocate.advocate_id === vm.selected.advocate_id) {
+    //         return 'edit';
+    //     }
+    //     else return 'display';
+    // }
+
+    // vm.selectedEdit = function (advocate) {
+    //     vm.selectedIndex = angular.copy(advocate);
+    // }
 
     vm.viewAdvocate();
 });
