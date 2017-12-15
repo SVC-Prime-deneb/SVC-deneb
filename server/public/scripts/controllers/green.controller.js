@@ -14,7 +14,7 @@ myApp.controller('GreenController', function (FormService, $location, $http) {
             vm.formId = response.data[0].green_form_id
             
         }).catch(function (err) {
-\        }).then(function(){
+       }).then(function(){
             
             vm.createTables(vm.formId);
             }).catch(function (err) {

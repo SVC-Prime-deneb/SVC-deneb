@@ -13,7 +13,7 @@ myApp.controller('NewAdController', function (FormService) {
     // ADD advocate
     vm.addAdvocate = function (advocateToAdd, name, id) {
         console.log('name, id', name, id);
-        $http.post('/newadvocate', advocateToAdd).then(function (response) {
+        $http.post('advocate/new', advocateToAdd).then(function (response) {
             console.log('sucessful adding advocate');
             vm.viewAdvocate();
         }).catch(function (error) {
