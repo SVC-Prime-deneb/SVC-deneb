@@ -13,6 +13,7 @@ myApp.controller('CaseController', function (FormService, $http, $mdDialog) {
         FormService.showMa(ev, id);
     }
 
+
     //function to show LA form popup
     vm.showLa = function (ev, id) {
         FormService.showLa(ev,id);

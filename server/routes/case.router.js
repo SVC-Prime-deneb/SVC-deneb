@@ -118,8 +118,12 @@ router.get('/la/:id', function (req, res) {
 
 router.get('/ma/:id', function (req, res) {
     // check if logged in
+    console.log('In it!');
+    
     if (req.isAuthenticated()) {
-        var ma = req.params.id
+        var ma = req.params.id;
+        console.log(req.params);
+        
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
                 console.log('Error connecting', errorConnectingToDb);
@@ -132,6 +136,8 @@ router.get('/ma/:id', function (req, res) {
                         console.log('Error making query', errorMakingQuery);
                         res.sendStatus(500);
                     } else {
+                        console.log(result);
+                        
                         res.send(result.rows);
                     }
                 }); // END QUERY
