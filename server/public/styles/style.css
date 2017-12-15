@@ -11,13 +11,21 @@ body, html {
 }
 
 .instructions {
-  background-color: #333333;
-  color: #DDDDDD;
+  background-color: white;
+  color: #027292;
   padding: 15px;
 }
 
 #entryForm {
   margin-top: 14px;
+}
+
+#greenForm {
+  flex:20%;
+}
+
+form {
+  padding:20px;
 }
 
 #container {
@@ -49,7 +57,7 @@ body, html {
 }
 
 .navbar {
-  background-color: #333333;
+  background-color: #027292;
   width: 100%;
   border-radius: 0px;
 }
@@ -93,7 +101,7 @@ li a, .dropbtn {
 }
 
 li a:hover, .dropdown:hover .dropbtn {
-    background-color: teal;
+    background-color: #027292;
 }
 
 li.dropdown {
@@ -239,7 +247,7 @@ section {
 
 .caseTbl {
   margin: 0 auto;
-  width: 73%;
+  width: 100%;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   display: table;
   /* @media screen and (max-width: 580px); */
@@ -267,6 +275,13 @@ thead th {
 
 h1 {
   text-align: center;
+  color: #027292;
+  font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.title {
+  font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-align: center;
 }
 
 .searchBar {
@@ -277,4 +292,13 @@ h1 {
   width: 40%;
   padding: 6px;
 }
+
+#svcIcon {
+  height: 65px;
+}
+
+#svcBanner {
+  height: 80px;
+}
+
 
