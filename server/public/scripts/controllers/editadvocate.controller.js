@@ -59,15 +59,23 @@ myApp.controller('EditAdController', function (FormService) {
         });
     }
 
+
+    vm.showAdvocateForm = function (ev, id) {
+        FormService.showAdvocateForm(ev, id);
+    }
+
+    
     // EDIT ADVOCATE
     vm.editAdvocate = function (updatedAdvocateId){
         console.log('id', updatedAdvocateId);
         $http.put('/advocate/update/' + updatedAdvocateId).then(function (response){
             console.log('success updating Advocate Info');
+            $mdDialog.hide();
             vm.viewAdvocate();
             
         }).catch(function (error){
             console.log('failure', error);
+            $mdDialog.hide();
             
         });
     }

@@ -10,6 +10,7 @@
                     <md-input-container>
                         <label>First Name </label>
                         <input ng-model="eac.editAdvocate.advocate_first_name" type="text">
+
                     </md-input-container>
                     <md-input-container>
                         <label>Last Two Initials </label>
@@ -45,7 +46,7 @@
                     <div>
                         <!-- goes to advocate management page -->
                         <md-button class="md-raised md-warn" href="#/advocatemanage">Cancel</md-button>
-                        <md-button type="submit" class="md-raised md-primary" ng-click="eac.editAdvocate(eac.updatedAdvocate.advocate_id)">Update</md-button>
+                        <md-button type="submit" class="md-raised md-primary" ng-click="eac.editAdvocate(eac.updatedAdvocate.advocate_id)" href="#/advocatemanage">Update</md-button>
                     </div>
                 </form>
             </div>
