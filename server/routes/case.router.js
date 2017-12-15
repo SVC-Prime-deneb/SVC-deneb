@@ -204,12 +204,11 @@ router.get('/release/:id', function (req, res) {
 //                      POST
 router.post('/new/green', function (req, res) {
     console.log('post green');
-
     // if (req.isAuthenticated()) {
     var green = {
         date: req.body.date,
         start_time: req.body.start_time,
-        location_id: req.body.location_id,
+        location_id: req.body.location.location_id,
         nurse: req.body.nurse,
         contact_phone: req.body.contact_phone,
         was_advocate_dispatched: req.body.was_advocate_dispatched,
@@ -217,6 +216,8 @@ router.post('/new/green', function (req, res) {
         dispatch_notes: req.body.dispatch_notes,
         green_form_notes: req.body.green_form_notes
     }
+    console.log('FALSE', green.was_advocate_dispatched);
+    
     console.log('here', req.body);
     pool.connect(function (errorConnectingToDB, db, done) {
         if (errorConnectingToDB) {
