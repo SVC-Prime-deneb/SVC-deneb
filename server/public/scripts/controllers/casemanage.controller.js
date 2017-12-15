@@ -27,28 +27,15 @@ myApp.controller('CaseController', function (FormService, $http, $mdDialog) {
     vm.showRelease = function (ev, id) {
         FormService.showRelease(ev, id);
     }
-
+    //get route to populate cases
     vm.getCases = function () {
-        $http.get('/case/form').then(function (response) {
-            vm.caseObject = response.data;
-            console.log(vm.caseObject);
-        }).catch(function (error) {
-            console.log('failure on GET Case Route');
-        });
+        FormService.getCases();
     }
 
     vm.getCases();
 
     vm.checkClicked = function(id, value, name){
-        var objectTosend = {
-            formName: name,
-            formValue: !value
-        }
-        $http.put('/case/update/checkbox/' + id, objectTosend).then(function (response) {
-            console.log('updated', name);
-        }).catch(function (error) {
-            console.log('update not sent :(');
-        })
+        FormService.checkClicked(id, value, name);
     }
 
 });

@@ -5,8 +5,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
 
     self.advocateList = {data: []};
     self.selectedAdvocate = {data: {}};
-    
+    //holds formId of the form that was clicked
     self.currentFormId = {currentId: 0};
+    self.caseObject = {cases: []};
 
     //function to set current formId
     self.saveFormId = function(id){
@@ -49,7 +50,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
             clickOutsideToClose: true,
         })
     }
-
+    //show release form dialog function
     self.showRelease = function (ev, id) {
         self.saveFormId(id);
         $mdDialog.show({
@@ -60,6 +61,27 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
             clickOutsideToClose: true,
         })
     }
-    
+
+    //get route for cases (saved to case)
+    self.getCases = function () {
+        $http.get('/case/form').then(function (response) {
+            self.caseObject.cases = response.data;
+        }).catch(function (error) {
+            console.log('failure on GET Case Route');
+        });
+    }
+
+    //route to update
+    self.checkClicked = function (id, value, name) {
+        var objectTosend = {
+            formName: name,
+            formValue: !value
+        }
+        $http.put('/case/update/checkbox/' + id, objectTosend).then(function (response) {
+            console.log('updated', name);
+        }).catch(function (error) {
+            console.log('update not sent :(');
+        })
+    }
 
 });
