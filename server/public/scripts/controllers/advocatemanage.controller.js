@@ -122,16 +122,16 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
     }
 
     //EDIT Advocate
-    vm.editAdvocate = function (advocateToEdit, advocateId) {
-        console.log('vm.advocate', vm.advocateToEdit);
-        $http.put('/advocate/update/' + advocateToEdit.id, {advocateToEdit}).then(function (response){
-            console.log('success');
-            vm.viewAdvocate();
-            // $mdDialog.hide();
-        }).catch(function (error) {
-            console.log('failure', error);         
-        });        
-    }
+    // vm.editAdvocate = function (advocateToEdit, advocateId) {
+    //     console.log('vm.advocate', vm.advocateToEdit);
+    //     $http.put('/advocate/update/' + advocateToEdit.id, {advocateToEdit}).then(function (response){
+    //         console.log('success');
+    //         vm.viewAdvocate();
+    //         // $mdDialog.hide();
+    //     }).catch(function (error) {
+    //         console.log('failure', error);         
+    //     });        
+    // }
 
     // vm.selectedItem = null;
     // vm.selectedDetail = null;
@@ -145,11 +145,11 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
     //     vm.showEdit = false;
     // }
 
-    vm.selectedEdit = function(index){
-        vm.selectedIndex = index;
-        console.log(vm.selectedIndex);
+    // vm.selectedEdit = function(index){
+    //     vm.selectedIndex = index;
+    //     console.log(vm.selectedIndex);
         
-    }
+    // }
 
     // EDIT Clicked
     // vm.editClicked = function ()
