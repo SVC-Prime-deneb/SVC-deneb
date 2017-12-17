@@ -3,8 +3,8 @@ myApp.controller('EditAdController', function ($http, FormService, $routeParams)
     var vm = this;
     vm.formService = FormService;
     vm.formObject = FormService.formObject;
-    console.log($routeParams);
-    
+
+
     // VIEW advocates 
     vm.viewAdvocate = function () {
         $http.get('/advocate/get').then(function (response) {
@@ -59,14 +59,24 @@ myApp.controller('EditAdController', function ($http, FormService, $routeParams)
         });
     }
 
-    vm.editAdvocate = function (advocateToEdit, id){
-        console.log('aaa', id); 
-        advocateToEdit.advocate_id = id;
-        $http.put('/advocate/update/' + advocateToEdit.id).then(function (response) {
-            console.log('success editing advocate');
+
+    vm.showAdvocateForm = function (ev, id) {
+        FormService.showAdvocateForm(ev, id);
+    }
+
+    
+    // EDIT ADVOCATE
+    vm.editAdvocate = function (updatedAdvocateId){
+        console.log('id', updatedAdvocateId);
+        $http.put('/advocate/update/' + updatedAdvocateId).then(function (response){
+            console.log('success updating Advocate Info');
+            $mdDialog.hide();
             vm.viewAdvocate();
-        }).catch(function (error) {
-            console.log('failure', error);            
-        });  
+            
+        }).catch(function (error){
+            console.log('failure', error);
+            $mdDialog.hide();
+            
+        });
     }
 });

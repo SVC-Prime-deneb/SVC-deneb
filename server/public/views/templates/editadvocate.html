@@ -2,45 +2,51 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
     <h1></h1>
-    <md-content class="New Advocate">
+    <md-content class="editAdvocate">
         <md-card>
             <div class="layout-margin">
-                <form name="New Advocate" layout="column">
+                <form name="editAdvocate" layout="column">
                     <h1>UPDATE ADVOCATE</h1>
                     <md-input-container>
                         <label>First Name </label>
-                        <input ng-model="eac.formService.selectedAdvocate.data.advocate_first_name" type="text">
+                        <input ng-model="eac.editAdvocate.advocate_first_name" type="text">
+
                     </md-input-container>
                     <md-input-container>
                         <label>Last Two Initials </label>
-                        <input ng-model="eac.formService.selectedAdvocate.data.advocate_last_name" type="text">
+                        <input ng-model="eac.editAdvocate.advocate_last_name" type="text">
                     </md-input-container>
-                    <md-datepicker ng-model="eac.formService.selectedAdvocate.data.advocacy_start" required md-placeholder="Starting Date"></md-datepicker>
+                    <md-datepicker ng-model="eac.editAdvocate.advocacy_start" required md-placeholder="Starting Date"></md-datepicker>
                     <br/>
                     <!-- language check boxes here -->
                     <md-input-container>
-                        <label for="languages">Languages Spoken</label>
+                        <p>Languages Spoken</p>
                         <md-checkbox class="md-primary" aria-label="English">English</md-checkbox>
-                        <md-checkbox ng-material="eac.formService.selectedAdvocate.data.spanish" class="md-primary" aria-label="Spanish">Spanish</md-checkbox>
-                        <md-checkbox ng-material="eac.formService.selectedAdvocate.data.somali" class="md-primary" aria-label="Somali">Somali</md-checkbox>
-                        <md-checkbox ng-material="eac.formService.selectedAdvocate.data.french" class="md-primary" aria-label="French">French</md-checkbox>
-                        <md-checkbox ng-material="eac.formService.selectedAdvocate.data.german" class="md-primary" aria-label="German">German</md-checkbox>
-                        <md-checkbox ng-material="eac.formService.selectedAdvocate.data.liberian" class="md-primary" aria-label="Liberian">Liberian</md-checkbox>
-                        <md-checkbox ng-material="eac.formService.selectedAdvocate.data.asl" class="md-primary" aria-label="ASL">ASL</md-checkbox>
-                        <input type="text" ng-material="eac.formService.selectedAdvocate.data.other_language" placeholder="Other Languages">
+                        <md-checkbox ng-model="eac.editAdvocate.spanish" class="md-primary" aria-label="Spanish">Spanish</md-checkbox>
+                        <md-checkbox ng-model="eac.editAdvocate.somali" class="md-primary" aria-label="Somali">Somali</md-checkbox>
+                        <md-checkbox ng-model="eac.editAdvocate.french" class="md-primary" aria-label="French">French</md-checkbox>
+                        <md-checkbox ng-model="eac.editAdvocate.german" class="md-primary" aria-label="German">German</md-checkbox>
+                        <md-checkbox ng-model="eac.editAdvocate.liberian" class="md-primary" aria-label="Liberian">Liberian</md-checkbox>
+                        <md-checkbox ng-model="eac.editAdvocate.asl" class="md-primary" aria-label="ASL">ASL</md-checkbox>
                     </md-input-container>
+
+                    <md-input-container>
+                        <input type="text" ng-model="eac.editAdvocate.other_language" placeholder="Other Languages">
+                    </md-input-container>
+
                     <md-input-container>
                         <label>Phone Number</label>
-                        <input ng-model="eac.formService.selectedAdvocate.data.main_contact_phone" type="number">
+                        <input ng-model="eac.editAdvocate.main_contact_phone" type="number">
                     </md-input-container>
+
                     <!-- certified check boxes here -->
-                    <md-checkbox ng-material="eac.formService.selectedAdvocate.data.is_hcmc_approved" class="md-primary" aria-label="HCMC Certified">HCMC Certified</md-checkbox>
+                    <md-checkbox ng-model="eac.editAdvocate.is_hcmc_approved" class="md-primary" aria-label="HCMC Certified">HCMC Certified</md-checkbox>
                     <!-- Text op in check boxes -->
-                    <md-checkbox ng-material="eac.formService.selectedAdvocate.data.allow_text" class="md-primary" aria-label="Text Op In">Text Op In</md-checkbox>
+                    <md-checkbox ng-model="eac.editAdvocate.allow_text" class="md-primary" aria-label="Text Op In">Text Op In</md-checkbox>
                     <div>
                         <!-- goes to advocate management page -->
                         <md-button class="md-raised md-warn" href="#/advocatemanage">Cancel</md-button>
-                        <md-button type="submit" class="md-raised md-primary" ng-click="eac.editAdvocate(gc.advocate)">Update</md-button>
+                        <md-button type="submit" class="md-raised md-primary" ng-click="eac.editAdvocate(eac.updatedAdvocate.advocate_id)" href="#/advocatemanage">Update</md-button>
                     </div>
                 </form>
             </div>

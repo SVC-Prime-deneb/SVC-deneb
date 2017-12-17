@@ -4,7 +4,7 @@
     <md-content class="greenForm">
         <md-card>
             <div layout-margin>
-                <form id="greenForm" name="Green Form" layout="column">
+                <form id="greenForm" name="GreenForm" layout="column">
                     <h1>New Green Sheet</h1>
 
                     <md-input-container>
@@ -29,10 +29,12 @@
                             <label>Contacted Medical Advocate</label>
                             <input ng-model="gc.newGreen.nurse" type="text">
                         </md-input-container>
-                        <md-checkbox ng-material="gc.newGreen.was_advocate_dispatched" class="md-primary" aria-label="Did Advocate Respond">Was an Advocate Dispatched</md-checkbox>
+
+                        <md-checkbox ng-model="gc.newGreen.was_advocate_dispatched" class="md-primary" aria-label="Was an Advocate Dispatched">Was an Advocate Dispatched</md-checkbox>
+
                         <md-input-container>
                             <label>Notes:</label>
-                            <textarea rows="5" cols="30" type="text" ng-model="gc.newGreen.dispatch_notes"></textarea>
+                            <textarea rows="5" cols="30" type="text" ng-model="gc.newGreen.green_form_notes"></textarea>
                         </md-input-container>
                     <div> 
                         <!-- goes to case management page -->
