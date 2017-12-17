@@ -9,15 +9,15 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
 
     // vm.selectedIndex;
 
-    // data = {
-    //     advocate_first_name: '',
-    //     advocate_last_name: '',
-    //     language: vm.languages,
-    //     is_hcmc_approved: false,
-    //     advocacy_start: '',
-    //     allow_text: '',
-    //     main_contact_phone: ''
-    // }
+    FormService.selectedAdvocate.data = {
+        advocate_first_name: '',
+        advocate_last_name: '',
+        language: vm.languages,
+        is_hcmc_approved: false,
+        advocacy_start: '',
+        allow_text: '',
+        main_contact_phone: ''
+    }
 
     vm.myAdvocateList = [];
     vm.languages = [];
