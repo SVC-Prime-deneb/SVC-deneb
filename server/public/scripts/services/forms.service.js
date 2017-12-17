@@ -41,6 +41,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     //holds formId of the form that was clicked
     self.currentFormId = {currentId: 0};
     self.caseObject = {cases: []};
+    self.selectedForm = {form: []};
 
     //function to set current formId
     self.saveFormId = function(id){
@@ -57,7 +58,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose: true,
-        })
+        });
     }
 
     //show legal advocate dialog function

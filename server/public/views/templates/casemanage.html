@@ -38,16 +38,19 @@
                     <!-- need to replace id in edit function -->
                     <td><md-checkbox ng-disabled="true" ng-model="case.is_gs_complete" aria-label="Checkbox 1"></md-checkbox></td>
                     <td><md-checkbox ng-click="cc.checkClicked(case.ma_form_id, case.is_ma_complete, 'is_ma_complete')" ng-model="case.is_ma_complete" class="md-primary" aria-label="Checkbox 2"></md-checkbox>
-                            <md-icon ng-click="cc.showMa($event, case.ma_form_id)" md-svg-icon="pictures/edit.svg"></md-icon>
+                            <md-icon ng-hide="case.is_ma_complete" ng-click="cc.showMa($event, case.ma_form_id)" md-svg-icon="pictures/edit.svg"></md-icon>
+                            <md-icon ng-click="cc.showMa($event, case.ma_form_id)" ng-show="case.is_ma_complete" class="material-icons">description</md-icon>
                     </td>
                     <td><md-checkbox ng-click="cc.checkClicked(case.la_form_id, case.is_la_complete, 'is_la_complete')" ng-model="case.is_la_complete" class="md-primary" aria-label="Checkbox 3"></md-checkbox>
-                            <md-icon ng-click="cc.showLa($event, case.la_form_id)" md-svg-icon="pictures/edit.svg"></md-icon>
+                            <md-icon ng-hide="case.is_la_complete" ng-click="cc.showLa($event, case.la_form_id)" md-svg-icon="pictures/edit.svg"></md-icon>
+                            <md-icon  ng-click="cc.showLa($event, case.la_form_id)" ng-show="case.is_la_complete" class="material-icons">description</md-icon>
                     </td>
                     <td><md-checkbox ng-click="cc.checkClicked(case.referral_form_id, case.is_referral_complete, 'is_referral_complete')" ng-model="case.is_referral_complete" class="md-primary" aria-label="Checkbox 4"></md-checkbox>
                             <md-icon ng-click="cc.showRefer($event, case.referral_form_id)" md-svg-icon="pictures/edit.svg"></md-icon>
                     </td>
                     <td><md-checkbox ng-click="cc.checkClicked(case.release_form_id, case.is_release_complete, 'is_release_complete')" ng-model="case.is_release_complete" class="md-primary" aria-label="Checkbox 5"></md-checkbox>
-                            <md-icon ng-click="cc.showRelease($event, case.release_form_id)" md-svg-icon="pictures/edit.svg"></md-icon>
+                            <md-icon ng-hide="case.is_release_complete" ng-click="cc.showRelease($event, case.release_form_id)" md-svg-icon="pictures/edit.svg"></md-icon>
+                            <md-icon ng-click="cc.showRelease($event, case.release_form_id)" ng-show="case.is_release_complete" class="material-icons">description</md-icon>
                     </td>
                     <td><md-checkbox ng-click="cc.checkClicked(case.form_row_id, case.is_ys_complete, 'is_ys_complete')" ng-model="case.is_ys_complete" class="md-primary" aria-label="Checkbox 6"></md-checkbox>
                     </td>
