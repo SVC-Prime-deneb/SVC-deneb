@@ -27,10 +27,8 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
     vm.reverseSort = false;
 
     vm.sortData = function (column) {
-        if (vm.sortColumn == column) {
-            return vm.reverseSort ? 'arrow-down' : 'arrow-up';
-        }
-            return '';
+        vm.reverseSort = (vm.sortColumn == column) ? !vm.reverseSort : false;
+        vm.sortColumn = column;
     }
 
     vm.getSortClass = function (column) {
@@ -39,6 +37,7 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
         }
         return '';
     }
+
 
     // VIEW advocates 
     vm.viewAdvocate = function () {

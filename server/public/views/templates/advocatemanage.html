@@ -52,7 +52,7 @@
                         </tr>
                     </thead>
                     <tbody md-body >
-                        <tr md-row ng-repeat="advocate in avc.myAdvocateList | filter:searchText">
+                        <tr md-row ng-repeat="advocate in avc.myAdvocateList | orderBy: avc.sortColumn:avc.reverseSort | filter:searchText">
                             <div>
                                 <!-- <td ng-hide="avc.selectedIndex === $index" md-cell>{{$index}}</td> {{avc.selectedIndex}}-{{avc.selectedIndex==$index}} -->
                                 <td md-cell>{{advocate.advocate_first_name}}</td>
