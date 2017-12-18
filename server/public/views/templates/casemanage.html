@@ -16,14 +16,15 @@
         <table md-table class="caseTbl" >
             <thead md-head>
                 <tr md-row>
-                    <th>Date and Time</th>
+                    <th>Date</th>
+                    <th>Time</th>
                     <th>Green Form</th>
                     <th>Medical Advocacy Form</th>
                     <th>Legal Advocacy Form</th>
                     <th>Referral for Contact Info</th>
                     <th>Release of Information</th>
                     <th>Yellow Form</th>
-                    <th>Client Contact Form</th>                   
+                    <th>Pink Form</th>                   
                     <th>Bill of Rights</th>
                 </tr>
             </thead>
@@ -33,7 +34,7 @@
                 <tr  ng-repeat="case in cc.formService.caseObject.cases">
                     
                     <!-- date and time -->
-                    <td>{{case.gs_complete_date| date}}</td>
+                    <td>{{case.case_start_date | date}}, {{case.case_start_time | date: "shortTime"}}</td>
                     <!-- all ng-models will be sent with get route -->
                     <td><md-icon class="material-icons">description</md-icon></td>
                     <td><md-checkbox ng-click="cc.checkClicked(case.ma_form_id, case.is_ma_complete, 'is_ma_complete')" ng-model="case.is_ma_complete" class="md-primary" aria-label="Checkbox 2"></md-checkbox>
@@ -59,7 +60,7 @@
                     <td><md-checkbox ng-click="cc.checkClicked(case.form_row_id, case.is_ys_complete, 'is_ys_complete')" ng-model="case.is_ys_complete" class="md-primary" aria-label="Checkbox 6"></md-checkbox>
                     </td>
                     <td>
-                        <md-checkbox ng-click="cc.checkClicked(case.form_row_id, case.is_ps_complete, 'case.is_ps_complete')" ng-model="case.is_ps_complete" class="md-primary" aria-label="Checkbox 7"></md-checkbox>
+                        <md-checkbox ng-click="cc.checkClicked(case.form_row_id, case.is_ps_complete, 'is_ps_complete')" ng-model="case.is_ps_complete" class="md-primary" aria-label="Checkbox 7"></md-checkbox>
                     </td>
                     <td><md-checkbox ng-click="cc.checkClicked(case.form_row_id, case.is_bor_complete, 'is_bor_complete')" ng-model="case.is_bor_complete" class="md-primary" aria-label="Checkbox 8"></md-checkbox></td>
                 </tr>
