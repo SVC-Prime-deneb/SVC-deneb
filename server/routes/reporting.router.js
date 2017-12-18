@@ -37,6 +37,10 @@ router.get('/advperloc', function (req, res) {
     }
 });
 
+
+//adding something to test
+
+
 //                    GET ROUTES
 router.get('/taxi', function (req, res) {
     // check if logged in
