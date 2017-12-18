@@ -1,7 +1,8 @@
 <!-- MaController as mc -->
 <md-dialog class="dialog" aria-label="Medical Advocacy">
-<form ng-cloak>
+<form ng-show="false" ng-cloak>
     {{mc.formService.caseObject.cases}}
+
     <h1>Medical Advocacy Information Form</h1>
     <md-input-container>
         <label>Advocate Full Name</label>
@@ -173,4 +174,192 @@
     <md-button class="md-raised" ng-click="ic.cancel()">Cancel</md-button>
 </form>
 
+
+<!-- edit already made form -->
+<form action="dialog">
+    <form ng-cloak>
+        {{mc.formService.selectedForm.form[0]}}
+
+        <!-- <md-input-container>
+        <p>TEST</p>
+        <md-radio-group ng-model="mc.formService.selectedForm.form[0].was_other">
+            <md-radio-button  ng-value="true" class="md-primary">Yes</md-radio-button>
+            <md-radio-button  ng-value="false" class="md-primary">No</md-radio-button>
+        </md-radio-group>
+    </md-input-container> -->
+
+        <h1>Medical Advocacy Information Form</h1>
+        <md-input-container>
+            <label>Advocate Full Name</label>
+            <input ng-model="mc.formService.selectedForm.form[0].advocate_name" type="text">
+        </md-input-container>
+        <md-input-container>
+            <label>Shadow Full Name</label>
+            <input ng-model="mc.formService.selectedForm.form[0].advocate_name_additional" type="text">
+        </md-input-container>
+        <md-input-container>
+            <label>Hospital Name</label>
+            <input type="text" ng-model="mc.formService.selectedForm.form[0].location_name">
+        </md-input-container>
+
+        <!-- drop down for victimization -->
+        <md-input-container>
+            <label>Principal Victimization:</label>
+            <md-select ng-model="mc.formService.selectedForm.form[0].victimization">
+                <md-option ng-value="mc.formService.selectedForm.form[0].victimization" ng-repeat="type in mc.victimization">
+                    {{type.string}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container ng-show="mc.formService.selectedForm.form[0].victimization.string === 'Other' ">
+            <input type="text" ng-model="mc.newMa.additional_notes" placeholder="Specify Victimization">
+        </md-input-container>
+
+        <md-input-container>
+            <p>Was a Mandated Report Triggered?</p>
+            <md-radio-group ng-model="mc.formService.selectedForm.form[0].was_mandatory_report">
+                <md-radio-button ng-value="true" class="md-primary">Yes</md-radio-button>
+                <md-radio-button ng-value="false" class="md-primary">No</md-radio-button>
+            </md-radio-group>
+        </md-input-container>
+        <!-- shows if mandate was triggered -->
+        <div ng-show="mc.formService.selectedForm.form[0].was_mandatory_report === true">
+            <md-input-container>
+                <label for="mandated report">Name of Advocate Reporting</label>
+                <input type="text" ng-model="mc.formService.selectedForm.form[0].was_mandatory_report.reporting_advocate_name">
+            </md-input-container>
+            <md-datepicker ng-model="mc.formService.selectedForm.form[0].was_mandatory_report.reporting_date" md-placeholder="Reporting Date"></md-datepicker>
+            <br/>
+            <!-- fix this to take time too -->
+            <md-input-container>
+                <label for="time">Time</label>
+                <input type="time">
+            </md-input-container>
+        </div>
+        
+        <md-input-container>
+            <p>Was there an Evidentiary Exam?</p>
+            <md-radio-group ng-model="mc.newMa.location_evidentiary">
+                <md-radio-button value="True" class="md-primary">Yes</md-radio-button>
+                <md-radio-button value="False" class="md-primary">No</md-radio-button>
+            </md-radio-group>
+        </md-input-container>
+        <!-- appears if evidentiary exam is true -->
+        <div ng-show="mc.newMa.location_evidentiary === 'True'">
+            <md-input-container>
+                <label for="hospital">Hospital</label>
+                <input type="text" ng-model="mc.newMa.location_evidentiary_name">
+            </md-input-container>
+            <md-input-container>
+                <label for="Nurse">Nurse's Name</label>
+                <input type="text" ng-model="mc.newMa.location_evidentiary_nurse">
+            </md-input-container>
+        </div>
+        
+        <md-input-container>
+            <p>Immediate Referral within 7 days to SVC?</p>
+            <md-radio-group ng-model="mc.newMa.immediate_referral">
+                <md-radio-button value="True" class="md-primary">Yes</md-radio-button>
+                <md-radio-button value="False" class="md-primary">No</md-radio-button>
+            </md-radio-group>
+        </md-input-container>
+        
+        
+        <!-- drop down for services appears if referral is true-->
+        <md-input-container ng-show="mc.newMa.immediate_referral === 'True'">
+            <label>Services Provided:</label>
+            <md-select ng-model="mc.newMa.immediate_referral_notes">
+                <md-option ng-value="type" ng-repeat="type in mc.services">
+                    {{type}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+        
+        <md-input-container>
+            <p>Was a Referral To a Shelter Made?</p>
+            <md-radio-group ng-model="mc.newMa.shelter_referral">
+                <md-radio-button value="True" class="md-primary">Yes</md-radio-button>
+                <md-radio-button value="False" class="md-primary">No</md-radio-button>
+            </md-radio-group>
+        </md-input-container>
+        
+        <!-- shows if shelter referral was made -->
+        <md-input-container ng-show="mc.newMa.shelter_referral === 'True'">
+            <label for="Shelters">Which Shelters?</label>
+            <input type="text" ng-model="mc.newMa.shelter_referral_name">
+        </md-input-container>
+        
+        <md-input-container>
+            <p>Was a Taxi Provided?</p>
+            <md-radio-group ng-model="mc.newMa.taxi_provided">
+                <md-radio-button value="True" class="md-primary">Yes</md-radio-button>
+                <md-radio-button value="False" class="md-primary">No</md-radio-button>
+            </md-radio-group>
+        </md-input-container>
+        
+        <!-- shows if taxi was provided -->
+        <md-input-container ng-show="mc.newMa.taxi_provided === 'True'">
+            <label for="taxi">Taxi Cost</label>
+            <input type="text" ng-model="mc.newMa.taxi_cost">
+        </md-input-container>
+        
+        <md-input-container>
+            <p>Was Release of Information Completed?</p>
+            <md-radio-group ng-model="mc.newMa.release_completed">
+                <md-radio-button value="True" class="md-primary">Yes</md-radio-button>
+                <md-radio-button value="False" class="md-primary">No</md-radio-button>
+            </md-radio-group>
+        </md-input-container>
+        <!-- shows if release of info was completed -->
+        <div ng-show="mc.newMa.release_completed === 'True'">
+            <md-datepicker ng-model="mc.newMa.release_completed_date" md-placeholder="Release Date"></md-datepicker>
+            <md-input-container>
+                <label for="Notes">Reason For Release</label>
+                <input type="text" ng-model="mc.newMa.release_completed_reason">
+            </md-input-container>
+        </div>
+        
+        <md-input-container>
+            <label for="FollowUp">Follow Up Info For Medical Advocacy Program Coordinator</label>
+            <textarea cols="30" rows="4" ng-model="mc.newMa.mapc_followup"></textarea>
+        </md-input-container>
+        
+        
+        <md-input-container>
+            <p>Was A Debrief Completed?</p>
+            <md-radio-group ng-model="mc.newMa.debrief_complete">
+                <md-radio-button value="true" class="md-primary">Yes</md-radio-button>
+                <md-radio-button value="false" class="md-primary">No</md-radio-button>
+            </md-radio-group>
+        </md-input-container>
+        <!-- shows if debrief is completed -->
+        <div ng-show="mc.newMa.debrief_complete === 'true'">
+            <md-datepicker ng-model="mc.newMa.debrief_complete_date" md-placeholder="Debrief Date"></md-datepicker>
+            <md-input-container>
+                <label for="Notes">Staff Member Who Conducted Debrief</label>
+                <input type="text" ng-model="mc.newMa.debrief_complete_staff">
+            </md-input-container>
+        </div>
+        
+        <md-input-container>
+            <p>Was A Follow Up With The Agency Completed?</p>
+            <md-radio-group ng-model="mc.newMa.followup_complete">
+                <md-radio-button value="true" class="md-primary">Yes</md-radio-button>
+                <md-radio-button value="false" class="md-primary">No</md-radio-button>
+            </md-radio-group>
+        </md-input-container>
+        <!-- shows if follow up was completed -->
+        <div ng-show="mc.newMa.followup_complete === 'true'">
+            <md-datepicker ng-model="mc.newMa.followup_complete_date" md-placeholder="Followup Date"></md-datepicker>
+            <md-input-container>
+                <label for="Notes">For What Agency?</label>
+                <input type="text" ng-model="mc.newMa.followup_complete_agency">
+            </md-input-container>
+        </div>
+        
+        <md-button type="submit" class="md-primary md-raised" ng-click="mc.submitNewMa(mc.newMa)" type="submit" class="md-raised">Submit</md-button>
+        <md-button class="md-raised" ng-click="ic.cancel()">Cancel</md-button>
+    </form>
+
 </md-dialog>
+
