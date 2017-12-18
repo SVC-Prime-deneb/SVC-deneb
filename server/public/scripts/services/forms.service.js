@@ -5,6 +5,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     self.updatedAdvocate ={};
     self.advocateList = {data: []};
     self.selectedAdvocate = {data: {}};
+    
     // Hold advocateId of the row that was clicked
     self.currentAdvocateId = {currentId: 0};
 
@@ -44,7 +45,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     self.caseObject = {cases: []};
     self.selectedForm = {form: []};
 
-    //function to set current formId
+    //function to save current formId
     self.saveFormId = function(id){
         self.currentFormId.currentId = id; 
         console.log(self.currentFormId);
@@ -97,7 +98,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         })
     }
 
-    //get route for cases (saved to case)
+    //get route for cases
     self.getCases = function () {
         $http.get('/case/form').then(function (response) {
             console.log(response);
@@ -114,6 +115,16 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         self.updatedAdvocate = advocate;
     }
 
+    //get route for forms
+    self.getForm = function (form) {
+        console.log(self.currentFormId.currentId);
+        $http.get('/case/' + form + '/' + self.currentFormId.currentId).then(function (response) {
+            self.selectedForm.form = response.data;
+        }).catch(function (error) {
+            console.log('failure on get Form Route');
+        });
+    }
+
     //route to update
     self.checkClicked = function (id, value, name) {
         var objectTosend = {
@@ -122,8 +133,16 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         }
         $http.put('/case/update/checkbox/' + id, objectTosend).then(function (response) {
             console.log('updated', name);
+            self.getCases();
         }).catch(function (error) {
             console.log('update not sent :(');
+        })
+    }
+
+    self.sendFormUpdate = function (objectToSend, form) {
+        return $http.put('/case/update/'+ form +'/' + self.currentFormId.currentId, objectToSend).then(function (response) {
+        }).catch(function (error) {
+            console.log('new form not sent');
         })
     }
 

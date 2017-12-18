@@ -685,6 +685,8 @@ router.put('/update/referral/:id', function (req, res) {
 
     if (req.isAuthenticated()) {
         var id = req.params.id;
+        console.log(req.body);
+        
         var referral = {
             referral_location_name: req.body.referral_location_name,
             is_first_attempt_date: req.body.is_first_attempt_date,
