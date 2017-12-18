@@ -177,8 +177,8 @@ li.dropdown {
   height: 100%;
 }
 
-h1 #welcome {
-
+#welcome h1 {
+  text-align: center;
   position: relative;
 }
 
@@ -190,7 +190,12 @@ h1 #welcome {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   /* padding: 60px; */
+}
+
+md-card #userTitle {
+  text-align: center;
 }
 
 .container h1 {
