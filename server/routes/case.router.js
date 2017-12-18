@@ -20,7 +20,6 @@ router.get('/form', function (req, res) {
                         console.log('Error making query', errorMakingQuery);
                         res.sendStatus(500);
                     } else {
-                        console.log("result", result);
 
                         res.send(result.rows);
                     }
@@ -474,7 +473,6 @@ router.put('/update/checkbox/:id', function (req, res) {
                     } else {
                         console.log('referral checkbox');
 
-                        console.log(result.rows);
                         res.send(result.rows);
                     }
                 });
@@ -581,7 +579,6 @@ router.put('/update/ma/:id', function (req, res) {
             followup_complete: req.body.followup_complete,
             followup_complete_date: req.body.followup_complete_date,
             followup_complete_agency: req.body.followup_complete_agency,
-            date_form_complete: req.body.date_form_complete,
             date_form_complete_mapc: req.body.date_form_complete_mapc,
             expiration_date: req.body.expiration_date
 
@@ -601,7 +598,7 @@ router.put('/update/ma/:id', function (req, res) {
                     'shelter_referral_name=$19,taxi_provided=$20,taxi_cost=$21,release_completed=$22,release_completed_date=$23,' +
                     'release_completed_reason=$24,mapc_followup=$25, debrief_complete=$26, debrief_complete_date=$27,' +
                     'debrief_complete_staff=$28,followup_complete=$29,followup_complete_date=$30,followup_complete_agency=$31,' +
-                    'date_form_complete=$32,date_form_complete_mapc=$33,expiration_date=$34 WHERE"ma_id"=$35;';
+                    'date_form_complete_mapc=$32,expiration_date=$33 WHERE"ma_id"=$34;';
                 db.query(queryText, [ma.advocate_name, ma.advocate_name_additional, ma.location_name,
                 ma.was_adult_sexual_assault, ma.was_sexual_exploitation, ma.was_minor_family,
                 ma.was_minor_other, ma.was_other, ma.additional_notes, ma.was_mandatory_report,
@@ -611,7 +608,7 @@ router.put('/update/ma/:id', function (req, res) {
                 ma.taxi_provided, ma.taxi_cost, ma.release_completed, ma.release_completed_date,
                 ma.release_completed_reason, ma.mapc_followup, ma.debrief_complete,
                 ma.debrief_complete_date, ma.debrief_complete_staff, ma.followup_complete,
-                ma.followup_complete_date, ma.followup_complete_agency, ma.date_form_complete,
+                ma.followup_complete_date, ma.followup_complete_agency,
                 ma.date_form_complete_mapc, ma.expiration_date, id],
                     function (errorMakingQuery, result) {
                         done();
