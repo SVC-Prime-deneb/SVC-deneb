@@ -20,7 +20,6 @@ router.get('/form', function (req, res) {
                         console.log('Error making query', errorMakingQuery);
                         res.sendStatus(500);
                     } else {
-                        console.log("result", result);
 
                         res.send(result.rows);
                     }
@@ -474,7 +473,6 @@ router.put('/update/checkbox/:id', function (req, res) {
                     } else {
                         console.log('referral checkbox');
 
-                        console.log(result.rows);
                         res.send(result.rows);
                     }
                 });
