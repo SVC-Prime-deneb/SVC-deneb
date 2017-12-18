@@ -201,6 +201,7 @@ h1 #welcome {
 
 th,td {
   text-align: center !important;
+  cursor: pointer;
 }
 
 .arrow-up {
@@ -208,7 +209,7 @@ th,td {
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-bottom: 10px solid black;
+  border-bottom: 10px solid white;
   display: inline-block;
 }
 
@@ -217,7 +218,7 @@ th,td {
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-top: 10px solid black;
+  border-top: 10px solid white;
   display: inline-block;
 }
 
@@ -300,5 +301,7 @@ h1 {
 #svcBanner {
   height: 80px;
 }
+
+
 
 
