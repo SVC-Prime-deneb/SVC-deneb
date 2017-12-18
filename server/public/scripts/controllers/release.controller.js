@@ -1,3 +1,4 @@
+// AKA referral form
 myApp.controller('ReleaseController', function (FormService, $http, $mdDialog) {
     console.log('ReleaseController created');
     var vm = this;
@@ -7,12 +8,18 @@ myApp.controller('ReleaseController', function (FormService, $http, $mdDialog) {
     vm.currentFormId = FormService.currentFormId;
 
     vm.sendRelease = function (objectToSend) {
-        console.log(objectToSend);
-        $http.put('/case/update/release/' + vm.currentFormId.currentId, objectToSend).then(function (response) {
-            console.log('new Release form sent');
-            $mdDialog.hide();
-        }).catch(function (error) {
-            console.log('new Release form not sent');
-        })
+        FormService.sendFormUpdate(objectToSend, 'referral').then(function () {
+            vm.closeForm();
+        });
+    }
+
+    vm.getForm = function () {
+        FormService.getForm('referral');
+    }
+
+    vm.getForm();
+
+    vm.closeForm = function () {
+        $mdDialog.hide();
     }
 });

@@ -17,4 +17,14 @@ myApp.controller('LaiController', function (FormService, $http, $mdDialog) {
         })
     }
 
+    vm.getForm = function () {
+        FormService.getForm('la');
+    }
+
+    vm.getForm();
+
+    vm.closeForm = function () {
+        $mdDialog.hide();
+    }
+
 });
