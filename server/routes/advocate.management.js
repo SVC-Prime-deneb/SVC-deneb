@@ -37,64 +37,6 @@ router.get('/get', function (req, res) {
 
 //                          POST ROUTES
 
-<<<<<<< HEAD
-router.get('/', function(req, res) {  //GET route for advocate retrieval in advocate management
-    console.log('get /advocate route');
-    // check if logged in
-  // if(req.isAuthenticated()) {
-        pool.connect(function (errorConnectingToDB, db, done) {
-            if (errorConnectingToDB) {
-              console.log('Error connecting to db', errorConnectingToDB);
-              res.sendStatus(500);
-            } else {
-              var queryText = 'SELECT * ' +
-                                'FROM "public"."advocates" a ' +
-                                'ORDER BY a."advocate_last_name" ASC;';
-              db.query(queryText, function (errorMakingQuery, result) {
-                done();
-                if (errorMakingQuery) {
-                  console.log('Error making query', errorMakingQuery, result)
-                  res.sendStatus(500);
-                } else {
-                  console.log(result.rows);
-                  res.send(result.rows);
-                }
-              });
-            }
-          });
-   /* } else {
-      console.log('not logged in');
-      res.send(false);
-      }*/
-  });
-
-
-
- 
-router.post('/advocate/add', function(req, res) {  //GET route for advocate retrieval in advocate management
-    console.log('POST /advocate/add route');
-    var advocateToAdd = req.body;
-    // check if logged in
-    if(req.isAuthenticated()) {
-        pool.connect(function (errorConnectingToDB, db, done) {
-            if (errorConnectingToDB) {
-              console.log('Error connecting to db', errorConnectingToDB);
-              res.sendStatus(500);
-            } else {
-              var queryText = '';
-              db.query(queryText, function (errorMakingQuery, result) {
-                done();
-                if (errorMakingQuery) {
-                  console.log('Error making query', errorMakingQuery, result)
-                  res.sendStatus(500);
-                } else {
-                  console.log(result.rows);
-                  res.send(result.rows);
-                }
-              });
-            }
-          });
-=======
 router.post('/new', function (req, res) {
   var saveAd = {
     advocate_first_name: req.body.advocate_first_name,
@@ -121,7 +63,6 @@ router.post('/new', function (req, res) {
     if (errorConnectingToDb) {
       console.log('Error connecting', errorConnectingToDb);
       res.sendStatus(500);
->>>>>>> 23a9a4e282dbfce8cd9b75c4de64378c2cb0c7b0
     } else {
       var queryText = 'INSERT INTO "advocates"("advocate_first_name","advocate_last_name","is_staff",' +
         '"is_hcmc_approved","spanish","somali","french","german","liberian","asl","other_language",'+
@@ -142,9 +83,6 @@ router.post('/new', function (req, res) {
         }
       }); // END QUERY
     }
-<<<<<<< HEAD
-  }); 
-=======
   });
 });//End POST route
 //                            UPDATE ROUTES
@@ -239,6 +177,5 @@ router.delete('/del/:id', function (req, res) {
   }
 });
 
->>>>>>> 23a9a4e282dbfce8cd9b75c4de64378c2cb0c7b0
 
 module.exports = router;
