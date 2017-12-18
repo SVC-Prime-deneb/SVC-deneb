@@ -20,6 +20,8 @@ router.get('/form', function (req, res) {
                         console.log('Error making query', errorMakingQuery);
                         res.sendStatus(500);
                     } else {
+                        console.log("result", result);
+
                         res.send(result.rows);
                     }
                 }); // END QUERY
@@ -48,6 +50,7 @@ router.get('/green/:id', function (req, res) {
                         console.log('Error making query', errorMakingQuery);
                         res.sendStatus(500);
                     } else {
+                        
                         res.send(result.rows);
                     }
                 }); // END QUERY
@@ -188,10 +191,8 @@ router.post('/new/green', function (req, res) {
         start_time: req.body.start_time,
         location_id: req.body.location.location_id,
         nurse: req.body.nurse,
-        contact_phone: req.body.contact_phone,
         was_advocate_dispatched: req.body.was_advocate_dispatched,
         advocate_name_dispatched: req.body.advocate_name_dispatched,
-        dispatch_notes: req.body.dispatch_notes,
         green_form_notes: req.body.green_form_notes
     }
     console.log('FALSE', green.was_advocate_dispatched);
@@ -204,11 +205,9 @@ router.post('/new/green', function (req, res) {
         } else {
             var queryText = 'INSERT INTO "green_form_data" ("date","start_time",' +
                 '"location_id","nurse",' +
-                '"contact_phone","was_advocate_dispatched","advocate_name_dispatched",' +
-                '"dispatch_notes", green_form_notes) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING "green_form_id";'
+                '"was_advocate_dispatched", green_form_notes) VALUES($1,$2,$3,$4,$5,$6) RETURNING "green_form_id";'
             db.query(queryText, [green.date, green.start_time, green.location_id,
-            green.nurse, green.contact_phone, green.was_advocate_dispatched, green.advocate_name_dispatched,
-            green.dispatch_notes, green.green_form_notes],
+            green.nurse, green.was_advocate_dispatched, green.green_form_notes],
                 function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
@@ -262,6 +261,8 @@ router.put('/update/checkbox/:id', function (req, res) {
         formValue: req.body.formValue,
 
     }
+    console.log(form.formValue);
+    
     console.log('id', id);
 
     console.log("form", form);
@@ -435,8 +436,36 @@ router.put('/update/checkbox/:id', function (req, res) {
                 console.log('Error connecting to db', errorConnectingToDB);
                 res.sendStatus(500);
             } else {
+                console.log('in ps complete');
+                
                 // TODO: This isn't ideal but works for now. Fix before deployment.
                 var queryText = 'UPDATE "form" SET "is_ps_complete" = $1 WHERE "form_row_id" = $2 ;';
+                db.query(queryText, [form.formValue, id], function (errorMakingQuery, result) {
+                    done();
+                    if (errorMakingQuery) {
+                        console.log('Error making query', errorMakingQuery, result)
+                        res.sendStatus(500);
+                    } else {
+                        console.log('referral checkbox');
+
+                        console.log(result.rows);
+                        res.send(result.rows);
+                    }
+                });
+            }
+        });
+    }
+
+    else if (form.formName === "is_case_complete") {
+        pool.connect(function (errorConnectingToDB, db, done) {
+            if (errorConnectingToDB) {
+                console.log('Error connecting to db', errorConnectingToDB);
+                res.sendStatus(500);
+            } else {
+                console.log('in ps complete');
+
+                // TODO: This isn't ideal but works for now. Fix before deployment.
+                var queryText = 'UPDATE "form" SET "is_case_complete" = $1 WHERE "form_row_id" = $2 ;';
                 db.query(queryText, [form.formValue, id], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
