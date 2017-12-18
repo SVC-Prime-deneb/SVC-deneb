@@ -26,15 +26,18 @@
                     <th>Yellow Form</th>
                     <th>Pink Form</th>                   
                     <th>Bill of Rights</th>
+                    <th>Case Status</th>
                 </tr>
             </thead>
             <tbody md-body >
                 <!-- this table row ng repeats over each case (20) -->
                 <!-- <tr md-row> -->
+                    {{cc.formService.caseObject.cases[0].is_case_complete}}
                 <tr  ng-repeat="case in cc.formService.caseObject.cases">
-                    
+                   
                     <!-- date and time -->
-                    <td>{{case.case_start_date | date}}, {{case.case_start_time | date: "shortTime"}}</td>
+                    <td>{{case.case_start_date | date}}</td>
+                    <td>{{case.case_start_time | date: 'longTime' }}</td>
                     <!-- all ng-models will be sent with get route -->
                     <td><md-icon class="material-icons">description</md-icon></td>
                     <td><md-checkbox ng-click="cc.checkClicked(case.ma_form_id, case.is_ma_complete, 'is_ma_complete')" ng-model="case.is_ma_complete" class="md-primary" aria-label="Checkbox 2"></md-checkbox>
@@ -63,6 +66,9 @@
                         <md-checkbox ng-click="cc.checkClicked(case.form_row_id, case.is_ps_complete, 'is_ps_complete')" ng-model="case.is_ps_complete" class="md-primary" aria-label="Checkbox 7"></md-checkbox>
                     </td>
                     <td><md-checkbox ng-click="cc.checkClicked(case.form_row_id, case.is_bor_complete, 'is_bor_complete')" ng-model="case.is_bor_complete" class="md-primary" aria-label="Checkbox 8"></md-checkbox></td>
+                    <!-- <td><md-button ng-show="cc.case.is_case_complete" ng-click="cc.checkClicked(case.form_row_id, case.is_case_complete, 'is_case_complete')">Close Case</md-button></td>
+                    <td><md-button ng-hide="cc.case.is_case_complete" ng-click="cc.checkClicked(case.form_row_id, case.is_case_complete, 'is_case_complete')">Reopen Case</md-button></td>
+                     -->
                 </tr>
             </tbody>
         </table>
