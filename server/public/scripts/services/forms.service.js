@@ -5,7 +5,6 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     self.updatedAdvocate ={};
     self.advocateList = {data: []};
     self.selectedAdvocate = {data: {}};
-
     // Hold advocateId of the row that was clicked
     self.currentAdvocateId = {currentId: 0};
 
@@ -109,7 +108,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
 
     // EDIT ADVOCATE
     self.editAdvocate = function (advocate) {
-        console.log('Edit advocate on Form Services was called', advocate);
+        // console.log('Edit advocate on Form Services was called', advocate);
         self.updatedAdvocate = advocate;
     }
 
