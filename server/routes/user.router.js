@@ -29,4 +29,66 @@ router.get('/logout', function(req, res) {
 });
 
 
+//                    GET ROUTES
+router.get('/open', function (req, res) {
+  // check if logged in
+  if (req.isAuthenticated()) {
+      pool.connect(function (errorConnectingToDb, db, done) {
+          if (errorConnectingToDb) {
+              console.log('Error connecting', errorConnectingToDb);
+              res.sendStatus(500);
+          } else {
+              var queryText = 'SELECT COUNT(*)' +   //counter for the "open" cases
+              'FROM "public"."form" f' +
+              'WHERE f."is_case_complete" = FALSE;'; //cases are closed based on this boolean val. 
+              db.query(queryText, function (errorMakingQuery, result) {
+                  done();
+                  if (errorMakingQuery) {
+                      console.log('Error making query', errorMakingQuery);
+                      res.sendStatus(500);
+                  } else {
+                      res.send(result.rows);
+                  }
+              }); // END QUERY
+          }
+      });
+  } else {
+      // failure best handled on the server. do redirect here.
+      console.log('not logged in');
+      res.send(false);
+  }
+});
+
+
+
+//                    GET ROUTES
+router.get('/taxi', function (req, res) {
+  // check if logged in
+  if (req.isAuthenticated()) {
+      pool.connect(function (errorConnectingToDb, db, done) {
+          if (errorConnectingToDb) {
+              console.log('Error connecting', errorConnectingToDb);
+              res.sendStatus(500);
+          } else {
+              var queryText = 'SELECT COUNT(*) ' +
+              'FROM "public"."ma_form_data" m ' +
+              'WHERE m."taxi_provided" = TRUE;';
+              db.query(queryText, function (errorMakingQuery, result) {
+                  done();
+                  if (errorMakingQuery) {
+                      console.log('Error making query', errorMakingQuery);
+                      res.sendStatus(500);
+                  } else {
+                      res.send(result.rows);
+                  }
+              }); // END QUERY
+          }
+      });
+  } else {
+      // failure best handled on the server. do redirect here.
+      console.log('not logged in');
+      res.send(false);
+  }
+});
+
 module.exports = router;

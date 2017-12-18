@@ -7,12 +7,19 @@ myApp.controller('ReleaseInfoController', function (FormService, $http, $mdDialo
     vm.currentFormId = FormService.currentFormId;
 
     vm.sendRelease = function (objectToSend) {
-        console.log(objectToSend);
-        $http.put('/case/update/la/' + vm.currentFormId.currentId, objectToSend).then(function (response) {
-            console.log('new Release form sent');
-            $mdDialog.hide();
-        }).catch(function (error) {
-            console.log('new Release form not sent');
-        })
+        FormService.sendFormUpdate(objectToSend, 'release').then(function () {
+            vm.closeForm();
+        });
     }
+
+    vm.getForm = function () {
+        FormService.getForm('release');
+    }
+
+    vm.getForm();
+
+    vm.closeForm = function () {
+        $mdDialog.hide();
+    }
+
 });

@@ -8,6 +8,7 @@ var sessionConfig = require('./modules/session.config');
 // Route includes
 var adminManageRouter = require('./routes/admin.management.js');
 var advocateManageRouter = require('./routes/advocate.management.js');
+var reportingRouter = require('./routes/reporting.router.js');
 var indexRouter = require('./routes/index.router');
 var userRouter = require('./routes/user.router');
 var registerRouter = require('./routes/register.router');
@@ -30,6 +31,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
+app.use('/report', reportingRouter);
 app.use('/advocate', advocateManageRouter);
 app.use('/register', registerRouter);
 app.use('/user', userRouter);
