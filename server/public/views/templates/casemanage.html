@@ -16,7 +16,9 @@
         <table md-table class="caseTbl">
             <thead md-head>
                 <tr md-row>
-                    <th>Date and Time</th>
+                    <th ng-click="cc.sortData('case_start_date')">Date and Time
+                        <div ng-class="cc.getSortClass('case_start_date')"></div>
+                    </th>
                     <th>Green Form</th>
                     <th>Medical Advocacy Form</th>
                     <th>Legal Advocacy Form</th>
@@ -32,7 +34,7 @@
                 <tr md-row>
 
                     <!-- date and time -->
-                    <td>{{case.case_start_date| date}}</td>
+                    <td>{{case.case_start_date| date | orderBy:cc.sortColumn:cc.reverseSort | filter:searchCase}}</td>
                     <!-- all ng-models will be send with get route -->
                     <!-- need to replace id in edit function -->
                     <td><md-checkbox ng-disabled="true" ng-model="case.is_gs_complete" aria-label="Checkbox 1"></md-checkbox></td>
