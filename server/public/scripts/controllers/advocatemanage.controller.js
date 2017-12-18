@@ -56,7 +56,6 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
                 }
                 vm.advocateList.data[i].languageList = vm.languages; 
                 // console.log('Display Advocate Phone', vm.advocateList.data[i].main_contact_phone);
-                                     
             }   
             
             // getUser();           

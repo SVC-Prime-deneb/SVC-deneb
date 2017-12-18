@@ -2,9 +2,12 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     console.log('FormService Loaded');
     var self = this;
     self.FormObject = {};
+
     self.updatedAdvocate ={};
+
     self.advocateList = {data: []};
     self.selectedAdvocate = {data: {}};
+    
     // Hold advocateId of the row that was clicked
     self.currentAdvocateId = {currentId: 0};
 
