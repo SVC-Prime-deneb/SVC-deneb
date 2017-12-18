@@ -20,8 +20,9 @@ myApp.controller('GreenController', function (FormService, $location, $http) {
             
             
         }).catch(function (err) {
+       }).then(function(){
         }).then(function(){
-            
+     
             vm.createTables(vm.formId);
             }).catch(function (err) {
                 console.log('error in submit green sheet :(', err);
