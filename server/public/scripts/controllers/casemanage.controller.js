@@ -37,6 +37,7 @@ myApp.controller('CaseController', function (FormService, $http, $mdDialog) {
 
     vm.checkClicked = function(id, value, name){
         FormService.checkClicked(id, value, name);
+
     }
 
 });
