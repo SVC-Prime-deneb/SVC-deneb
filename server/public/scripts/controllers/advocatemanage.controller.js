@@ -45,11 +45,10 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
             console.log('success');
             vm.advocateList.data = response.data;
             vm.myAdvocateList = [];
-            console.log('advocateList.data.length', vm.advocateList.data.length);
-            console.log('advocateList.data', vm.advocateList.data);
+
             
             for (var i = 0; i < vm.advocateList.data.length; i++){
-                console.log('advocate first name:', vm.advocateList.data[i].advocate_first_name);
+               
                 vm.languages = [];
                 var tempData = {};
                 tempData.advocate_id = vm.advocateList.data[i].advocate_id;
@@ -120,17 +119,14 @@ myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) 
         });    
     }
 
-    //EDIT Advocate
-    // vm.editAdvocate = function (advocateToEdit, advocateId) {
-    //     console.log('vm.advocate', vm.advocateToEdit);
-    //     $http.put('/advocate/update/' + advocateToEdit.id, {advocateToEdit}).then(function (response){
-    //         console.log('success');
-    //         vm.viewAdvocate();
-    //         // $mdDialog.hide();
-    //     }).catch(function (error) {
-    //         console.log('failure', error);         
-    //     });        
-    // }
+    // EDIT Advocate
+    vm.editAdvocate = function (advocate) {
+        console.log('sending advocate to edit_Advocate controller', advocate);
+        vm.formService.editAdvocate(advocate);
+        console.log('Finish sending');
+        
+
+    }
 
     // vm.selectedItem = null;
     // vm.selectedDetail = null;

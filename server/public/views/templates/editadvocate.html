@@ -9,40 +9,40 @@
                     <h1>UPDATE ADVOCATE</h1>
                     <md-input-container>
                         <label>First Name </label>
-                        <input ng-model="eac.editAdvocate.advocate_first_name" type="text">
+                        <input ng-model="eac.updatedAdvocate.advocate_first_name" type="text">
 
                     </md-input-container>
                     <md-input-container>
                         <label>Last Two Initials </label>
-                        <input ng-model="eac.editAdvocate.advocate_last_name" type="text">
+                        <input ng-model="eac.updatedAdvocate.advocate_last_name" type="text">
                     </md-input-container>
-                    <md-datepicker ng-model="eac.editAdvocate.advocacy_start" required md-placeholder="Starting Date"></md-datepicker>
+                    <md-datepicker ng-model="eac.updatedAdvocate.advocacy_start" required md-placeholder="Starting Date"></md-datepicker>
                     <br/>
                     <!-- language check boxes here -->
                     <md-input-container>
                         <p>Languages Spoken</p>
                         <md-checkbox class="md-primary" aria-label="English">English</md-checkbox>
-                        <md-checkbox ng-model="eac.editAdvocate.spanish" class="md-primary" aria-label="Spanish">Spanish</md-checkbox>
-                        <md-checkbox ng-model="eac.editAdvocate.somali" class="md-primary" aria-label="Somali">Somali</md-checkbox>
-                        <md-checkbox ng-model="eac.editAdvocate.french" class="md-primary" aria-label="French">French</md-checkbox>
-                        <md-checkbox ng-model="eac.editAdvocate.german" class="md-primary" aria-label="German">German</md-checkbox>
-                        <md-checkbox ng-model="eac.editAdvocate.liberian" class="md-primary" aria-label="Liberian">Liberian</md-checkbox>
-                        <md-checkbox ng-model="eac.editAdvocate.asl" class="md-primary" aria-label="ASL">ASL</md-checkbox>
+                        <md-checkbox ng-model="eac.updatedAdvocate.spanish" class="md-primary" aria-label="Spanish">Spanish</md-checkbox>
+                        <md-checkbox ng-model="eac.updatedAdvocate.somali" class="md-primary" aria-label="Somali">Somali</md-checkbox>
+                        <md-checkbox ng-model="eac.updatedAdvocate.french" class="md-primary" aria-label="French">French</md-checkbox>
+                        <md-checkbox ng-model="eac.updatedAdvocate.german" class="md-primary" aria-label="German">German</md-checkbox>
+                        <md-checkbox ng-model="eac.updatedAdvocate.liberian" class="md-primary" aria-label="Liberian">Liberian</md-checkbox>
+                        <md-checkbox ng-model="eac.updatedAdvocate.asl" class="md-primary" aria-label="ASL">ASL</md-checkbox>
                     </md-input-container>
 
                     <md-input-container>
-                        <input type="text" ng-model="eac.editAdvocate.other_language" placeholder="Other Languages">
+                        <input type="text" ng-model="eac.updatedAdvocate.other_language" placeholder="Other Languages">
                     </md-input-container>
 
                     <md-input-container>
                         <label>Phone Number</label>
-                        <input ng-model="eac.editAdvocate.main_contact_phone" type="number">
+                        <input ng-model="eac.updatedAdvocate.main_contact_phone" type="number">
                     </md-input-container>
 
                     <!-- certified check boxes here -->
-                    <md-checkbox ng-model="eac.editAdvocate.is_hcmc_approved" class="md-primary" aria-label="HCMC Certified">HCMC Certified</md-checkbox>
+                    <md-checkbox ng-model="eac.updatedAdvocate.is_hcmc_approved" class="md-primary" aria-label="HCMC Certified">HCMC Certified</md-checkbox>
                     <!-- Text op in check boxes -->
-                    <md-checkbox ng-model="eac.editAdvocate.allow_text" class="md-primary" aria-label="Text Op In">Text Op In</md-checkbox>
+                    <md-checkbox ng-model="eac.updatedAdvocate.allow_text" class="md-primary" aria-label="Text Op In">Text Op In</md-checkbox>
                     <div>
                         <!-- goes to advocate management page -->
                         <md-button class="md-raised md-warn" href="#/advocatemanage">Cancel</md-button>

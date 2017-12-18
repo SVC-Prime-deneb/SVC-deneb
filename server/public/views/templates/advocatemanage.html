@@ -68,39 +68,13 @@
                                     </md-button>
                                 </td>
                                 <td>
-                                    <md-button  class="sm-raised sm-secondary" ng-click="avc.showAdvocateForm($event, updatedAdvocate)" href="#/editadvocate">
-                                    <!-- <md-icon md-svg-icon="pictures/edit.svg"></md-icon> -->Edit
+                                    <md-button class="sm-raised sm-secondary" ng-click="avc.editAdvocate(advocate)" href="#/editadvocate">
+                                    <md-icon md-svg-icon="pictures/edit.svg"></md-icon>
                                     </md-button>
                                 </td>
                             </div>
                         </tr>
                     </tbody>
-                    <!-- EDIT DIV SHOWS UP WHEN EDIT BUTTON IS CLICKED -->
-                    <!-- <tbody md-body ng-show="avc.showEdit">
-                        <tr md-row ng-repeat="advocate in avc.myAdvocateList | orderBy: avc.sortColumn:avc.reverseSort | filter:searchText">
-                    
-                            <td md-cell ng-model="advocate.advocate_first_name"></td>
-                            <td md-cell ng-model="advocate.advocate_last_name"></td>
-                            <td md-cell ng-model="advocate.advocacy_start"></td>
-                            <td md-cell>
-                                <span ng-repeat="language in advocate.language" ng-model="language"> </span>
-                            </td>
-                            <td md-cell ng-model="advocate.is_hcmc_approved"></td>
-                            <td md-cell ng-model="advocate.allow_text"></td>
-                            <td md-cell ng-model="advocate.main_contact_phone"></td>
-                            <! <td>
-                                <md-button class="sm-raised sm-secondary" type="submit" ng-click="avc.deleteAdvocate(advocate.advocate_id)">
-                                    <md-icon md-svg-icon="pictures/trash.svg"></md-icon>
-                                </md-button>
-                            </td> -->
-                            <!-- <td>
-                                <md-button class="sm-raised sm-secondary" type="submit" ng-click="avc.editInputs(advocate)">
-                                    <md-icon md-svg-icon="pictures/edit.svg"></md-icon>
-                                </md-button>
-                            </td>
-
-                        </tr>
-                    </tbody> -->
                 </table>
             </md-table-container>
             <br>
