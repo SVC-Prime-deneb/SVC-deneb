@@ -24,6 +24,8 @@ myApp.controller('MaController', function (FormService, $http, $mdDialog) {
 
     vm.getForm();
 
-
+    vm.closeForm = function () {
+        $mdDialog.hide();
+    }
 
 });
