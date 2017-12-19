@@ -8,8 +8,13 @@ myApp.controller('ReleaseInfoController', function (FormService, $http, $mdDialo
 
     vm.sendRelease = function (objectToSend) {
         FormService.sendFormUpdate(objectToSend, 'release').then(function () {
+            FormService.checkConfirm('is_release_complete');
+        }).then(function () {
             vm.closeForm();
+        }).catch(function (error) {
+            console.log('new release form not sent');
         });
+
     }
 
     vm.getForm = function () {

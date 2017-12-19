@@ -32,4 +32,25 @@
     <md-button type="submit" class="md-primary md-raised" ng-click="rc.sendRelease(rc.formService.selectedForm.form[0])" class="md-raised">Submit</md-button>
     <md-button ng-click="rc.closeForm()" class="md-raised">Cancel</md-button>
 </form>
+
+<div>
+    <h1>Release/Referral for Contact Information</h1>
+    
+    <p>Which Hospital/Agency Sent The Referral?</p>
+    <p>{{rc.formService.selectedForm.form[0].referral_location_name}}</p>
+
+    <p>Follow Up Attempt One:</p>
+    <p>{{rc.formService.selectedForm.form[0].is_first_attempt_date}}</p>
+    
+    <div ng-show="rc.formService.selectedForm.form[0].is_first_attempt_date">
+        <p>Follow Up Attempt Two:</p>
+        <p>{{rc.formService.selectedForm.form[0].is_second_attempt_date}}</p>
+    </div>
+    
+    <div ng-show="rc.formService.selectedForm.form[0].is_second_attempt_date">
+        <p>Follow Up Attempt Three:</p>
+         <p>{{rc.formService.selectedForm.form[0].is_third_attempt_date}}</p>
+    </div>
+</div>
+
 </md-dialog>

@@ -2,12 +2,12 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     console.log('FormService Loaded');
     var self = this;
     self.FormObject = {};
-    self.updatedAdvocate ={};
-    self.advocateList = {data: []};
-    self.selectedAdvocate = {data: {}};
-    
+    self.updatedAdvocate = {};
+    self.advocateList = { data: [] };
+    self.selectedAdvocate = { data: {} };
+
     // Hold advocateId of the row that was clicked
-    self.currentAdvocateId = {currentId: 0};
+    self.currentAdvocateId = { currentId: 0 };
 
     // // Function to set current advocateId
     // self.saveAdvocateId = function(id) {
@@ -28,9 +28,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     // }
 
 
-    
 
-    
+
+
     // Get route for Advocates (saved to case)
     self.getCases = function () {
         $http.get('/case/form').then(function (response) {
@@ -39,16 +39,15 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
             console.log('failure on GET Case Route');
         });
     }
-    
+
     //holds formId of the form that was clicked
-    self.currentFormId = {currentId: 0};
-    self.caseObject = {cases: []};
-    self.selectedForm = {form: []};
+    self.currentFormId = { currentId: 0 };
+    self.caseObject = { cases: [] };
+    self.selectedForm = { form: [] };
 
     //function to save current formId
-    self.saveFormId = function(id){
-        self.currentFormId.currentId = id; 
-        console.log(self.currentFormId);
+    self.saveFormId = function (id) {
+        self.currentFormId.currentId = id;
     }
 
     //show medical advocate dialog function
@@ -102,7 +101,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     self.getCases = function () {
         $http.get('/case/form').then(function (response) {
             console.log(response);
-            
+
             self.caseObject.cases = response.data;
         }).catch(function (error) {
             console.log('failure on GET Case Route');
@@ -117,20 +116,27 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
 
     //get route for forms
     self.getForm = function (form) {
-        console.log(self.currentFormId.currentId);
         $http.get('/case/' + form + '/' + self.currentFormId.currentId).then(function (response) {
-            self.selectedForm.form = response.data;
+            if (form === 'ma') {
+                self.selectedForm.form = objectAccept(response.data[0]);
+                console.log(self.selectedForm.form);
+                // self.selectedForm.form = response.data;
+            } else {
+                self.selectedForm.form = response.data;
+                console.log(response.data);
+            }
         }).catch(function (error) {
             console.log('failure on get Form Route');
         });
     }
 
-    //route to update
+    //route to update if selected form is complete from case management
     self.checkClicked = function (id, value, name) {
         var objectTosend = {
             formName: name,
             formValue: !value
         }
+        
         $http.put('/case/update/checkbox/' + id, objectTosend).then(function (response) {
             console.log('updated', name);
             self.getCases();
@@ -138,12 +144,50 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
             console.log('update not sent :(');
         })
     }
+    //route to update if selected form is complete from dialog box
+    self.checkConfirm = function (name) {
+        
+        var objectTosend = {
+            formName: name,
+            formValue: true
+        }
+        console.log(objectTosend);
 
+        $http.put('/case/update/checkbox/' + self.currentFormId.currentId, objectTosend).then(function (response) {
+            console.log('updated', name);
+            self.getCases();
+        }).catch(function (error) {
+            console.log('update not sent :(');
+        })
+    }
+
+    //put route for medical advocate, legal advocate, referral, and release forms (for new forms and updated forms)
     self.sendFormUpdate = function (objectToSend, form) {
-        return $http.put('/case/update/'+ form +'/' + self.currentFormId.currentId, objectToSend).then(function (response) {
+        return $http.put('/case/update/' + form + '/' + self.currentFormId.currentId, objectToSend).then(function (response) {
         }).catch(function (error) {
             console.log('new form not sent');
         })
     }
 
 });
+
+//function to translate victimization object sent into a form friendly form to display and edit
+var objectAccept = function (objectIn) {
+    if(objectIn.was_adult_sexual_assault === true) {
+        objectIn.victimization = "Adult Sexual Assault";
+    } 
+    else if (objectIn.was_sexual_exploitation === true){
+        objectIn.victimization = 'Sexual Exploitation';
+    }
+    else if (objectIn.was_minor_other === true){
+        objectIn.victimization = 'Minor-CSA';
+    }
+    else if (objectIn.was_minor_family === true){
+        objectIn.victimization = 'Family/Minor-CSA';
+    }
+    else if (objectIn.was_other === true){
+        objectIn.victimization = 'Other';
+    }
+    console.log(objectIn);
+    return objectIn = [objectIn];
+}

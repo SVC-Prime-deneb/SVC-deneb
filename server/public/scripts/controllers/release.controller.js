@@ -9,7 +9,11 @@ myApp.controller('ReleaseController', function (FormService, $http, $mdDialog) {
 
     vm.sendRelease = function (objectToSend) {
         FormService.sendFormUpdate(objectToSend, 'referral').then(function () {
+            FormService.checkConfirm('is_referral_complete');
+        }).then(function () {
             vm.closeForm();
+        }).catch(function (error) {
+            console.log('new referral form not sent');
         });
     }
 

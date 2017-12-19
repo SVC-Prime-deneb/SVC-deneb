@@ -2,10 +2,8 @@
 <md-dialog class="dialog" aria-label="Medical Advocacy">
 
 <!-- edit already made form -->
-<form action="dialog">
+<form>
     <form ng-cloak>
-        {{mc.formService.selectedForm.form[0]}}
-
         <h1>Medical Advocacy Information Form</h1>
         <md-input-container>
             <label>Advocate Full Name</label>
@@ -21,16 +19,16 @@
         </md-input-container>
 
         <!-- drop down for victimization -->
-        <md-input-container>
+        <md-input-container flex="40">
             <label>Principal Victimization:</label>
             <md-select ng-model="mc.formService.selectedForm.form[0].victimization">
                 <md-option ng-value="type" ng-repeat="type in mc.victimization">
-                    {{type.string}}
+                    {{type}}
                 </md-option>
             </md-select>
         </md-input-container>
-        <md-input-container ng-show="mc.formService.selectedForm.form[0].victimization.string === 'Other' ">
-            <input type="text" ng-model="mc.newMa.additional_notes" placeholder="Specify Victimization">
+        <md-input-container ng-show="mc.formService.selectedForm.form[0].victimization === 'Other' ">
+            <input type="text" ng-model="mc.formService.selectedForm.form[0].additional_notes" placeholder="Specify Victimization">
         </md-input-container>
 
         <md-input-container>
@@ -43,15 +41,15 @@
         <!-- shows if mandate was triggered -->
         <div ng-show="mc.formService.selectedForm.form[0].was_mandatory_report === true">
             <md-input-container>
-                <label for="mandated report">Name of Advocate Reporting</label>
-                <input type="text" ng-model="mc.formService.selectedForm.form[0].was_mandatory_report.reporting_advocate_name">
+                <p>Name of Advocate Reporting:</p>
+                <input type="text" ng-model="mc.formService.selectedForm.form[0].reporting_advocate_name">
             </md-input-container>
-            <md-datepicker ng-model="mc.formService.selectedForm.form[0].was_mandatory_report.reporting_date" md-placeholder="Reporting Date"></md-datepicker>
+            <md-datepicker ng-model="mc.formService.selectedForm.form[0].reporting_date" md-placeholder="Reporting Date"></md-datepicker>
             <br/>
             <!-- fix this to take time too -->
             <md-input-container>
                 <label for="time">Time</label>
-                <input type="time">
+                <input type="time" md-model="mc.formService.selectedForm.form[0].reporting_time">
             </md-input-container>
         </div>
         
@@ -63,7 +61,8 @@
             </md-radio-group>
         </md-input-container>
         <!-- appears if evidentiary exam is true -->
-        <div ng-show="mc.formService.selectedForm.form[0].location_evidentiary === 'true'">
+
+        <div ng-show="mc.formService.selectedForm.form[0].location_evidentiary === true">
             <md-input-container>
                 <label for="hospital">Hospital</label>
                 <input type="text" ng-model="mc.formService.selectedForm.form[0].location_evidentiary_name">
@@ -84,7 +83,7 @@
         
         
         <!-- drop down for services appears if referral is true-->
-        <md-input-container ng-show="mc.formService.selectedForm.form[0].immediate_referral === 'true'">
+        <md-input-container flex="40" ng-show="mc.formService.selectedForm.form[0].immediate_referral === true">
             <label>Services Provided:</label>
             <md-select ng-model="mc.formService.selectedForm.form[0].immediate_referral_notes">
                 <md-option ng-value="type" ng-repeat="type in mc.services">
@@ -102,7 +101,7 @@
         </md-input-container>
         
         <!-- shows if shelter referral was made -->
-        <md-input-container ng-show="mc.formService.selectedForm.form[0].shelter_referral === 'true'">
+        <md-input-container ng-show="mc.formService.selectedForm.form[0].shelter_referral === true">
             <label for="Shelters">Which Shelters?</label>
             <input type="text" ng-model="mc.formService.selectedForm.form[0].shelter_referral_name">
         </md-input-container>
@@ -116,7 +115,7 @@
         </md-input-container>
         
         <!-- shows if taxi was provided -->
-        <md-input-container ng-show="mc.formService.selectedForm.form[0].taxi_provided === 'true'">
+        <md-input-container flex="40" ng-show="mc.formService.selectedForm.form[0].taxi_provided === true">
             <label for="taxi">Taxi Cost</label>
             <input type="text" ng-model="mc.formService.selectedForm.form[0].taxi_cost">
         </md-input-container>
@@ -129,12 +128,12 @@
             </md-radio-group>
         </md-input-container>
         <!-- shows if release of info was completed -->
-        <div ng-show="mc.formService.selectedForm.form[0].release_completed === 'true'">
-            <md-datepicker ng-model="mc.formService.selectedForm.form[0].release_completed_date" md-placeholder="Release Date"></md-datepicker>
+        <div ng-show="mc.formService.selectedForm.form[0].release_completed === true">
             <md-input-container>
                 <label for="Notes">Reason For Release</label>
                 <input type="text" ng-model="mc.formService.selectedForm.form[0].release_completed_reason">
             </md-input-container>
+            <md-datepicker ng-model="mc.formService.selectedForm.form[0].release_completed_date" md-placeholder="Release Date"></md-datepicker>
         </div>
         
         <md-input-container>
@@ -151,12 +150,12 @@
             </md-radio-group>
         </md-input-container>
         <!-- shows if debrief is completed -->
-        <div ng-show="mc.formService.selectedForm.form[0].debrief_complete === 'true'">
-            <md-datepicker ng-model="mc.formService.selectedForm.form[0].debrief_complete_date" md-placeholder="Debrief Date"></md-datepicker>
-            <md-input-container>
-                <label for="Notes">Staff Member Who Conducted Debrief</label>
-                <input type="text" ng-model="mc.formService.selectedForm.form[0].debrief_complete_staff">
-            </md-input-container>
+        <div ng-show="mc.formService.selectedForm.form[0].debrief_complete === true">
+        <md-input-container>
+            <p>Staff Member Who Conducted Debrief:</p>
+            <input type="text" ng-model="mc.formService.selectedForm.form[0].debrief_complete_staff">
+        </md-input-container> <br/>
+            <md-datepicker ng-model="mc.formService.selectedForm.form[0].debrief_complete_date" md-placeholder="Debrief Date"></md-datepicker> 
         </div>
         
         <md-input-container>
@@ -167,16 +166,16 @@
             </md-radio-group>
         </md-input-container>
         <!-- shows if follow up was completed -->
-        <div ng-show="mc.formService.selectedForm.form[0].followup_complete === 'true'">
-            <md-datepicker ng-model="mc.formService.selectedForm.form[0].followup_complete_date" md-placeholder="Followup Date"></md-datepicker>
+        <div ng-show="mc.formService.selectedForm.form[0].followup_complete === true">
             <md-input-container>
                 <label for="Notes">For What Agency?</label>
                 <input type="text" ng-model="mc.formService.selectedForm.form[0].followup_complete_agency">
-            </md-input-container>
+            </md-input-container> <br/>
+            <md-datepicker ng-model="mc.formService.selectedForm.form[0].followup_complete_date" md-placeholder="Followup Date"></md-datepicker>
         </div>
         
         <md-button type="submit" class="md-primary md-raised" ng-click="mc.submitNewMa(mc.formService.selectedForm.form[0])" type="submit" class="md-raised">Submit</md-button>
-        <md-button class="md-raised" ng-click="ic.cancel()">Cancel</md-button>
+        <md-button class="md-raised" ng-click="mc.closeForm()">Cancel</md-button>
     </form>
 
 </md-dialog>
