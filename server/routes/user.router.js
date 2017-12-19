@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var pool = require('../modules/pool.js');
+var pg = require('pg');
 
 // Handles Ajax request for user information if user is authenticated
 router.get('/', function(req, res) {
@@ -38,8 +40,8 @@ router.get('/open', function (req, res) {
               console.log('Error connecting', errorConnectingToDb);
               res.sendStatus(500);
           } else {
-              var queryText = 'SELECT COUNT(*)' +   //counter for the "open" cases
-              'FROM "public"."form" f' +
+              var queryText = 'SELECT COUNT(*) ' +
+              'FROM "public"."form" f ' +
               'WHERE f."is_case_complete" = FALSE;'; //cases are closed based on this boolean val. 
               db.query(queryText, function (errorMakingQuery, result) {
                   done();
@@ -62,7 +64,7 @@ router.get('/open', function (req, res) {
 
 
 //                    GET ROUTES
-router.get('/taxi', function (req, res) {
+router.get('/newcases', function (req, res) {
   // check if logged in
   if (req.isAuthenticated()) {
       pool.connect(function (errorConnectingToDb, db, done) {
@@ -70,9 +72,10 @@ router.get('/taxi', function (req, res) {
               console.log('Error connecting', errorConnectingToDb);
               res.sendStatus(500);
           } else {
-              var queryText = 'SELECT COUNT(*) ' +
-              'FROM "public"."ma_form_data" m ' +
-              'WHERE m."taxi_provided" = TRUE;';
+              var queryText = 'SELECT * ' + //pulls cases with the same date that have ben created within the last 12 hours
+                              'FROM "public"."green_form_data" g ' +
+                              'WHERE (g."start_time" BETWEEN (current_time - INTERVAL '/'12 hours'/') AND current_time ' +
+                                'AND g."date" = current_date);'; //start_time will need to be time without time zone
               db.query(queryText, function (errorMakingQuery, result) {
                   done();
                   if (errorMakingQuery) {
@@ -90,5 +93,38 @@ router.get('/taxi', function (req, res) {
       res.send(false);
   }
 });
+
+
+//                    GET ROUTES
+router.get('/deadline', function (req, res) {
+  // check if logged in
+  if (req.isAuthenticated()) {
+      pool.connect(function (errorConnectingToDb, db, done) {
+          if (errorConnectingToDb) {
+              console.log('Error connecting', errorConnectingToDb);
+              res.sendStatus(500);
+          } else {
+              var queryText = 'SELECT * ' + //pulls cases with the same date that have ben created within the last 12 hours
+                              'FROM "public"."green_form_data" g ' +
+                              'WHERE (g."start_time" BETWEEN (current_time - INTERVAL '/'12 hours'/') AND current_time ' +
+                                'AND g."date" = current_date);'; //start_time will need to be time without time zone
+              db.query(queryText, function (errorMakingQuery, result) {
+                  done();
+                  if (errorMakingQuery) {
+                      console.log('Error making query', errorMakingQuery);
+                      res.sendStatus(500);
+                  } else {
+                      res.send(result.rows);
+                  }
+              }); // END QUERY
+          }
+      });
+  } else {
+      // failure best handled on the server. do redirect here.
+      console.log('not logged in');
+      res.send(false);
+  }
+});
+
 
 module.exports = router;

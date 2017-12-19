@@ -52,7 +52,7 @@ router.get('/green/:id', function (req, res) {
                         console.log('Error making query', errorMakingQuery);
                         res.sendStatus(500);
                     } else {
-                        
+
                         res.send(result.rows);
                     }
                 }); // END QUERY
@@ -96,11 +96,11 @@ router.get('/la/:id', function (req, res) {
 router.get('/ma/:id', function (req, res) {
     // check if logged in
     console.log('In it!');
-    
+
     if (req.isAuthenticated()) {
         var ma = req.params.id;
         console.log(req.params);
-        
+
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
                 console.log('Error connecting', errorConnectingToDb);
@@ -114,7 +114,7 @@ router.get('/ma/:id', function (req, res) {
                         res.sendStatus(500);
                     } else {
                         console.log(result);
-                        
+
                         res.send(result.rows);
                     }
                 }); // END QUERY
@@ -187,45 +187,67 @@ router.get('/release/:id', function (req, res) {
 //                      POST
 router.post('/new/green', function (req, res) {
     console.log('post green');
-    // if (req.isAuthenticated()) {
-    var green = {
-        date: req.body.date,
-        start_time: req.body.start_time,
-        location_id: req.body.location.location_id,
-        nurse: req.body.nurse,
-        was_advocate_dispatched: req.body.was_advocate_dispatched,
-        advocate_name_dispatched: req.body.advocate_name_dispatched,
-        green_form_notes: req.body.green_form_notes
-    }
-    console.log('FALSE', green.was_advocate_dispatched);
-    
-    console.log('here', req.body);
-    pool.connect(function (errorConnectingToDB, db, done) {
-        if (errorConnectingToDB) {
-            console.log('Error connecting to db', errorConnectingToDB);
-            res.sendStatus(500);
-        } else {
-            var queryText = 'INSERT INTO "green_form_data" ("date","start_time",' +
-                '"location_id","nurse",' +
-                '"was_advocate_dispatched", green_form_notes) VALUES($1,$2,$3,$4,$5,$6) RETURNING "green_form_id";'
-            db.query(queryText, [green.date, green.start_time, green.location_id,
-            green.nurse, green.was_advocate_dispatched, green.green_form_notes],
-                function (errorMakingQuery, result) {
-                    done();
-                    if (errorMakingQuery) {
-                        console.log('Error making query', errorMakingQuery, result)
-                        res.sendStatus(500);
-                    } else {
-                        console.log('rows', result);
-                        res.send(result.rows);
-                    }
-                })
+    if (req.isAuthenticated()) {
+        var green = {
+            date: req.body.date,
+            start_time: req.body.start_time,
+            location_id: req.body.location.location_id,
+            nurse: req.body.nurse,
+            was_advocate_dispatched: req.body.was_advocate_dispatched,
+            advocate_name_dispatched: req.body.advocate_name_dispatched,
+            green_form_notes: req.body.green_form_notes
         }
-    });
-    // } else {
-    //     console.log('not logged in');
-    //     res.send(false);
-    // }
+        console.log('FALSE', green.was_advocate_dispatched);
+
+        console.log('here', req.body);
+        pool.connect(function (errorConnectingToDB, db, done) {
+            if (errorConnectingToDB) {
+                console.log('Error connecting to db', errorConnectingToDB);
+                res.sendStatus(500);
+            } else {
+                var queryText = 'INSERT INTO "green_form_data" ("date","start_time",' +
+                    '"location_id","nurse",' +
+                    '"was_advocate_dispatched", green_form_notes) VALUES($1,$2,$3,$4,$5,$6) RETURNING "green_form_id";'
+                db.query(queryText, [green.date, green.start_time, green.location_id,
+                green.nurse, green.was_advocate_dispatched, green.green_form_notes],
+                    function (errorMakingQuery, result) {
+                        done();
+                        if (errorMakingQuery) {
+                            console.log('Error making query', errorMakingQuery, result)
+                            res.sendStatus(500);
+                        } else {
+                            console.log('rows', result);
+                            res.send(result.rows);
+                        }
+                    })
+            }
+        });
+
+        pool.connect(function (errorConnectingToDB, db, done) {
+            if (errorConnectingToDB) {
+                console.log('Error connecting to db', errorConnectingToDB);
+                res.sendStatus(500);
+            } else {
+                var queryText = 'UPDATE "monthly_location" SET $1 , is_first_attempt_date=$2,' +
+                    ' WHERE "referral_form_id" = $7 ;';
+                db.query(queryText, [id],
+                    function (errorMakingQuery, result) {
+                        done();
+                        if (errorMakingQuery) {
+                            console.log('Error making query', errorMakingQuery, result)
+                            res.sendStatus(500);
+                        } else {
+                            console.log(result.rows);
+                            res.send(result.rows);
+                        }
+                    });
+            }
+        });
+
+    } else {
+        console.log('not logged in');
+        res.send(false);
+    }
 });
 
 router.post('/new/table/:id', function (req, res) {
@@ -257,142 +279,45 @@ router.put('/update/checkbox/:id', function (req, res) {
     // check if logged in
 
     // if (req.isAuthenticated()) {
-    var id = req.params.id;
-    var form = {
-        formName: req.body.formName,
-        formValue: req.body.formValue,
+        var id = req.params.id;
+        var form = {
+            formName: req.body.formName,
+            formValue: req.body.formValue,
+        }
 
-    }
-    console.log(form.formValue);
-    
-    console.log('id', id);
-
-    console.log("form", form);
-
-    if (form.formName === "is_ys_complete") {
-
+        let queryText = ""
+        if (form.formName === "is_ys_complete") {
+            queryText = 'UPDATE "form" SET is_ys_complete = $1 WHERE "form_row_id" = $2 ;';
+        }
+        else if (form.formName === "is_ma_complete") {
+            queryText = 'UPDATE "form" SET "is_ma_complete" = $1 WHERE "form_row_id" = $2 ;';
+        }
+        else if (form.formName === "is_bor_complete") {
+            queryText = 'UPDATE "form" SET "is_bor_complete" = $1 WHERE "form_row_id" = $2 ;';
+        }
+        else if (form.formName === "is_la_complete") {
+            queryText = 'UPDATE "form" SET "is_la_complete" = $1 WHERE "form_row_id" = $2 ;';
+        }
+        else if (form.formName === "is_release_complete") {
+            queryText = 'UPDATE "form" SET "is_release_complete" = $1 WHERE "form_row_id" = $2 ;';
+        }
+        else if (form.formName === "is_referral_complete") {
+            queryText = 'UPDATE "form" SET "is_referral_complete" = $1 WHERE "form_row_id" = $2 ;';
+        }
+        else if (form.formName === "is_demo_complete") {
+            queryText = 'UPDATE "form" SET "is_demo_complete" = $1 WHERE "form_row_id" = $2 ;';
+        }
+        else if (form.formName === "is_ps_complete") {
+            queryText = 'UPDATE "form" SET "is_ps_complete" = $1 WHERE "form_row_id" = $2 ;';
+        }
+        else if (form.formName === "is_case_complete") {
+            queryText = 'UPDATE "form" SET "is_case_complete" = $1 WHERE "form_row_id" = $2 ;';
+        }
         pool.connect(function (errorConnectingToDB, db, done) {
             if (errorConnectingToDB) {
                 console.log('Error connecting to db', errorConnectingToDB);
                 res.sendStatus(500);
             } else {
-                // TODO: This isn't ideal but works for now. Fix before deployment.
-                var queryText = 'UPDATE "form" SET is_ys_complete = $1 WHERE "form_row_id" = $2 ;';
-                db.query(queryText, [form.formValue, id], function (errorMakingQuery, result) {
-                    done();
-                    if (errorMakingQuery) {
-                        console.log('Error making query', errorMakingQuery, result)
-                        res.sendStatus(500);
-                    } else {
-                        console.log('yellow checkbox');
-                        console.log(result.rows);
-                        res.send(result.rows);
-                    }
-                });
-            }
-        });
-    }
-    else if (form.formName === "is_ma_complete") {
-        pool.connect(function (errorConnectingToDB, db, done) {
-            if (errorConnectingToDB) {
-                console.log('Error connecting to db', errorConnectingToDB);
-                res.sendStatus(500);
-            } else {
-                // TODO: This isn't ideal but works for now. Fix before deployment.
-                var queryText = 'UPDATE "form" SET "is_ma_complete" = $1 WHERE "form_row_id" = $2 ;';
-                db.query(queryText, [form.formValue, id], function (errorMakingQuery, result) {
-                    done();
-                    if (errorMakingQuery) {
-                        console.log('Error making query', errorMakingQuery, result)
-                        res.sendStatus(500);
-                    } else {
-                        console.log('ma checkbox');
-
-                        console.log(result.rows);
-                        res.send(result.rows);
-                    }
-                });
-            }
-        });
-    }
-    else if (form.formName === "is_bor_complete") {
-        pool.connect(function (errorConnectingToDB, db, done) {
-            if (errorConnectingToDB) {
-                console.log('Error connecting to db', errorConnectingToDB);
-                res.sendStatus(500);
-            } else {
-                // TODO: This isn't ideal but works for now. Fix before deployment.
-                var queryText = 'UPDATE "form" SET "is_bor_complete" = $1 WHERE "form_row_id" = $2 ;';
-                db.query(queryText, [form.formValue, id], function (errorMakingQuery, result) {
-                    done();
-                    if (errorMakingQuery) {
-                        console.log('Error making query', errorMakingQuery, result)
-                        res.sendStatus(500);
-                    } else {
-                        console.log('bor checkbox');
-
-                        console.log(result.rows);
-                        res.send(result.rows);
-                    }
-                });
-            }
-        });
-    }
-    else if (form.formName === "is_la_complete") {
-        pool.connect(function (errorConnectingToDB, db, done) {
-            if (errorConnectingToDB) {
-                console.log('Error connecting to db', errorConnectingToDB);
-                res.sendStatus(500);
-            } else {
-                // TODO: This isn't ideal but works for now. Fix before deployment.
-                var queryText = 'UPDATE "form" SET "is_la_complete" = $1 WHERE "form_row_id" = $2 ;';
-                db.query(queryText, [form.formValue, id], function (errorMakingQuery, result) {
-                    done();
-                    if (errorMakingQuery) {
-                        console.log('Error making query', errorMakingQuery, result)
-                        res.sendStatus(500);
-                    } else {
-                        console.log('la checkbox');
-
-                        console.log(result.rows);
-                        res.send(result.rows);
-                    }
-                });
-            }
-        });
-    }
-
-    else if (form.formName === "is_release_complete") {
-        pool.connect(function (errorConnectingToDB, db, done) {
-            if (errorConnectingToDB) {
-                console.log('Error connecting to db', errorConnectingToDB);
-                res.sendStatus(500);
-            } else {
-                // TODO: This isn't ideal but works for now. Fix before deployment.
-                var queryText = 'UPDATE "form" SET "is_release_complete" = $1 WHERE "form_row_id" = $2 ;';
-                db.query(queryText, [form.formValue, id], function (errorMakingQuery, result) {
-                    done();
-                    if (errorMakingQuery) {
-                        console.log('Error making query', errorMakingQuery, result)
-                        res.sendStatus(500);
-                    } else {
-                        console.log('release checkbox');
-
-                        console.log(result.rows);
-                        res.send(result.rows);
-                    }
-                });
-            }
-        });
-    }
-    else if (form.formName === "is_referral_complete") {
-        pool.connect(function (errorConnectingToDB, db, done) {
-            if (errorConnectingToDB) {
-                console.log('Error connecting to db', errorConnectingToDB);
-                res.sendStatus(500);
-            } else {
-                // TODO: This isn't ideal but works for now. Fix before deployment.
-                var queryText = 'UPDATE "form" SET "is_referral_complete" = $1 WHERE "form_row_id" = $2 ;';
                 db.query(queryText, [form.formValue, id], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
@@ -400,91 +325,14 @@ router.put('/update/checkbox/:id', function (req, res) {
                         res.sendStatus(500);
                     } else {
                         console.log('referral checkbox');
-
-                        console.log(result.rows);
                         res.send(result.rows);
                     }
                 });
             }
         });
-    }
-    else if (form.formName === "is_demo_complete") {
-        pool.connect(function (errorConnectingToDB, db, done) {
-            if (errorConnectingToDB) {
-                console.log('Error connecting to db', errorConnectingToDB);
-                res.sendStatus(500);
-            } else {
-                // TODO: This isn't ideal but works for now. Fix before deployment.
-                var queryText = 'UPDATE "form" SET "is_demo_complete" = $1 WHERE "form_row_id" = $2 ;';
-                db.query(queryText, [form.formValue, id], function (errorMakingQuery, result) {
-                    done();
-                    if (errorMakingQuery) {
-                        console.log('Error making query', errorMakingQuery, result)
-                        res.sendStatus(500);
-                    } else {
-                        console.log('referral checkbox');
-
-                        console.log(result.rows);
-                        res.send(result.rows);
-                    }
-                });
-            }
-        });
-    }
-
-    else if (form.formName === "is_ps_complete") {
-        pool.connect(function (errorConnectingToDB, db, done) {
-            if (errorConnectingToDB) {
-                console.log('Error connecting to db', errorConnectingToDB);
-                res.sendStatus(500);
-            } else {
-                console.log('in ps complete');
-                
-                // TODO: This isn't ideal but works for now. Fix before deployment.
-                var queryText = 'UPDATE "form" SET "is_ps_complete" = $1 WHERE "form_row_id" = $2 ;';
-                db.query(queryText, [form.formValue, id], function (errorMakingQuery, result) {
-                    done();
-                    if (errorMakingQuery) {
-                        console.log('Error making query', errorMakingQuery, result)
-                        res.sendStatus(500);
-                    } else {
-                        console.log('referral checkbox');
-
-                        console.log(result.rows);
-                        res.send(result.rows);
-                    }
-                });
-            }
-        });
-    }
-
-    else if (form.formName === "is_case_complete") {
-        pool.connect(function (errorConnectingToDB, db, done) {
-            if (errorConnectingToDB) {
-                console.log('Error connecting to db', errorConnectingToDB);
-                res.sendStatus(500);
-            } else {
-                console.log('in ps complete');
-
-                // TODO: This isn't ideal but works for now. Fix before deployment.
-                var queryText = 'UPDATE "form" SET "is_case_complete" = $1 WHERE "form_row_id" = $2 ;';
-                db.query(queryText, [form.formValue, id], function (errorMakingQuery, result) {
-                    done();
-                    if (errorMakingQuery) {
-                        console.log('Error making query', errorMakingQuery, result)
-                        res.sendStatus(500);
-                    } else {
-                        console.log('referral checkbox');
-
-                        res.send(result.rows);
-                    }
-                });
-            }
-        });
-    }
     // } else {
-    //   console.log('not logged in');
-    //   res.send(false);
+    //     console.log('not logged in');
+    //     res.send(false);
     // }
 });
 
@@ -555,10 +403,10 @@ router.put('/update/ma/:id', function (req, res) {
             advocate_name_additional: req.body.advocate_name_additional,
             location_name: req.body.location_name,
             was_adult_sexual_assault: req.body.victimization.was_adult_sexual_assault,
-            was_sexual_exploitation : req.body.victimization.was_sexual_exploitation,
+            was_sexual_exploitation: req.body.victimization.was_sexual_exploitation,
             was_minor_family: req.body.victimization.was_minor_family,
-            was_minor_other : req.body.victimization.was_minor_other,
-            was_other : req.body.victimization.was_other,
+            was_minor_other: req.body.victimization.was_minor_other,
+            was_other: req.body.victimization.was_other,
             additional_notes: req.body.additional_notes,
             was_mandatory_report: req.body.was_mandatory_report,
             reporting_advocate_name: req.body.reporting_advocate_name,
@@ -583,7 +431,8 @@ router.put('/update/ma/:id', function (req, res) {
             followup_complete_date: req.body.followup_complete_date,
             followup_complete_agency: req.body.followup_complete_agency,
             date_form_complete_mapc: req.body.date_form_complete_mapc,
-            expiration_date: req.body.expiration_date
+            expiration_date: req.body.expiration_date,
+            ma_form_time: req.body.ma_form_time
 
         }
         console.log('here');
@@ -593,15 +442,15 @@ router.put('/update/ma/:id', function (req, res) {
                 console.log('Error connecting to db', errorConnectingToDB);
                 res.sendStatus(500);
             } else {
-                var queryText = 'UPDATE "ma_form_data" SET  "advocate_name"= $1, "advocate_name_additional" =$2, location_name=$3 , ' +
-                    ' was_adult_sexual_assault=$4, was_sexual_exploitation=$5, was_minor_family=$6, ' +
+                var queryText = 'UPDATE "ma_form_data" SET  "advocate_name"= $1, "advocate_name_additional" =$2, location_name=$3, ' +
+                    'was_adult_sexual_assault=$4, was_sexual_exploitation=$5, was_minor_family=$6, ' +
                     'was_minor_other=$7, was_other=$8, additional_notes=$9, was_mandatory_report=$10,' +
                     'reporting_advocate_name=$11,reporting_date=$12,location_evidentiary=$13,location_evidentiary_name=$14,location_evidentiary_nurse=$15,' +
                     'immediate_referral=$16, immediate_referral_notes=$17, shelter_referral=$18, ' +
                     'shelter_referral_name=$19,taxi_provided=$20,taxi_cost=$21,release_completed=$22,release_completed_date=$23,' +
                     'release_completed_reason=$24,mapc_followup=$25, debrief_complete=$26, debrief_complete_date=$27,' +
                     'debrief_complete_staff=$28,followup_complete=$29,followup_complete_date=$30,followup_complete_agency=$31,' +
-                    'date_form_complete_mapc=$32,expiration_date=$33 WHERE"ma_id"=$34;';
+                    'date_form_complete_mapc=$32,expiration_date=$33, ma_form_time=$34  WHERE"ma_id"=$35;';
                 db.query(queryText, [ma.advocate_name, ma.advocate_name_additional, ma.location_name,
                 ma.was_adult_sexual_assault, ma.was_sexual_exploitation, ma.was_minor_family,
                 ma.was_minor_other, ma.was_other, ma.additional_notes, ma.was_mandatory_report,
@@ -612,7 +461,7 @@ router.put('/update/ma/:id', function (req, res) {
                 ma.release_completed_reason, ma.mapc_followup, ma.debrief_complete,
                 ma.debrief_complete_date, ma.debrief_complete_staff, ma.followup_complete,
                 ma.followup_complete_date, ma.followup_complete_agency,
-                ma.date_form_complete_mapc, ma.expiration_date, id],
+                ma.date_form_complete_mapc, ma.expiration_date, ma.ma_form_time, id],
                     function (errorMakingQuery, result) {
                         done();
                         if (errorMakingQuery) {
@@ -686,7 +535,7 @@ router.put('/update/referral/:id', function (req, res) {
     if (req.isAuthenticated()) {
         var id = req.params.id;
         console.log(req.body);
-        
+
         var referral = {
             referral_location_name: req.body.referral_location_name,
             is_first_attempt_date: req.body.is_first_attempt_date,
@@ -759,6 +608,7 @@ router.put('/update/release/:id', function (req, res) {
                 });
             }
         });
+
     } else {
         console.log('not logged in');
         res.send(false);
