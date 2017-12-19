@@ -3,6 +3,7 @@
 
     <!-- edit already made form -->
     <form>
+        {{mc.formService.selectedForm.form[0]}}
         <form ng-cloak ng-show="mc.formService.isEditing.editing">
             <h1>Medical Advocacy Information Form</h1>
             <md-input-container>
@@ -49,7 +50,7 @@
                 <!-- fix this to take time too -->
                 <md-input-container>
                     <label for="time">Time</label>
-                    <input type="time" md-model="mc.formService.selectedForm.form[0].reporting_time">
+                    <input type="time" md-model="mc.formService.selectedForm.form[0].ma_form_time">
                 </md-input-container>
             </div>
 

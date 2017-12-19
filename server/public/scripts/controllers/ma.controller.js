@@ -49,10 +49,13 @@ myApp.controller('MaController', function (FormService, $http, $mdDialog) {
     }
 });
 
+var convertTime = function (timeIn) {
+    var convertedTime = moment(timeIn).format("H HH");
+    console.log(convertedTime);
+}
 
 //function to translate the victimization selection into a SQL friendly object
 var objectBuilder = function(objectIn){
-    console.log(objectIn.reporting_time);
     switch (objectIn.victimization) {
         case 'Adult Sexual Assault':
             objectIn.victimization = {was_adult_sexual_assault: true};

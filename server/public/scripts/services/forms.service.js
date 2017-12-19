@@ -30,17 +30,6 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     //     })
     // }
 
-
-
-    // Get route for Advocates (saved to case)
-    self.getCases = function () {
-        $http.get('/case/form').then(function (response) {
-            self.caseObject.cases = response.data;
-        }).catch(function (error) {
-            console.log('failure on GET Case Route');
-        });
-    }
-
     //holds formId of the form that was clicked
     self.currentFormId = { currentId: 0 };
     self.caseObject = { cases: [] };
@@ -214,6 +203,7 @@ var objectAccept = function (objectIn) {
 }
 
 var convertTime = function(timeIn){
+    ma_form_time
     var convertedTime = moment(timeIn).format("H HH");
     console.log(convertedTime);
 }
