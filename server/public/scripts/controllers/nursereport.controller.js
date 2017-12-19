@@ -27,7 +27,8 @@ myApp.controller('NurseReportController', function (ReportService, $http) {
     // GET Nurse Reports Table to display
     vm.viewNurseReport = function () {
         $http.get('report/nurse').then (function (response) {
-            vm.nurseReportList = response.data;
+            console.log('success');
+            vm.nurseReportList.data = response.data;
             console.log('nurse report List', vm.nurseReportList); 
         }). catch (function (error) {
             console.log('failure', error);   
@@ -37,7 +38,7 @@ myApp.controller('NurseReportController', function (ReportService, $http) {
     // DELETE Nurse Report
     vm.deleteNurseReport = function (nurseReportId) {
         console.log('deleted', nurseReportId);
-        $http.delete('/report/del' + nurseReportId).then(function (response) {
+        $http.delete('/report/del/' + nurseReportId).then(function (response) {
             console.log('success');
             vm.viewNurseReport();
         }).catch(function (error) {
@@ -45,4 +46,5 @@ myApp.controller('NurseReportController', function (ReportService, $http) {
         });   
     }
 
+    vm.viewNurseReport();
 })

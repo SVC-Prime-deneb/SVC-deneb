@@ -5,6 +5,6 @@ myApp.service('ReportService', function ($http, $location) {
     self.dataList = {data: []};
     self.selectedData = {data: {}};
 
-    self.categoryList = [];
-    self.selectedCategory = {};
+    self.nurseReportList = {data: []};
+    self.selectedNurseReport = {data: {}};
 })
