@@ -615,37 +615,6 @@ router.put('/update/release/:id', function (req, res) {
     }
 });
 
-router.query('/form/search', function (req, res) { //search for a case, return the form table data
-    // check if logged in
-    if (req.isAuthenticated()) {
-        pool.connect(function (errorConnectingToDb, db, done) {
-            if (errorConnectingToDb) {
-                console.log('Error connecting', errorConnectingToDb);
-                res.sendStatus(500);
-            } else {
-                var queryText = 'SELECT f.* ' +
-                                'FROM "public"."green_form_data" g ' +
-                                    'INNER JOIN "public"."form" f ON f."green_form_id" = g."green_form_id" ' +
-                                'WHERE g."date" BETWEEN $1 AND $2 ' +
-                                    'AND g."nurse" ILIKE "%$3%" ;' ;
-                db.query(queryText, function (errorMakingQuery, result) {
-                    done();
-                    if (errorMakingQuery) {
-                        console.log('Error making query', errorMakingQuery);
-                        res.sendStatus(500);
-                    } else {
-                        res.send(result.rows);
-                    }
-                }); // END QUERY
-            }
-        });
-    } else {
-        // failure best handled on the server. do redirect here.
-        console.log('not logged in');
-        res.send(false);
-    }
-});
-
 
 // router.put('/update/:id', function (req, res) {
 //     console.log('update admin');
