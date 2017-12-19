@@ -184,7 +184,7 @@ router.get('/release/:id', function (req, res) {
 //                      POST
 router.post('/new/green', function (req, res) {
     console.log('post green');
-    // if (req.isAuthenticated()) {
+    if (req.isAuthenticated()) {
     var green = {
         date: req.body.date,
         start_time: req.body.start_time,
@@ -219,10 +219,32 @@ router.post('/new/green', function (req, res) {
                 })
         }
     });
-    // } else {
-    //     console.log('not logged in');
-    //     res.send(false);
-    // }
+    
+        pool.connect(function (errorConnectingToDB, db, done) {
+            if (errorConnectingToDB) {
+                console.log('Error connecting to db', errorConnectingToDB);
+                res.sendStatus(500);
+            } else {
+                var queryText = 'UPDATE "monthly_location" SET $1 , is_first_attempt_date=$2,' +
+                    ' WHERE "referral_form_id" = $7 ;';
+                db.query(queryText, [id],
+                    function (errorMakingQuery, result) {
+                        done();
+                        if (errorMakingQuery) {
+                            console.log('Error making query', errorMakingQuery, result)
+                            res.sendStatus(500);
+                        } else {
+                            console.log(result.rows);
+                            res.send(result.rows);
+                        }
+                    });
+            }
+        });
+
+    } else {
+        console.log('not logged in');
+        res.send(false);
+    }
 });
 
 router.post('/new/table/:id', function (req, res) {
@@ -580,7 +602,8 @@ router.put('/update/ma/:id', function (req, res) {
             followup_complete_date: req.body.followup_complete_date,
             followup_complete_agency: req.body.followup_complete_agency,
             date_form_complete_mapc: req.body.date_form_complete_mapc,
-            expiration_date: req.body.expiration_date
+            expiration_date: req.body.expiration_date,
+            reporting_time: req.body.reporting_time
 
         }
         console.log('here');
@@ -590,15 +613,15 @@ router.put('/update/ma/:id', function (req, res) {
                 console.log('Error connecting to db', errorConnectingToDB);
                 res.sendStatus(500);
             } else {
-                var queryText = 'UPDATE "ma_form_data" SET  "advocate_name"= $1, "advocate_name_additional" =$2, location_name=$3 , ' +
-                    ' was_adult_sexual_assault=$4, was_sexual_exploitation=$5, was_minor_family=$6, ' +
+                var queryText = 'UPDATE "ma_form_data" SET  "advocate_name"= $1, "advocate_name_additional" =$2, location_name=$3, ' +
+                    'was_adult_sexual_assault=$4, was_sexual_exploitation=$5, was_minor_family=$6, ' +
                     'was_minor_other=$7, was_other=$8, additional_notes=$9, was_mandatory_report=$10,' +
                     'reporting_advocate_name=$11,reporting_date=$12,location_evidentiary=$13,location_evidentiary_name=$14,location_evidentiary_nurse=$15,' +
                     'immediate_referral=$16, immediate_referral_notes=$17, shelter_referral=$18, ' +
                     'shelter_referral_name=$19,taxi_provided=$20,taxi_cost=$21,release_completed=$22,release_completed_date=$23,' +
                     'release_completed_reason=$24,mapc_followup=$25, debrief_complete=$26, debrief_complete_date=$27,' +
                     'debrief_complete_staff=$28,followup_complete=$29,followup_complete_date=$30,followup_complete_agency=$31,' +
-                    'date_form_complete_mapc=$32,expiration_date=$33 WHERE"ma_id"=$34;';
+                    'date_form_complete_mapc=$32,expiration_date=$33, reprting_time=$34  WHERE"ma_id"=$35;';
                 db.query(queryText, [ma.advocate_name, ma.advocate_name_additional, ma.location_name,
                 ma.was_adult_sexual_assault, ma.was_sexual_exploitation, ma.was_minor_family,
                 ma.was_minor_other, ma.was_other, ma.additional_notes, ma.was_mandatory_report,
@@ -609,7 +632,7 @@ router.put('/update/ma/:id', function (req, res) {
                 ma.release_completed_reason, ma.mapc_followup, ma.debrief_complete,
                 ma.debrief_complete_date, ma.debrief_complete_staff, ma.followup_complete,
                 ma.followup_complete_date, ma.followup_complete_agency,
-                ma.date_form_complete_mapc, ma.expiration_date, id],
+                ma.date_form_complete_mapc, ma.expiration_date, ma.reporting_time, id],
                     function (errorMakingQuery, result) {
                         done();
                         if (errorMakingQuery) {
@@ -756,6 +779,7 @@ router.put('/update/release/:id', function (req, res) {
                 });
             }
         });
+        
     } else {
         console.log('not logged in');
         res.send(false);
