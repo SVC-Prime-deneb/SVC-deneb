@@ -49,9 +49,13 @@ router.get('/taxi', function (req, res) {
                 console.log('Error connecting', errorConnectingToDb);
                 res.sendStatus(500);
             } else {
-                var queryText = 'SELECT * ' +
+                var queryText = 'SELECT COUNT(m.*), l."location_name" ' +
                 'FROM "public"."ma_form_data" m ' +
-                'WHERE m."taxi_provided" = TRUE;';
+                    'INNER JOIN "public"."form" f ON f."ma_form_id" = m."ma_id" ' +
+                    'INNER JOIN "public"."green_form_data" g ON g."green_form_id" = f."green_form_id" ' +
+                    'INNER JOIN "public"."location" l ON l."location_id" = g."location_id" ' +
+                'WHERE m."taxi_provided" = TRUE ' +
+                'GROUP BY l."location_name";';
                 db.query(queryText, function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
@@ -80,6 +84,37 @@ router.get('/hos', function (req, res) {
                 res.sendStatus(500);
             } else {
                 var queryText = 'SELECT * FROM "location" ORDER BY "location_id" ;';
+                db.query(queryText, function (errorMakingQuery, result) {
+                    done();
+                    if (errorMakingQuery) {
+                        console.log('Error making query', errorMakingQuery);
+                        res.sendStatus(500);
+                    } else {
+
+                        res.send(result.rows);
+                    }
+                }); // END QUERY
+            }
+        });
+    } else {
+        // failure best handled on the server. do redirect here.
+        console.log('not logged in');
+        res.send(false);
+    }
+});
+
+router.get('/locmonthly', function (req, res) {
+    // check if logged in
+    if (req.isAuthenticated()) {
+        pool.connect(function (errorConnectingToDb, db, done) {
+            if (errorConnectingToDb) {
+                console.log('Error connecting', errorConnectingToDb);
+                res.sendStatus(500);
+            } else {
+                var queryText = 'SELECT l."location_name",ml.* ' +
+                                'FROM "public"."location" l ' +
+                                    'INNER JOIN "public"."monthly_location" ml ON ml."location_id" = l."location_id" ' +
+                                'WHERE ml."year" = date_part('/'year'/', current_date);';
                 db.query(queryText, function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
