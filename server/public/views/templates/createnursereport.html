@@ -1,7 +1,33 @@
 <!-- CreateNurseReportController as cnrc -->
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-    <h1>CREATE NEW NURSE REPORT</h1>
-    
+    <!-- <h1>CREATE NEW NURSE REPORT</h1> -->
+    <md-content class="nurseForm">
+        <md-card>
+            <div layout-margin>
+                <form id="nurseForm" name="nurseForm" layout="column">
+                    <h1>NEW NURSE REPORT</h1>
+                    <md-datepicker ng-model="cnrc.newNurseReport.nursing_form_date" required md-placeholder="Date"></md-datepicker>
+                    <md-input-container>
+                        <label>Time</label>
+                        <input type="time" ng-model="cnrc.newNurseReport.nurse_form_time">
+                    </md-input-container>
+                    
+                    <md-input-container>
+                        <label>Nurse Report Hospital</label>
+                        <input type="text" ng-model="cnrc.nurseReportHospital">
+                    </md-input-container>
+
+                    <md-checkbox ng-model="cnrc.newNurseReport.nurse_was_adv_dispatched" class="md-primary" aria-label="Was an Advocate Dispatched">Was an Advocate Dispatched ?</md-checkbox>
+
+                    <div>
+                        <!-- goes to case management page -->
+                        <md-button class="md-raised md-warn" href="#/nursereport">Cancel</md-button>
+                        <md-button type="submit" class="md-raised md-primary" href="#/nursereport" ng-click="cnrc.submitNurseReport(cnrc.newNurseReport)">Create</md-button>
+                    </div>
+                </form>
+            </div>
+        </md-card>
+    </md-content>
     </div>
 </div>

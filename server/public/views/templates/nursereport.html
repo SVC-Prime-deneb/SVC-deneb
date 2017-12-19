@@ -40,28 +40,21 @@
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row ng-repeat="report in nrc.advocateList.data | orderBy: avc.sortColumn:avc.reverseSort | filter:searchText">
+                    <tr md-row ng-repeat="report in nrc.nurseReportList.data | orderBy: nrc.sortColumn:nrc.reverseSort | filter:searchText">
                         <div>
                             <!-- <td ng-hide="avc.selectedIndex === $index" md-cell>{{$index}}</td> {{avc.selectedIndex}}-{{avc.selectedIndex==$index}} -->
-                            <td md-cell>{{advocate.advocate_first_name}}</td>
-                            <td md-cell>{{advocate.advocate_last_name}}</td>
-                            <td md-cell>{{advocate.advocacy_start | date: "MM/dd/yyyy"}}</td>
-                            <td md-cell>
-                                <span ng-repeat="language in advocate.languageList">{{language}} </span>
-                            </td>
-                            <td md-cell>{{advocate.is_hcmc_approved}}</td>
-                            <td md-cell>{{advocate.allow_text}}</td>
-                            <td md-cell>{{advocate.main_contact_phone}}</td>
+                            <td md-cell>{{report.nursing_form_date | "MM/dd/yyyy"}}</td>
+                            <td md-cell>{{report.nurse_form_time}}</td>
+                            
+                            
+                            <td md-cell>{{report.nurse_form_location_name}}</td>
+                            <td md-cell>{{report.nurse_was_adv_dispatched}}</td>
                             <td>
-                                <md-button class="sm-raised sm-secondary" ng-click="avc.deleteAdvocate(advocate.advocate_id)">
+                                <md-button class="sm-raised sm-secondary" ng-click="nrc.deleteNurseReport(report.nurse_form_id)">
                                     <md-icon md-svg-icon="pictures/trash.svg"></md-icon>
                                 </md-button>
                             </td>
-                            <td>
-                                <md-button class="sm-raised sm-secondary" ng-click="avc.editAdvocate(advocate)" href="#/editadvocate">
-                                    <md-icon md-svg-icon="pictures/edit.svg"></md-icon>
-                                </md-button>
-                            </td>
+    
                         </div>
                     </tr>
                 </tbody>
