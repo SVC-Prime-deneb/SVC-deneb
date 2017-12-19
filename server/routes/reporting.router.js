@@ -163,5 +163,78 @@ router.get('/nurse', function (req, res) {
     }
 });
 
+//                     POST
+
+router.post('/new/nursereport', function (req, res) {
+    console.log('post nurse');
+    if (req.isAuthenticated()) {
+        var nurse = {
+            nursing_form_date: req.body.nursing_form_date,
+            nurse_was_adv_dispatched: req.body.nurse_was_adv_dispatched,
+            nurse_form_location_name: req.body.nurse_form_location_name,
+            nurse_form_time: req.body.nurse_form_time
+        }
+        pool.connect(function (errorConnectingToDB, db, done) {
+            if (errorConnectingToDB) {
+                console.log('Error connecting to db', errorConnectingToDB);
+                res.sendStatus(500);
+            } else {
+                var queryText = 'INSERT INTO "nurse_form_data" ("nursing_form_date", ' +
+                    '"nurse_was_adv_dispatched","nurse_form_location_name",nurse_form_time) ' +
+                    ' VALUES($1,$2,$3,$4,$5,$6);'
+                db.query(queryText, [nurse.nursing_form_date, nurse.nurse_was_adv_dispatched, nurse.location_id,
+                    nurse.nurse, nurse.nurse_form_location_name, nurse.nurse_form_time],
+                    function (errorMakingQuery, result) {
+                        done();
+                        if (errorMakingQuery) {
+                            console.log('Error making query', errorMakingQuery, result)
+                            res.sendStatus(500);
+                        } else {
+                            res.send(result.rows);
+                        }
+                    })
+            }
+        });
+    } else {
+        console.log('not logged in');
+        res.send(false);
+    }
+});
+
+//                      DELETE
+
+router.delete('/del/:id', function (req, res) {
+    console.log('del admin');
+    // check if logged in
+    if (req.isAuthenticated()) {
+        var id = req.params.id;
+
+        pool.connect(function (errorConnectingToDB, db, done) {
+            if (errorConnectingToDB) {
+                console.log('Error connecting to db', errorConnectingToDB);
+                res.sendStatus(500);
+            } else {
+                var queryText = 'DELETE FROM "advocates" WHERE nurse_form_id = $1 ;';
+                db.query(queryText, [id], function (errorMakingQuery, result) {
+                    done();
+                    if (errorMakingQuery) {
+                        console.log('Error making query', errorMakingQuery, result);
+                        res.sendStatus(500);
+                    } else {
+                        console.log(result.rows);
+                        res.send(result.rows);
+                    }
+                });
+            }
+        });
+    } else {
+        console.log('not logged in');
+        res.send(false);
+    }
+});
+
+
+
+
 
 module.exports = router;
