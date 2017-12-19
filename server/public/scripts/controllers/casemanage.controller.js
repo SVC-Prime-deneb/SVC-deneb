@@ -1,22 +1,17 @@
+// controller for casemanage.html
 myApp.controller('CaseController', function (FormService, $http, $mdDialog) {
     console.log('Caseontroller created');
     var vm = this;
     vm.formService = FormService;
-
-    //function to set formId
-    // vm.saveFormId = function (id) {
-    //     FormService.saveFormId(id);
-    // }
 
     //function to show MA form popup
     vm.showMa = function (ev, id) {
         FormService.showMa(ev, id);
     }
 
-
     //function to show LA form popup
     vm.showLa = function (ev, id) {
-        FormService.showLa(ev,id);
+        FormService.showLa(ev, id);
     }
 
     //function to show Refer form popup
@@ -32,10 +27,12 @@ myApp.controller('CaseController', function (FormService, $http, $mdDialog) {
     vm.getCases = function () {
         FormService.getCases();
     }
-
+    //route to get all cases
     vm.getCases();
 
-    vm.checkClicked = function(id, value, name){
+    //checkbox clicked function, sets each clicked form as complete or incomplete according to the checkbox status 
+    //put route
+    vm.checkClicked = function (id, value, name) {
         FormService.checkClicked(id, value, name);
 
     }
