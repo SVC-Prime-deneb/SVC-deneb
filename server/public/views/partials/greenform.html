@@ -1,0 +1,17 @@
+<md-dialog class="dialog">
+    <div>
+        <h1>Green Form</h1>
+        <p>Date:</p>
+        <p>{{gc.formService.selectedForm.form[0].date | date}}</p>
+        <p>Time:</p>
+        <p>{{gc.formService.selectedForm.form[0].start_time}}</p>
+        <p>Nurse:</p>
+        <p>{{gc.formService.selectedForm.form[0].nurse}}</p>
+        <p>Was Advocate Dispatched:</p>
+        <md-checkbox ng-model="gc.formService.selectedForm.form[0].was_advocate_dispatched"></md-checkbox>
+        <p>Notes:</p>
+        <p>{{gc.formService.selectedForm.form[0].green_form_notes}}</p>
+        <md-button ng-click="gc.closeForm()" class="md-raised">Cancel</md-button>
+
+    </div>
+</md-dialog>

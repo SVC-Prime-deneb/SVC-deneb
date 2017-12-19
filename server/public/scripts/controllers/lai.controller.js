@@ -6,6 +6,7 @@ myApp.controller('LaiController', function (FormService, $http, $mdDialog) {
     vm.contact = ['Police Report', 'Court', 'Restraining Order', 'Other'];
     //gets current form id from FormService
     vm.currentFormId = FormService.currentFormId;
+    vm.isEditing = FormService.isEditing;
 
     vm.sendLai = function(objectToSend){
         FormService.sendFormUpdate(objectToSend, 'la').then(function () {
@@ -28,4 +29,7 @@ myApp.controller('LaiController', function (FormService, $http, $mdDialog) {
         $mdDialog.hide();
     }
 
+    vm.editMode = function () {
+        vm.isEditing.editing = true;
+    }
 });

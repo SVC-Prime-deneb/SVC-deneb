@@ -5,6 +5,7 @@ myApp.controller('ReleaseInfoController', function (FormService, $http, $mdDialo
     vm.formObject = FormService.formObject;
 
     vm.currentFormId = FormService.currentFormId;
+    vm.isEditing = FormService.isEditing;
 
     vm.sendRelease = function (objectToSend) {
         FormService.sendFormUpdate(objectToSend, 'release').then(function () {
@@ -26,5 +27,7 @@ myApp.controller('ReleaseInfoController', function (FormService, $http, $mdDialo
     vm.closeForm = function () {
         $mdDialog.hide();
     }
-
+    vm.editMode = function(){
+        vm.isEditing.editing = true;
+    }
 });

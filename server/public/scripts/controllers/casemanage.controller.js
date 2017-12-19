@@ -5,29 +5,35 @@ myApp.controller('CaseController', function (FormService, $http, $mdDialog) {
     vm.formService = FormService;
 
     //function to show MA form popup
-    vm.showMa = function (ev, id, type) {
-        FormService.showMa(ev, id, type);
+    vm.showMa = function (ev, id) {
+        FormService.showMa(ev, id);
     }
 
     //function to show LA form popup
-    vm.showLa = function (ev, id, type) {
-        FormService.showLa(ev, id, type);
+    vm.showLa = function (ev, id) {
+        FormService.showLa(ev, id);
     }
 
     //function to show Refer form popup
-    vm.showRefer = function (ev, id, type) {
-        FormService.showRefer(ev, id, type);
+    vm.showRefer = function (ev, id) {
+        FormService.showRefer(ev, id);
     }
 
     //function to show Release form popup
-    vm.showRelease = function (ev, id, type) {
-        FormService.showRelease(ev, id, type);
+    vm.showRelease = function (ev, id) {
+        FormService.showRelease(ev, id);
+    }
+
+    //function to show green release form popup
+    vm.showGreen = function (ev, id) {
+        FormService.showGreen(ev, id);
     }
 
     //get route to populate cases
     vm.getCases = function () {
         FormService.getCases();
     }
+
     //route to get all cases
     vm.getCases();
 

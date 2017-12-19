@@ -8,6 +8,7 @@ myApp.controller('MaController', function (FormService, $http, $mdDialog) {
     vm.currentFormId = FormService.currentFormId;
     //holds selected form from get route
     vm.selectedForm = FormService.selectedForm;
+    vm.isEditing = FormService.isEditing;
     
     //arrays for drop downs
     vm.victimization = ['Adult Sexual Assault', 'Sexual Exploitation', 'Minor-CSA', 'Family/Minor-CSA', 'Other' ];
@@ -18,7 +19,8 @@ myApp.controller('MaController', function (FormService, $http, $mdDialog) {
     //submit a new Medical Advocate form or update 
     //checks form off automatically
     vm.submitNewMa= function(objectToSend) {
-        objectToSend = objectBuilder(objectToSend)
+        console.log(objectToSend);
+        objectToSend = objectBuilder(objectToSend);
         FormService.sendFormUpdate(objectToSend, 'ma').then(function () {
             FormService.checkConfirm('is_ma_complete');
         }).then(function(){
@@ -41,11 +43,16 @@ myApp.controller('MaController', function (FormService, $http, $mdDialog) {
     vm.closeForm = function () {
         $mdDialog.hide();
     }
+
+    vm.editMode = function () {
+        vm.isEditing.editing = true;
+    }
 });
 
 
 //function to translate the victimization selection into a SQL friendly object
 var objectBuilder = function(objectIn){
+    console.log(objectIn.reporting_time);
     switch (objectIn.victimization) {
         case 'Adult Sexual Assault':
             objectIn.victimization = {was_adult_sexual_assault: true};

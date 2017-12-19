@@ -9,6 +9,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     // Hold advocateId of the row that was clicked
     self.currentAdvocateId = { currentId: 0 };
 
+    //holds info about editing or not for dialog displays
+    self.isEditing = {editing: false};
+
     // // Function to set current advocateId
     // self.saveAdvocateId = function(id) {
     //     self.currentAdvocateId.currentId = id;
@@ -26,8 +29,6 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     //         clickOutsideToClose: true,
     //     })
     // }
-
-
 
 
 
@@ -49,10 +50,24 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     self.saveFormId = function (id) {
         self.currentFormId.currentId = id;
     }
+   
+    //function to show green release form popup
+    self.showGreen = function (ev, id, type) {
+        self.saveFormId(id);
+        self.isEditing.editing = false;
+        $mdDialog.show({
+            templateUrl: '../views/partials/greenform.html',
+            controller: 'GreenFormController as gc',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+        });
+    }
 
     //show medical advocate dialog function
-    self.showMa = function (ev, id) {
+    self.showMa = function (ev, id, type) {
         self.saveFormId(id);
+        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/maform.html',
             controller: 'MaController as mc',
@@ -63,8 +78,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     }
 
     //show legal advocate dialog function
-    self.showLa = function (ev, id) {
+    self.showLa = function (ev, id, type) {
         self.saveFormId(id);
+        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/laiform.html',
             controller: 'LaiController as lc',
@@ -75,8 +91,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     }
 
     //show referral form dialog function
-    self.showRefer = function (ev, id) {
+    self.showRefer = function (ev, id, type) {
         self.saveFormId(id);
+        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/releaseform.html',
             controller: 'ReleaseController as rc',
@@ -86,8 +103,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         })
     }
     //show release form dialog function
-    self.showRelease = function (ev, id) {
+    self.showRelease = function (ev, id, type) {
         self.saveFormId(id);
+        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/releaseinfoform.html',
             controller: 'ReleaseInfoController as ric',
@@ -169,7 +187,10 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         })
     }
 
+
 });
+
+
 
 //function to translate victimization object sent into a form friendly form to display and edit
 var objectAccept = function (objectIn) {
@@ -191,3 +212,10 @@ var objectAccept = function (objectIn) {
     console.log(objectIn);
     return objectIn = [objectIn];
 }
+
+var convertTime = function(timeIn){
+    var convertedTime = moment(timeIn).format("H HH");
+    console.log(convertedTime);
+}
+
+
