@@ -6,7 +6,6 @@
             <div layout-margin>
                 <form id="greenForm" name="GreenForm" layout="column">
                     <h1>New Green Sheet</h1>
-
                     <md-input-container>
                         <label>Hospital</label>
                         <md-select ng-model="gc.newGreen.location">
@@ -15,14 +14,12 @@
                             </md-option>
                         </md-select>
                     </md-input-container>
-
                         <md-datepicker ng-model="gc.newGreen.date" required md-placeholder="Date"></md-datepicker>
                         <md-input-container>
                             <label>Time</label>
                             <input flex="40" type="time" ng-model="gc.newGreen.start_time">
                             {{gc.newGreen.start_time}}
                         </md-input-container>
-            
                         <md-input-container>
                             <label>Crisis Line Advocate</label>
                             <input ng-model="gc.newGreen.advocate_name_dispatched" type="text">
