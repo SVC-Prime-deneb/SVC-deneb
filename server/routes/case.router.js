@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var pool = require('../modules/pool.js');
-
+var moment = require('moment');
 
 
 //                    GET ROUTES
@@ -192,28 +192,32 @@ router.post('/new/green', function (req, res) {
                     })
             }
         });
+//         console.log(green.date);
+//         var year = green.date.slice(0,3)
+//         var month = green.date.slice(5,7)
+//     console.log('month',month);
+//     console.log('year', year);
+    
+//         pool.connect(function (errorConnectingToDB, db, done) {
+//             if (errorConnectingToDB) {
+//                 res.sendStatus(500);
+//             } else {
+//                 var queryText = 'UPDATE "monthly_location" SET ' + '"' + month + '"' + '+ 1  WHERE year = ' + '"' + year + '"' + ' AND location_id = $1;'
+//                 db.query(queryText, [green.location_id],
+//                     function (errorMakingQuery, result) {
+//                         done();
+//                         if (errorMakingQuery) {
+//                             res.sendStatus(500);
+//                         } else {
+//                             res.send(result.rows);
+//                         }
+//                     });
+//             }
+//         });
 
-        pool.connect(function (errorConnectingToDB, db, done) {
-            if (errorConnectingToDB) {
-                res.sendStatus(500);
-            } else {
-                var queryText = 'UPDATE "monthly_location" SET $1 , is_first_attempt_date=$2,' +
-                    ' WHERE "referral_form_id" = $7 ;';
-                db.query(queryText, [id],
-                    function (errorMakingQuery, result) {
-                        done();
-                        if (errorMakingQuery) {
-                            res.sendStatus(500);
-                        } else {
-                            res.send(result.rows);
-                        }
-                    });
-            }
-        });
-
-    } else {
-        res.send(false);
-    }
+//     } else {
+//         res.send(false);
+    }  
 });
 
 router.post('/new/table/:id', function (req, res) {
