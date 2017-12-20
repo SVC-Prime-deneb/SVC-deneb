@@ -39,7 +39,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     self.saveFormId = function (id) {
         self.currentFormId.currentId = id;
     }
-   
+
     //function to show green release form popup
     self.showGreen = function (ev, id, type) {
         self.saveFormId(id);
