@@ -1,8 +1,7 @@
 <!-- ReleaseInfoController as ric -->
 <md-dialog class="dialog" aria-label="Release Info Form">
-    <form ng-cloak>
+    <form ng-cloak ng-show="ric.formService.isEditing.editing">
         <h1>Release of Information Form</h1>
-
         <md-input-container>
             <label>Purpose of Release</label>
             <input type="text" ng-model="ric.formService.selectedForm.form[0].purpose">
@@ -27,4 +26,23 @@
         <md-button type="submit" class="md-primary md-raised" ng-click="ric.sendRelease(ric.formService.selectedForm.form[0])" class="md-raised">Submit</md-button>
         <md-button ng-click="ric.closeForm()" class="md-raised">Cancel</md-button>
     </form>
+    <div ng-hide="ric.formService.isEditing.editing">
+                <h1>Release of Information Form</h1>
+
+                <p>Purpose of Release</p>
+                <p>{{ric.formService.selectedForm.form[0].purpose}}</p>
+                
+                <p>Was The Contact Made?</p>
+                <md-checkbox ng-model="ric.formService.selectedForm.form[0].was_contact_made"></md-checkbox>
+                <div ng-show="ric.formService.selectedForm.form[0].was_contact_made">
+                <p>Contact Date:</p>
+                <p>{{ric.formService.selectedForm.form[0].contact_date}}</p>
+                </div>
+                <p>Who Contacted Them?</p>
+                <p>{{ric.formService.selectedForm.form[0].contacted_by}}</p>
+                <md-button type="submit" class="md-primary md-raised" ng-click="ric.editMode()" class="md-raised">Edit Form</md-button>
+                <md-button ng-click="ric.closeForm()" class="md-raised">Cancel</md-button>
+    </div>
+
+
 </md-dialog>

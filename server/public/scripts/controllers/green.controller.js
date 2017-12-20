@@ -1,4 +1,4 @@
-myApp.controller('GreenController', function (FormService, $location, $http) {
+myApp.controller('GreenController', function (FormService, $location, $http, $log, $q) {
     console.log('GreenController created');
     var vm = this;
     vm.formService = FormService;
@@ -8,17 +8,16 @@ myApp.controller('GreenController', function (FormService, $location, $http) {
     vm.newGreen = {
         was_advocate_dispatched: false
     };
+    vm.advocateId;
+
+    vm.advocateArray;
     
     vm.submitGreen = function(objectTosend){
         console.log(objectTosend);
-        console.log();
+        objectTosend.advocate_id = vm.advocateId;
         
         $http.post('/case/new/green', objectTosend).then(function (response) {            
-            console.log(response.data[0].green_form_id);
-
             vm.formId = response.data[0].green_form_id;
-            
-            
         }).catch(function (err) {
        }).then(function(){
         }).then(function(){
@@ -38,6 +37,26 @@ myApp.controller('GreenController', function (FormService, $location, $http) {
         })
     }
 
+    vm.getAdvocates = function(){
+        $http.get('/advocate/get').then(function(response){
+            vm.advocateArray = response.data;
+            console.log(vm.advocateArray);
+            
+        }).catch(function(err){
+            console.log('error in advocate get', err); 
+        })
+    }
+
+    vm.getAdvocates();
+
+    vm.searchTextChange = function(text) {
+        $log.info('Text changed to ' + text);
+    }
+
+    vm.selectedItemChange = function(item) {
+        console.log(item.advocate_id);
+        vm.advocateId = item.advocate_id;
+        $log.info('Item changed to ' + JSON.stringify(item));
+    }
 
 });
-

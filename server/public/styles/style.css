@@ -342,7 +342,7 @@ h1 {
 }
 
 .dialog {
-  width: 40%;
+  width: 60%;
   padding: 6px;
 }
 
@@ -353,6 +353,8 @@ h1 {
 #svcBanner {
   height: 80px;
 }
+
+
 
 
 
