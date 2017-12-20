@@ -6,10 +6,15 @@ myApp.controller('ReleaseController', function (FormService, $http, $mdDialog) {
     vm.formObject = FormService.formObject;
 
     vm.currentFormId = FormService.currentFormId;
+    vm.isEditing = FormService.isEditing;
 
     vm.sendRelease = function (objectToSend) {
         FormService.sendFormUpdate(objectToSend, 'referral').then(function () {
+            FormService.checkConfirm('is_referral_complete');
+        }).then(function () {
             vm.closeForm();
+        }).catch(function (error) {
+            console.log('new referral form not sent');
         });
     }
 
@@ -21,5 +26,9 @@ myApp.controller('ReleaseController', function (FormService, $http, $mdDialog) {
 
     vm.closeForm = function () {
         $mdDialog.hide();
+    }
+
+    vm.editMode = function () {
+        vm.isEditing.editing = true;
     }
 });
