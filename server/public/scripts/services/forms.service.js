@@ -203,9 +203,7 @@ var objectAccept = function (objectIn) {
 }
 
 var convertTime = function(timeIn){
-    ma_form_time
-    var convertedTime = moment(timeIn).format("H HH");
+    var convertedTime = moment('1970-01-01T18:00:00.000Z', 'HH:mm');
     console.log(convertedTime);
 }
-
 
