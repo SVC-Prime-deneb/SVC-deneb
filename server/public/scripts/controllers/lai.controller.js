@@ -6,16 +6,18 @@ myApp.controller('LaiController', function (FormService, $http, $mdDialog) {
     vm.contact = ['Police Report', 'Court', 'Restraining Order', 'Other'];
     //gets current form id from FormService
     vm.currentFormId = FormService.currentFormId;
+    vm.isEditing = FormService.isEditing;
 
-    vm.sendLai = function (objectToSend) {
-        console.log(objectToSend);
-        $http.put('/case/update/la/' + vm.currentFormId.currentId, objectToSend).then(function (response) {
-            console.log('new La form sent');
-            $mdDialog.hide();
+    vm.sendLai = function(objectToSend){
+        FormService.sendFormUpdate(objectToSend, 'la').then(function () {
+            FormService.checkConfirm('is_la_complete');
+        }).then(function () {
+            vm.closeForm();
         }).catch(function (error) {
-            console.log('new LA form not sent');
-        })
+            console.log('new La form not sent');
+        });
     }
+
 
     vm.getForm = function () {
         FormService.getForm('la');
@@ -27,4 +29,7 @@ myApp.controller('LaiController', function (FormService, $http, $mdDialog) {
         $mdDialog.hide();
     }
 
+    vm.editMode = function () {
+        vm.isEditing.editing = true;
+    }
 });

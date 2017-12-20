@@ -1,5 +1,65 @@
-<!-- Report Controller as rc -->
+<!-- 'NurseReportController as nrc' -->
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-    <h1>Report Controller! - View Nurse Reports</h1>
+    <!-- <h1>VIEW NURSE REPORTS</h1> -->
+    <div class="nurseReportContainer">
+        <h1 id="nurseTitle" class="md-title">VIEW NURSE REPORTS</h1>
+        <br>
+    </div>
+    <!-- <div flex layout="row" layout-align="center center"> -->
+    <div class="searchBar">
+        <md-icon md-svg-icon="pictures/search.svg"></md-icon>
+        <input type="text" placeholder="Search..." ng-model="searchText" />
+    
+        <md-button class="md-raised md-primary" href="#/createnursereport">
+            <md-icon md-svg-icon="pictures/add.svg"></md-icon>
+            Create Nurse Report
+        </md-button>
+    </div>
+    <br>
+    <br>
+    <div>
+        <md-table-container>
+            <table md-table class="nurseReportTbl">
+                <thead md-head>
+                    <tr md-row>
+                        <th ng-click="nrc.sortData('nursing_form_date')">DATE
+                            <!-- <div ng-class="nrc.getSortClass('nursing_form_date'')"></div> -->
+                        </th>
+                        <th ng-click="nrc.sortData('nurse_form_time')">TIME
+                            <!-- <div ng-class="nrc.getSortClass('nurse_form_time')"></div> -->
+                        </th>
+                        <th ng-click="nrc.sortData('nurse_form_location_name')">NURSE REPORT
+                            <!-- <div ng-class="nrc.getSortClass('nurse_form_location_name')"></div> -->
+                        </th>
+                        <th ng-click="nrc.sortData('nurse_was_adv_dispatched')">ADVOCATE DISPATCHED ?
+                            <!-- <div ng-class="nrc.getSortClass('nurse_was_adv_dispatched')"></div> -->
+                        </th>
+                        <th>DELETE</th>
+                       
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row ng-repeat="report in nrc.nurseReportList.data | orderBy: nrc.sortColumn:nrc.reverseSort | filter:searchText">
+                        <div>
+                            <!-- <td ng-hide="avc.selectedIndex === $index" md-cell>{{$index}}</td> {{avc.selectedIndex}}-{{avc.selectedIndex==$index}} -->
+                            <td md-cell>{{report.nursing_form_date | date}}</td>
+                            <td md-cell>{{report.nurse_form_time | date:'shortTime'}}</td>
+                            
+                            
+                            <td md-cell>{{report.nurse_form_location_name}}</td>
+                            <td md-cell>{{report.nurse_was_adv_dispatched}}</td>
+                            <td>
+                                <md-button class="sm-raised sm-secondary" ng-click="nrc.deleteNurseReport(report.nurse_form_id)">
+                                    <md-icon md-svg-icon="pictures/trash.svg"></md-icon>
+                                </md-button>
+                            </td>
+    
+                        </div>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        <br>
+    </div>
 </div>

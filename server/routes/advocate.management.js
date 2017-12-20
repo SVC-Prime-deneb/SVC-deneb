@@ -4,8 +4,6 @@ var pool = require('../modules/pool.js');
 var encryptLib = require('../modules/encryption');
 var path = require('path');
 
-
-
 router.get('/get', function (req, res) {
   console.log('get dem advos');
   // check if logged in
