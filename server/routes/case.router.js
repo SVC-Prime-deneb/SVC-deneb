@@ -180,15 +180,15 @@ router.post('/new/green', function (req, res) {
                 res.sendStatus(500);
             } else {
                 var queryText = 'INSERT INTO "green_form_data" ("date","start_time",' +
-                    '"location_id","nurse", "advocate_id"' +
-                    '"was_advocate_dispatched", "green_form_notes") VALUES($1,$2,$3,$4,$5,$6, $7) RETURNING "green_form_id" , "date";' 
+                    ' "location_id" , "nurse", "advocate_id" , ' +
+                    '"was_advocate_dispatched", "green_form_notes") VALUES($1,$2,$3,$4,$5,$6, $7) RETURNING "green_form_id" , "date";'
                 db.query(queryText, [green.date, green.start_time, green.location_id,
                 green.nurse,green.advocate_id, green.was_advocate_dispatched, green.green_form_notes],
                     function (errorMakingQuery, result) {
-                        console.log('errorMakingQuery', errorMakingQuery);
-                        
                         done();
                         if (errorMakingQuery) {
+                            console.log('errorMakingQuery', errorMakingQuery);
+                            
                             res.sendStatus(500);
                         } else {
                             res.send(result.rows);
