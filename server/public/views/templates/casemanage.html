@@ -17,8 +17,12 @@
         <table md-table class="caseTbl" >
             <thead md-head>
                 <tr md-row>
-                    <th>Date</th>
-                    <th>Time</th>
+                    <th ng-click="cc.sortData('case_start_date')">Date
+                        <div ng-class="cc.getSortClass('case_start_date')"></div>
+                    </th>
+                    <th ng-click="cc.sortData('case_start_time')">Time
+                        <div ng-class="cc.getSortClass('case_start_time')"></div>
+                    </th>
                     <th>Green Form</th>
                     <th>Medical Advocacy Form</th>
                     <th>Legal Advocacy Form</th>
@@ -27,15 +31,19 @@
                     <th>Yellow Form</th>
                     <th>Pink Form</th>                   
                     <th>Bill of Rights</th>
-                    <th>Case Status</th>
+                    <th>Case Status
+                        <div ng-class="cc.getSortClass('case_start_time')"></div>
+                    </th>
                 </tr>
             </thead>
             <tbody md-body >
                 <!-- this table row ng repeats over each case (20) -->
+                <!-- <tr md-row> -->
                 <tr  ng-repeat="case in cc.formService.caseObject.cases | orderBy: 'is_case_complete'">
+
                     <!-- date and time -->
                     <td>{{case.case_start_date | date}}</td>
-                    <td>{{case.case_start_time | date: 'longTime' }}</td>
+                    <td>{{case.case_start_time | date: 'shortTime' }}</td>
                     <!-- all ng-models will be sent with get route -->
                     <td><md-checkbox ng-disabled="true" ng-style="{opacity: 0 }"></md-checkbox><md-icon ng-click="cc.showGreen($event, case.green_form_id)" class="material-icons">description</md-icon></td>
                     <td><md-checkbox ng-click="cc.checkClicked(case.ma_form_id, case.is_ma_complete, 'is_ma_complete')" ng-disabled="case.is_case_complete" ng-model="case.is_ma_complete" class="md-primary" aria-label="Checkbox 2"></md-checkbox>

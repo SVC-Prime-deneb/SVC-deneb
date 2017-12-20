@@ -177,8 +177,8 @@ li.dropdown {
   height: 100%;
 }
 
-h1 #welcome {
-
+#welcome h1 {
+  text-align: center;
   position: relative;
 }
 
@@ -190,7 +190,12 @@ h1 #welcome {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   /* padding: 60px; */
+}
+
+md-card #userTitle {
+  text-align: center;
 }
 
 .container h1 {
@@ -246,14 +251,61 @@ section {
     display: block;
 }
 
+/* STYLING FOR NURSE REPORTS TABLE */
+.container nurseReportTbl {
+  margin: 0 0 40px 0;
+  width: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  display: table;
+  /* @media screen and (max-width: 580px); */
+  display: block;
+  
+}
+
+.nurseReportTbl {
+  position: relative;
+  margin: 0 auto;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  width: 80%;
+}
+
+.nurseReportTbl tr:hover {
+    background: silver;
+    cursor: pointer;
+}
+
+.nurseReportTbl tr:nth-child(odd){
+    background: #a5cdd8;
+}  
+
+.nurseReportTbl tr:hover {
+    background: silver;
+    cursor: pointer;
+}
+
+
+/* STYLING FOR CASE MANAGEMENT TABLE */
+
 .caseTbl {
   margin: 0 auto;
   width: 100%;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   display: table;
   /* @media screen and (max-width: 580px); */
-    display: block;
+  display: block;
+  position: relative;
 }
+
+.caseTbl tr:nth-child(odd){
+    background: #a5cdd8;
+}  
+
+.caseTbl tr:hover {
+    background: silver;
+    cursor: pointer;
+}
+
+
 
 .row {
   display: table-row;
