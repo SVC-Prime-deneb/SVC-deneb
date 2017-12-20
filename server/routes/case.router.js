@@ -182,7 +182,7 @@ router.post('/new/green', function (req, res) {
             } else {
                 var queryText = 'INSERT INTO "green_form_data" ("date","start_time",' +
                     '"location_id","nurse", "advocate_id"' +
-                    '"was_advocate_dispatched", green_form_notes) VALUES($1,$2,$3,$4,$5,$6 $7) RETURNING "green_form_id";'
+                    '"was_advocate_dispatched", green_form_notes) VALUES($1,$2,$3,$4,$5,$6 $7) RETURNING "green_form_id" , "date";'
                 db.query(queryText, [green.date, green.start_time, green.location_id,
                 green.nurse,green.advocate_id, green.was_advocate_dispatched, green.green_form_notes],
                     function (errorMakingQuery, result) {
@@ -195,33 +195,46 @@ router.post('/new/green', function (req, res) {
                     })
             }
         });
-    //     console.log(green.date);
-    //     var year = green.date.slice(0,3)
-    //     var month = green.date.slice(5,7)
-    // console.log('month',month);
-    // console.log('year', year);
-    
-    //     pool.connect(function (errorConnectingToDB, db, done) {
-    //         if (errorConnectingToDB) {
-    //             res.sendStatus(500);
-    //         } else {
-    //             var queryText = 'UPDATE "monthly_location" SET ' + '"' + month + '"' + '+ 1  WHERE year = ' + '"' + year + '"' + ' AND location_id = $1;'
-    //             db.query(queryText, [green.location_id],
-    //                 function (errorMakingQuery, result) {
-    //                     done();
-    //                     if (errorMakingQuery) {
-    //                         res.sendStatus(500);
-    //                     } else {
-    //                         res.send(result.rows);
-    //                     }
-    //                 });
-    //         }
-    //     });
-
     } else {
         res.send(false);
     }  
 });
+
+
+
+router.put('/month', function (req, res) {
+    console.log('this req.body', req.body);
+    
+    var loc = req.body.location_id
+    var date = req.body.date
+    var year_year=date.slice(0, 4)
+    var month=date.slice(5, 7)
+    console.log('month', month);
+    // console.log('year', year);
+    console.log('loc', loc);
+    
+    pool.connect(function (errorConnectingToDb, db, done) {
+        if (errorConnectingToDb) {
+            res.sendStatus(500);
+            console.log("errorConnectingToDb" , errorConnectingToDb);
+            
+        } else {
+            var queryText = 'UPDATE "monthly_location" SET ' + '"' + month + '" = ' + '("' + month + '"+1) WHERE "year" = ' +  year_year  + ' AND "location_id" = $1;'
+            console.log('query text', queryText);
+            
+            db.query(queryText, [loc], function (errorMakingQuery, result) {
+                done();
+                if (errorMakingQuery) {
+                    res.sendStatus(500);
+                    console.log('errorMakingQuery', errorMakingQuery);
+                    
+                } else {
+                    res.sendStatus(201);
+                }
+            }); // END QUERY
+        }
+    });
+});//End POST route
 
 router.post('/new/table/:id', function (req, res) {
     var id = req.params.id
