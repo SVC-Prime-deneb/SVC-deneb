@@ -12,15 +12,17 @@ myApp.controller('MaController', function (FormService, $http, $mdDialog) {
     
     //arrays for drop downs
     vm.victimization = ['Adult Sexual Assault', 'Sexual Exploitation', 'Minor-CSA', 'Family/Minor-CSA', 'Other' ];
-   
     // note: may need an Other option here
     vm.services = ['1:1','Legal Advocacy','Support Group', 'Other'];
     
     //submit a new Medical Advocate form or update 
     //checks form off automatically
     vm.submitNewMa= function(objectToSend) {
-        console.log(objectToSend);
+        objectToSend.ma_form_time = FormService.convertTime(objectToSend.ma_form_time);
         objectToSend = objectBuilder(objectToSend);
+        console.log(objectToSend);
+        console.log(objectToSend.ma_form_time);
+        
         FormService.sendFormUpdate(objectToSend, 'ma').then(function () {
             FormService.checkConfirm('is_ma_complete');
         }).then(function(){

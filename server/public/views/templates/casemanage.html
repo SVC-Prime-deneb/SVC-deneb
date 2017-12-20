@@ -6,7 +6,9 @@
     <div>
     <md-datepicker ng-model="cc.searchObject.start_date" required md-placeholder="From Date"></md-datepicker>
     <md-datepicker ng-model="cc.searchObject.end_date" required md-placeholder="To Date"></md-datepicker>
-    <md-icon ng-click="cc.searchCase(cc.searchObject)" md-svg-icon="pictures/search.svg"></md-icon>
+    <md-button class="md-raised md-primary"><md-icon ng-click="cc.searchCase(cc.searchObject)" md-svg-icon="pictures/search.svg"></md-icon></md-button>
+    
+    <md-button ng-click="cc.getCases()" class="md-raised md-primary">Clear Search</md-button>
     <md-button class="md-raised md-primary" href="#/green">
         <md-icon md-svg-icon="pictures/add.svg"></md-icon>
         Create New Case

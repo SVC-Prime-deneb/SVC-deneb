@@ -67,13 +67,7 @@ myApp.controller('CaseController', function (FormService, $http, $mdDialog) {
     }
 
     vm.searchCase = function (datesIn){
-        console.log(datesIn);
-        $http.get('/case/form/search', {params: datesIn}).then(function (response) {
-            console.log('Case search sent');
-            console.log(response.data);
-        }).catch(function (error) {
-            console.log('failure on get Search Route');
-        });
+        FormService.searchCase(datesIn);
     }
 
 });

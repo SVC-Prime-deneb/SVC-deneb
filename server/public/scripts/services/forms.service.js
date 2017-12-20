@@ -109,7 +109,6 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     self.getCases = function () {
         $http.get('/case/form').then(function (response) {
             console.log(response);
-
             self.caseObject.cases = response.data;
         }).catch(function (error) {
             console.log('failure on GET Case Route');
@@ -135,6 +134,18 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
             }
         }).catch(function (error) {
             console.log('failure on get Form Route');
+        });
+    }
+
+    //get route for search
+    self.searchCase = function (datesIn) {
+        console.log(datesIn);
+        $http.get('/case/form/search', { params: datesIn }).then(function (response) {
+            console.log('Case search sent');
+            self.caseObject.cases = response.data;
+            console.log(self.caseObject.cases);
+        }).catch(function (error) {
+            console.log('failure on get Search Route');
         });
     }
 
@@ -177,6 +188,22 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         })
     }
 
+    //converts time to 24 hour format
+    self.convertTime = function (timeIn) {
+        var convertedTime = moment(timeIn).format('HH:mm:ss');
+        return convertedTime;
+    }
+    //converts time to date format to appear in inputs correctly
+    self.convertTimeBack = function (timeIn){
+        console.log('in convert');
+        
+        var convertedBack = new Date(timeIn);
+        console.log(convertedBack);
+        return convertedBack;
+    }
+
+    self.convertTimeBack("2015-05-29T19:06:16.693209Z");
+
 
 });
 
@@ -203,8 +230,5 @@ var objectAccept = function (objectIn) {
     return objectIn = [objectIn];
 }
 
-var convertTime = function(timeIn){
-    var convertedTime = moment('1970-01-01T18:00:00.000Z', 'HH:mm');
-    console.log(convertedTime);
-}
+
 
