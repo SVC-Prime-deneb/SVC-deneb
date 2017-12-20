@@ -135,6 +135,8 @@ router.get('/locmonthly', function (req, res) {
 });
 
 
+//                      DISPLAY Nurse Reports Table
+
 router.get('/nurse', function (req, res) {
     // check if logged in
     if (req.isAuthenticated()) {
@@ -163,7 +165,7 @@ router.get('/nurse', function (req, res) {
     }
 });
 
-//                     POST
+//                     POST New Nurse Report to Table
 
 router.post('/new/nursereport', function (req, res) {
     console.log('post nurse');
@@ -181,9 +183,9 @@ router.post('/new/nursereport', function (req, res) {
             } else {
                 var queryText = 'INSERT INTO "nurse_form_data" ("nursing_form_date", ' +
                     '"nurse_was_adv_dispatched","nurse_form_location_name",nurse_form_time) ' +
-                    ' VALUES($1,$2,$3,$4,$5,$6);'
-                db.query(queryText, [nurse.nursing_form_date, nurse.nurse_was_adv_dispatched, nurse.location_id,
-                    nurse.nurse, nurse.nurse_form_location_name, nurse.nurse_form_time],
+                    ' VALUES($1,$2,$3,$4);'
+                db.query(queryText, [nurse.nursing_form_date, nurse.nurse_was_adv_dispatched,
+                    nurse.nurse_form_location_name, nurse.nurse_form_time],
                     function (errorMakingQuery, result) {
                         done();
                         if (errorMakingQuery) {
@@ -201,10 +203,10 @@ router.post('/new/nursereport', function (req, res) {
     }
 });
 
-//                      DELETE
+//                      DELETE Nurse Report from Table
 
 router.delete('/del/:id', function (req, res) {
-    console.log('del admin');
+    console.log('del nurse report');
     // check if logged in
     if (req.isAuthenticated()) {
         var id = req.params.id;
@@ -214,7 +216,7 @@ router.delete('/del/:id', function (req, res) {
                 console.log('Error connecting to db', errorConnectingToDB);
                 res.sendStatus(500);
             } else {
-                var queryText = 'DELETE FROM "advocates" WHERE nurse_form_id = $1 ;';
+                var queryText = 'DELETE FROM "nurse_form_data" WHERE nurse_form_id = $1 ;';
                 db.query(queryText, [id], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
