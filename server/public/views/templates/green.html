@@ -19,8 +19,10 @@
                         <md-datepicker ng-model="gc.newGreen.date" required md-placeholder="Date"></md-datepicker>
                         <md-input-container>
                             <label>Time</label>
-                            <input type="time" ng-model="gc.newGreen.start_time">
+                            <input flex="40" type="time" ng-model="gc.newGreen.start_time">
+                            {{gc.newGreen.start_time}}
                         </md-input-container>
+            
                         <md-input-container>
                             <label>Crisis Line Advocate</label>
                             <input ng-model="gc.newGreen.advocate_name_dispatched" type="text">
@@ -31,6 +33,33 @@
                         </md-input-container>
 
                         <md-checkbox ng-model="gc.newGreen.was_advocate_dispatched" class="md-primary" aria-label="Was an Advocate Dispatched">Was an Advocate Dispatched</md-checkbox>
+<!-- old dropdown -->
+                        <!-- <md-input-container flex="40">
+                            <label>Advocate Dispatched</label>
+                            <md-select ng-model="gc.newGreen.advocate_id">
+                                <md-option ng-value="advocate.advocate_id" ng-repeat="advocate in gc.advocateArray">
+                                    {{advocate.advocate_first_name}} {{advocate.advocate_last_name}} 
+                                </md-option>
+                            </md-select>
+                        </md-input-container> -->
+                        <md-autocomplete  
+                        md-selected-item="gc.selectedItem" 
+                        md-search-text-change="gc.searchTextChange(gc.searchText)"
+                        md-search-text="gc.searchText"  
+                        md-items="advocate in gc.advocateArray"
+                        md-selected-item-change="gc.selectedItemChange(gc.selectedItem)"
+                        md-item-text="advocate.advocate_first_name"
+                        md-min-length="0" 
+                        placeholder="Advocate Dispatched" 
+                        ng-show="gc.newGreen.was_advocate_dispatched">
+                            <md-item-template>
+                                <span md-highlight-text="gc.searchText" md-highlight-flags="^i">{{advocate.advocate_first_name}} {{advocate.advocate_last_name}}</span>
+                            </md-item-template>
+                            <md-not-found>
+                                No Advocate "{{gc.searchText}}" was found.
+                            </md-not-found>
+                        </md-autocomplete>
+
 
                         <md-input-container>
                             <label>Notes:</label>

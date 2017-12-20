@@ -23,10 +23,17 @@ myApp.controller('CaseController', function (FormService, $http, $mdDialog) {
     vm.showRelease = function (ev, id) {
         FormService.showRelease(ev, id);
     }
+
+    //function to show green release form popup
+    vm.showGreen = function (ev, id) {
+        FormService.showGreen(ev, id);
+    }
+
     //get route to populate cases
     vm.getCases = function () {
         FormService.getCases();
     }
+
     //route to get all cases
     vm.getCases();
 
