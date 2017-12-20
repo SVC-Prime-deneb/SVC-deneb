@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var pool = require('../modules/pool.js');
-
+var moment = require('moment');
 
 
 //                    GET ROUTES
@@ -168,8 +168,8 @@ router.post('/new/green', function (req, res) {
             start_time: req.body.start_time,
             location_id: req.body.location.location_id,
             nurse: req.body.nurse,
+            advocate_id: req.body.advocate_id,
             was_advocate_dispatched: req.body.was_advocate_dispatched,
-            advocate_name_dispatched: req.body.advocate_name_dispatched,
             green_form_notes: req.body.green_form_notes
         }
 
@@ -178,10 +178,10 @@ router.post('/new/green', function (req, res) {
                 res.sendStatus(500);
             } else {
                 var queryText = 'INSERT INTO "green_form_data" ("date","start_time",' +
-                    '"location_id","nurse",' +
-                    '"was_advocate_dispatched", green_form_notes) VALUES($1,$2,$3,$4,$5,$6) RETURNING "green_form_id";'
+                    '"location_id","nurse", "advocate_id"' +
+                    '"was_advocate_dispatched", green_form_notes) VALUES($1,$2,$3,$4,$5,$6 $7) RETURNING "green_form_id";'
                 db.query(queryText, [green.date, green.start_time, green.location_id,
-                green.nurse, green.was_advocate_dispatched, green.green_form_notes],
+                green.nurse,green.advocate_id, green.was_advocate_dispatched, green.green_form_notes],
                     function (errorMakingQuery, result) {
                         done();
                         if (errorMakingQuery) {
@@ -192,28 +192,32 @@ router.post('/new/green', function (req, res) {
                     })
             }
         });
-
-        pool.connect(function (errorConnectingToDB, db, done) {
-            if (errorConnectingToDB) {
-                res.sendStatus(500);
-            } else {
-                var queryText = 'UPDATE "monthly_location" SET $1 , is_first_attempt_date=$2,' +
-                    ' WHERE "referral_form_id" = $7 ;';
-                db.query(queryText, [id],
-                    function (errorMakingQuery, result) {
-                        done();
-                        if (errorMakingQuery) {
-                            res.sendStatus(500);
-                        } else {
-                            res.send(result.rows);
-                        }
-                    });
-            }
-        });
+    //     console.log(green.date);
+    //     var year = green.date.slice(0,3)
+    //     var month = green.date.slice(5,7)
+    // console.log('month',month);
+    // console.log('year', year);
+    
+    //     pool.connect(function (errorConnectingToDB, db, done) {
+    //         if (errorConnectingToDB) {
+    //             res.sendStatus(500);
+    //         } else {
+    //             var queryText = 'UPDATE "monthly_location" SET ' + '"' + month + '"' + '+ 1  WHERE year = ' + '"' + year + '"' + ' AND location_id = $1;'
+    //             db.query(queryText, [green.location_id],
+    //                 function (errorMakingQuery, result) {
+    //                     done();
+    //                     if (errorMakingQuery) {
+    //                         res.sendStatus(500);
+    //                     } else {
+    //                         res.send(result.rows);
+    //                     }
+    //                 });
+    //         }
+    //     });
 
     } else {
         res.send(false);
-    }
+    }  
 });
 
 router.post('/new/table/:id', function (req, res) {
