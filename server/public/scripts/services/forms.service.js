@@ -40,11 +40,10 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     self.saveFormId = function (id) {
         self.currentFormId.currentId = id;
     }
-   
+
     //function to show green release form popup
-    self.showGreen = function (ev, id, type) {
+    self.showGreen = function (ev, id) {
         self.saveFormId(id);
-        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/greenform.html',
             controller: 'GreenFormController as gc',
@@ -55,9 +54,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     }
 
     //show medical advocate dialog function
-    self.showMa = function (ev, id, type) {
+    self.showMa = function (ev, id, typeIn) {
+        self.checkEdit(typeIn);
         self.saveFormId(id);
-        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/maform.html',
             controller: 'MaController as mc',
@@ -68,9 +67,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     }
 
     //show legal advocate dialog function
-    self.showLa = function (ev, id, type) {
+    self.showLa = function (ev, id, typeIn) {
+        self.checkEdit(typeIn);
         self.saveFormId(id);
-        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/laiform.html',
             controller: 'LaiController as lc',
@@ -81,9 +80,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     }
 
     //show referral form dialog function
-    self.showRefer = function (ev, id, type) {
+    self.showRefer = function (ev, id, typeIn) {
+        self.checkEdit(typeIn);
         self.saveFormId(id);
-        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/releaseform.html',
             controller: 'ReleaseController as rc',
@@ -93,9 +92,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         })
     }
     //show release form dialog function
-    self.showRelease = function (ev, id, type) {
+    self.showRelease = function (ev, id, typeIn) {
+        self.checkEdit(typeIn);
         self.saveFormId(id);
-        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/releaseinfoform.html',
             controller: 'ReleaseInfoController as ric',
@@ -105,7 +104,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         })
     }
 
-    //get route for cases
+    //get route for all cases
     self.getCases = function () {
         $http.get('/case/form').then(function (response) {
             console.log(response);
@@ -121,7 +120,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         self.updatedAdvocate = advocate;
     }
 
-    //get route for forms
+    //get route for specific form that was selected
     self.getForm = function (form) {
         $http.get('/case/' + form + '/' + self.currentFormId.currentId).then(function (response) {
             if (form === 'ma') {
@@ -137,7 +136,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         });
     }
 
-    //get route for search
+    //get route for search functionality
     self.searchCase = function (datesIn) {
         console.log(datesIn);
         $http.get('/case/form/search', { params: datesIn }).then(function (response) {
@@ -188,22 +187,23 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         })
     }
 
-    //converts time to 24 hour format
+    self.checkEdit = function (stateIn) {
+        console.log(stateIn);
+        if (stateIn === 'edit') {
+            console.log('editing');
+            self.isEditing.editing = true;
+        } if (stateIn === 'view') {
+            console.log('viewing');
+
+            self.isEditing.editing = false;
+        }
+    }
+
+    //converts time to time stamp in ma form/ la form and green form
     self.convertTime = function (timeIn) {
-        var convertedTime = moment(timeIn).format('HH:mm:ss');
+        var convertedTime = moment(timeIn).format('YYYY-MM-DD HH:mm:ss');
         return convertedTime;
     }
-    //converts time to date format to appear in inputs correctly
-    self.convertTimeBack = function (timeIn){
-        console.log('in convert');
-        
-        var convertedBack = new Date(timeIn);
-        console.log(convertedBack);
-        return convertedBack;
-    }
-
-    self.convertTimeBack("2015-05-29T19:06:16.693209Z");
-
 
 });
 
@@ -229,6 +229,5 @@ var objectAccept = function (objectIn) {
     console.log(objectIn);
     return objectIn = [objectIn];
 }
-
 
 

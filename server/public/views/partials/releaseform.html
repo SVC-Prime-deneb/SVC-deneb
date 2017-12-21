@@ -34,25 +34,31 @@
     </form>
 
     <div ng-hide="rc.formService.isEditing.editing">
-        <h1>Release/Referral for Contact Information</h1>
-
-        <p>Which Hospital/Agency Sent The Referral?</p>
-        <p>{{rc.formService.selectedForm.form[0].referral_location_name}}</p>
-
-        <p>Follow Up Attempt One:</p>
-        <p>{{rc.formService.selectedForm.form[0].is_first_attempt_date}}</p>
-
-        <div ng-show="rc.formService.selectedForm.form[0].is_first_attempt_date">
-            <p>Follow Up Attempt Two:</p>
-            <p>{{rc.formService.selectedForm.form[0].is_second_attempt_date}}</p>
-        </div>
-
-        <div ng-show="rc.formService.selectedForm.form[0].is_second_attempt_date">
-            <p>Follow Up Attempt Three:</p>
-            <p>{{rc.formService.selectedForm.form[0].is_third_attempt_date}}</p>
-        </div>
-        <md-button type="submit" class="md-primary md-raised" ng-click="rc.editMode()" class="md-raised">Edit Form</md-button>
-        <md-button ng-click="rc.closeForm()" class="md-raised">Cancel</md-button>
+        <md-content>
+            <md-card>
+                <md-card-title class="invertColor">
+                    <md-card-title-text>
+                        <h1 class="invertColor">Release/Referral for Contact Information</h1>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <br/>
+                <p>Which Hospital/Agency Sent The Referral? {{rc.formService.selectedForm.form[0].referral_location_name}}</p>
+                <p ng-hide="rc.formService.selectedForm.form[0].is_first_attempt_date">No Follow Ups Attempted</p>
+                <p ng-show="rc.formService.selectedForm.form[0].is_first_attempt_date">Follow Up One Attemptted On: {{rc.formService.selectedForm.form[0].is_first_attempt_date | date}}</p>
+                    <div ng-show="rc.formService.selectedForm.form[0].is_second_attempt_date">
+                        <p>Follow Up Two Attempted On: {{rc.formService.selectedForm.form[0].is_second_attempt_date | date}}</p>
+                    </div>
+                    <div ng-show="rc.formService.selectedForm.form[0].is_third_attempt_date">
+                        <p>Follow Up Three Attempted On: {{rc.formService.selectedForm.form[0].is_third_attempt_date | date}}</p>
+                        
+                    </div>
+            </md-card-content>
+                <md-card-actions layout="column">
+                    <md-button type="submit" class="md-primary md-raised" ng-click="rc.editMode()" class="md-raised">Edit Form</md-button>
+                    <md-button ng-click="rc.closeForm()" class="md-raised">Cancel</md-button>
+            </md-card>
+        </md-content> 
     </div>
 
 </md-dialog>

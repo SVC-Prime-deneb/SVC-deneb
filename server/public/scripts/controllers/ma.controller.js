@@ -20,9 +20,6 @@ myApp.controller('MaController', function (FormService, $http, $mdDialog) {
     vm.submitNewMa= function(objectToSend) {
         objectToSend.ma_form_time = FormService.convertTime(objectToSend.ma_form_time);
         objectToSend = objectBuilder(objectToSend);
-        console.log(objectToSend);
-        console.log(objectToSend.ma_form_time);
-        
         FormService.sendFormUpdate(objectToSend, 'ma').then(function () {
             FormService.checkConfirm('is_ma_complete');
         }).then(function(){
