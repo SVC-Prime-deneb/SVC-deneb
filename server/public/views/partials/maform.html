@@ -3,7 +3,6 @@
 
     <!-- edit already made form -->
     <form>
-        {{mc.formService}}
         <form ng-cloak ng-show="mc.formService.isEditing.editing">
             <h1>Medical Advocacy Information Form</h1>
             <md-input-container>
@@ -50,7 +49,7 @@
                 <!-- fix this to take time too -->
                 <md-input-container>
                     <label for="time">Time</label>
-                    <input type="time" md-model="mc.formService.selectedForm.form[0].ma_form_time">
+                    <input type="time" ng-model="mc.formService.selectedForm.form[0].ma_form_time">
                 </md-input-container>
             </div>
 
@@ -184,105 +183,108 @@
 
         <!-- Display form view -->
         <div ng-hide="mc.formService.isEditing.editing">
-            <h1>Medical Advocacy Information Form</h1>
 
-            <p>Advocate Full Name:</p>
-            <p>{{mc.formService.selectedForm.form[0].advocate_name}}</p>
-            <p>Shadow Full Name:</p>
-            <p>{{mc.formService.selectedForm.form[0].advocate_name_additional}}</p>
+            <md-content>
+                <md-card>
+                    <md-card-title class="invertColor">
+                        <md-card-title-text>
+                            <h1 class="invertColor">Medical Advocacy Information Form</h1>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <br/>
+                        <p>Advocate Full Name: {{mc.formService.selectedForm.form[0].advocate_name}}</p>
+                        <p>Shadow Full Name: {{mc.formService.selectedForm.form[0].advocate_name_additional}}</p>
+                        <p>Hospital Name: {{mc.formService.selectedForm.form[0].location_name}}</p>
+                        <p>Principal Victimization:
+                            <span ng-hide="mc.formService.selectedForm.form[0].victimization === 'Other' ">{{mc.formService.selectedForm.form[0].victimization}}</span>
+                            <span ng-show="mc.formService.selectedForm.form[0].victimization === 'Other' ">{{mc.formService.selectedForm.form[0].additional_notes}}</span>
+                            <p>Was a Mandated Report Triggered? {{mc.formService.selectedForm.form[0].was_mandatory_report}}
+                                <span ng-hide="mc.formService.selectedForm.form[0].was_mandatory_report">No</span>
+                                <span ng-show="mc.formService.selectedForm.form[0].was_mandatory_report">Yes</span>
+                            </p>
+                            <div ng-show="mc.formService.selectedForm.form[0].was_mandatory_report">
+                                <p>Name of Advocate Reporting: {{mc.formService.selectedForm.form[0].reporting_advocate_name}}</p>
+                                <p>Date of Report: {{mc.formService.selectedForm.form[0].reporting_date | date}}</p>
+                                <p>Time: {{mc.formService.selectedForm.form[0].ma_form_time | date: "shortTime"}}</p>
+                            </div>
+                            <p>Was there an Evidentiary Exam?
+                                <span ng-hide="mc.formService.selectedForm.form[0].location_evidentiary">No</span>
+                                <span ng-show="mc.formService.selectedForm.form[0].location_evidentiary">Yes</span>
+                            </p>
+                            <div ng-show="mc.formService.selectedForm.form[0].location_evidentiary === true">
+                                <p>Hospital: {{mc.formService.selectedForm.form[0].location_evidentiary_name}}</p>
+                                <p>Nurse's Name: {{mc.formService.selectedForm.form[0].location_evidentiary_nurse}}</p>
+                            </div>
+                            <p>Immediate Referral within 7 days to SVC?
+                                <span ng-hide="mc.formService.selectedForm.form[0].immediate_referral">No</span>
+                                <span ng-show="mc.formService.selectedForm.form[0].immediate_referral">Yes</span>
+                            </p>
+                            <div ng-show="mc.formService.selectedForm.form[0].immediate_referral === true">
+                                <p>Services Provided: {{mc.formService.selectedForm.form[0].immediate_referral_notes}}</p>
+                            </div>
 
-            <p>Hospital Name:</p>
-            <p>{{mc.formService.selectedForm.form[0].location_name}}</p>
-            <p>Principal Victimization:</p>
-            <div ng-hide="mc.formService.selectedForm.form[0].victimization === 'Other' ">
-                <p>{{mc.formService.selectedForm.form[0].victimization}}</p>
-            </div>
-            <div ng-show="mc.formService.selectedForm.form[0].victimization === 'Other' ">
-                <p>{{mc.formService.selectedForm.form[0].additional_notes}}</p>
-            </div>
-
-            <p>Was a Mandated Report Triggered?</p>
-            <md-checkbox ng-model="mc.formService.selectedForm.form[0].was_mandatory_report"></md-checkbox>
-
-            <div ng-show="mc.formService.selectedForm.form[0].was_mandatory_report === true">
-                <p>Name of Advocate Reporting:</p>
-                <p>{{mc.formService.selectedForm.form[0].reporting_advocate_name}}</p>
-                <p>Date of Report:</p>
-                <p>{{mc.formService.selectedForm.form[0].reporting_date}}</p>
-                <p>Time:</p>
-                <p>{{mc.formService.selectedForm.form[0].reporting_time}}</p>
-            </div>
+                            <p>Was a Referral To a Shelter Made?
+                                <span ng-hide="mc.formService.selectedForm.form[0].shelter_referral">No</span>
+                                <span ng-show="mc.formService.selectedForm.form[0].shelter_referral">Yes</span>
+                            </p>
+                            <div ng-show="mc.formService.selectedForm.form[0].shelter_referral === true">
+                                <p>Which Shelters? {{mc.formService.selectedForm.form[0].shelter_referral_name}}</p>
+                            </div>
 
 
-            <p>Was there an Evidentiary Exam?</p>
-            <md-checkbox ng-model="mc.formService.selectedForm.form[0].location_evidentiary"></md-checkbox>
 
-            <div ng-show="mc.formService.selectedForm.form[0].location_evidentiary === true">
-                <p>Hospital:</p>
-                <p>{{mc.formService.selectedForm.form[0].location_evidentiary_name}}</p>
-                <p>Nurse's Name:</p>
-                <p>{{mc.formService.selectedForm.form[0].location_evidentiary_nurse}}</p>
-            </div>
+                            <p>Was a Taxi Provided?
+                                <span ng-hide="mc.formService.selectedForm.form[0].taxi_provided">No</span>
+                                <span ng-show="mc.formService.selectedForm.form[0].taxi_provided">Yes</span>
+                            </p>
 
-            <p>Immediate Referral within 7 days to SVC?</p>
-            <md-checkbox ng-model="mc.formService.selectedForm.form[0].immediate_referral"></md-checkbox>
+                            <div ng-show="mc.formService.selectedForm.form[0].taxi_provided">
+                                <p>Taxi Cost: {{mc.formService.selectedForm.form[0].taxi_cost}}</p>
+                            </div>
 
-            <div ng-show="mc.formService.selectedForm.form[0].immediate_referral === true">
-                <p>Services Provided:</p>
-                <p>{{mc.formService.selectedForm.form[0].immediate_referral_notes}}</p>
-            </div>
+                            <p>Was a Release of Information Completed?
+                                <span ng-hide="mc.formService.selectedForm.form[0].release_completed">No</span>
+                                <span ng-show="mc.formService.selectedForm.form[0].release_completed">Yes</span>
+                            </p>
+                            <div ng-show="mc.formService.selectedForm.form[0].release_completed === true">
+                                <p>Reason For Release: {{mc.formService.selectedForm.form[0].release_completed_reason}}</p>
+                                <p>Date Release Was Completed: {{mc.formService.selectedForm.form[0].release_completed_date
+                                    | date}}</p>
+                            </div>
 
-            <p>Was a Referral To a Shelter Made?</p>
-            <md-checkbox ng-model="mc.formService.selectedForm.form[0].shelter_referral"></md-checkbox>
+                            <p>Follow Up Information For Medical Advocacy Program Coordinator: {{mc.formService.selectedForm.form[0].mapc_followup}}</p>
 
-            <div ng-show="mc.formService.selectedForm.form[0].shelter_referral === true">
-                <p>Which Shelters?</p>
-                <p>{{mc.formService.selectedForm.form[0].shelter_referral_name}}</p>
-            </div>
+                            <p>Was a Debrief Completed?
+                                <span ng-hide="mc.formService.selectedForm.form[0].debrief_complete">No</span>
+                                <span ng-show="mc.formService.selectedForm.form[0].debrief_complete">Yes</span>
+                            </p>
 
-            <p>Was a Taxi Provided?</p>
-            <md-checkbox ng-model="mc.formService.selectedForm.form[0].taxi_provided"></md-checkbox>
+                            <div ng-show="mc.formService.selectedForm.form[0].debrief_complete === true">
+                                <p>Staff Member Who Conducted Debrief: {{mc.formService.selectedForm.form[0].debrief_complete_staff}}</p>
+                                <p>Date Debrief was Completed: {{mc.formService.selectedForm.form[0].debrief_complete_date |
+                                    date}}</p>
+                            </div>
 
-            <div ng-show="mc.formService.selectedForm.form[0].taxi_provided">
+                            <p>Was A Follow Up With The Agency Completed?
+                                <span ng-hide="mc.formService.selectedForm.form[0].followup_complete">No</span>
+                                <span ng-show="mc.formService.selectedForm.form[0].followup_complete">Yes</span>
+                            </p>
 
-                <p>Taxi Cost:</p>
-                <p>{{mc.formService.selectedForm.form[0].taxi_cost}}</p>
-            </div>
+                            <div ng-show="mc.formService.selectedForm.form[0].followup_complete === true">
+                                <p>For What Agency? {{mc.formService.selectedForm.form[0].followup_complete_agency}}</p>
+                                <p>Date Agency Follow Up Completed: {{mc.formService.selectedForm.form[0].followup_complete_date
+                                    | date}}</p>
+                            </div>
+                    </md-card-content>
+                    <md-card-actions layout="column">
+                        <md-button type="submit" class="md-primary md-raised" ng-click="mc.editMode()" class="md-raised">Edit Form</md-button>
+                        <md-button ng-click="mc.closeForm()" class="md-raised">Cancel</md-button>
+                </md-card>
+            </md-content>
 
-            <p>Was a Release of Information Completed?</p>
-            <md-checkbox ng-model="mc.formService.selectedForm.form[0].release_completed"></md-checkbox>
 
-            <div ng-show="mc.formService.selectedForm.form[0].release_completed === true">
-                <p>Reason For Release:</p>
-                <p>{{mc.formService.selectedForm.form[0].release_completed_reason}}</p>
-                <p>Date Release Was Completed:</p>
-                <p>{{mc.formService.selectedForm.form[0].release_completed_date | date}}</p>
-            </div>
 
-            <p>Follow Up Information For Medical Advocacy Program Coordinator:</p>
-            <p>{{mc.formService.selectedForm.form[0].mapc_followup}}</p>
-
-            <p>Was a Debrief Completed?</p>
-            <md-checkbox ng-model="mc.formService.selectedForm.form[0].debrief_complete"></md-checkbox>
-
-            <div ng-show="mc.formService.selectedForm.form[0].debrief_complete === true">
-                    <p>Staff Member Who Conducted Debrief:</p>
-                    <p>{{mc.formService.selectedForm.form[0].debrief_complete_staff}}</p>
-                    <p>Date Debrief was Completed:</p>
-                    <p>{{mc.formService.selectedForm.form[0].debrief_complete_date | date}}</p>
-            </div>
-
-            <p>Was A Follow Up With The Agency Completed?</p>
-                <md-checkbox ng-model="mc.formService.selectedForm.form[0].followup_complete"></md-checkbox>
-
-                <div ng-show="mc.formService.selectedForm.form[0].followup_complete === true">
-                    <p>For What Agency?</p>
-                    <p>{{mc.formService.selectedForm.form[0].followup_complete_agency}}</p>
-                    <p>Date Agency Follow Up Completed:</p>
-                    <p>{{mc.formService.selectedForm.form[0].followup_complete_date | date}}</p>
-                </div>
-                <md-button type="submit" class="md-primary md-raised" ng-click="mc.editMode()" class="md-raised">Edit Form</md-button>
-                <md-button ng-click="mc.closeForm()" class="md-raised">Cancel</md-button>
         </div>
 
 </md-dialog>

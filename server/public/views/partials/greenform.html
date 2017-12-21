@@ -1,17 +1,26 @@
 <md-dialog class="dialog">
     <div>
-        <h1>Green Form</h1>
-        <p>Date:</p>
-        <p>{{gc.formService.selectedForm.form[0].date | date}}</p>
-        <p>Time:</p>
-        <p>{{gc.formService.selectedForm.form[0].start_time}}</p>
-        <p>Nurse:</p>
-        <p>{{gc.formService.selectedForm.form[0].nurse}}</p>
-        <p>Was Advocate Dispatched:</p>
-        <md-checkbox ng-model="gc.formService.selectedForm.form[0].was_advocate_dispatched"></md-checkbox>
-        <p>Notes:</p>
-        <p>{{gc.formService.selectedForm.form[0].green_form_notes}}</p>
-        <md-button ng-click="gc.closeForm()" class="md-raised">Cancel</md-button>
-
+        <md-content>
+            <md-card>
+                <md-card-title class="invertColor">
+                    <md-card-title-text>
+                        <h1 class="invertColor">Green Form</h1>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <br/>
+                    <p>Date: {{gc.formService.selectedForm.form[0].date | date}}</p>
+                    <p>Time: {{gc.formService.selectedForm.form[0].start_time}}</p>
+                    <p>Nurse: {{gc.formService.selectedForm.form[0].nurse}}</p>
+                    <p>Was Advocate Dispatched:
+                        <span ng-hide="gc.formService.selectedForm.form[0].was_advocate_dispatched">No</span>
+                        <span ng-show="gc.formService.selectedForm.form[0].was_advocate_dispatched">Yes</span>
+                    </p>
+                    <p>Notes: {{gc.formService.selectedForm.form[0].green_form_notes}}</p>
+                </md-card-content>
+                <md-card-actions layout="column">
+                    <md-button ng-click="gc.closeForm()" class="md-raised">Cancel</md-button>
+            </md-card>
+        </md-content>
     </div>
 </md-dialog>
