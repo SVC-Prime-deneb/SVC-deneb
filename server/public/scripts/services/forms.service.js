@@ -42,9 +42,8 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     }
 
     //function to show green release form popup
-    self.showGreen = function (ev, id, type) {
+    self.showGreen = function (ev, id) {
         self.saveFormId(id);
-        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/greenform.html',
             controller: 'GreenFormController as gc',
@@ -55,9 +54,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     }
 
     //show medical advocate dialog function
-    self.showMa = function (ev, id, type) {
+    self.showMa = function (ev, id, typeIn) {
+        self.checkEdit(typeIn);
         self.saveFormId(id);
-        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/maform.html',
             controller: 'MaController as mc',
@@ -68,9 +67,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     }
 
     //show legal advocate dialog function
-    self.showLa = function (ev, id, type) {
+    self.showLa = function (ev, id, typeIn) {
+        self.checkEdit(typeIn);
         self.saveFormId(id);
-        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/laiform.html',
             controller: 'LaiController as lc',
@@ -81,9 +80,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     }
 
     //show referral form dialog function
-    self.showRefer = function (ev, id, type) {
+    self.showRefer = function (ev, id, typeIn) {
+        self.checkEdit(typeIn);
         self.saveFormId(id);
-        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/releaseform.html',
             controller: 'ReleaseController as rc',
@@ -93,9 +92,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         })
     }
     //show release form dialog function
-    self.showRelease = function (ev, id, type) {
+    self.showRelease = function (ev, id, typeIn) {
+        self.checkEdit(typeIn);
         self.saveFormId(id);
-        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/releaseinfoform.html',
             controller: 'ReleaseInfoController as ric',
@@ -105,7 +104,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         })
     }
 
-    //get route for cases
+    //get route for all cases
     self.getCases = function () {
         $http.get('/case/form').then(function (response) {
             // console.log(response);
@@ -123,7 +122,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         self.updatedAdvocate = advocate;
     }
 
-    //get route for forms
+    //get route for specific form that was selected
     self.getForm = function (form) {
         $http.get('/case/' + form + '/' + self.currentFormId.currentId).then(function (response) {
             if (form === 'ma') {
@@ -136,6 +135,18 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
             }
         }).catch(function (error) {
             console.log('failure on get Form Route');
+        });
+    }
+
+    //get route for search functionality
+    self.searchCase = function (datesIn) {
+        console.log(datesIn);
+        $http.get('/case/form/search', { params: datesIn }).then(function (response) {
+            console.log('Case search sent');
+            self.caseObject.cases = response.data;
+            console.log(self.caseObject.cases);
+        }).catch(function (error) {
+            console.log('failure on get Search Route');
         });
     }
 
@@ -178,6 +189,23 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         })
     }
 
+    self.checkEdit = function (stateIn) {
+        console.log(stateIn);
+        if (stateIn === 'edit') {
+            console.log('editing');
+            self.isEditing.editing = true;
+        } if (stateIn === 'view') {
+            console.log('viewing');
+
+            self.isEditing.editing = false;
+        }
+    }
+
+    //converts time to time stamp in ma form/ la form and green form
+    self.convertTime = function (timeIn) {
+        var convertedTime = moment(timeIn).format('YYYY-MM-DD HH:mm:ss');
+        return convertedTime;
+    }
 
 });
 
@@ -204,8 +232,4 @@ var objectAccept = function (objectIn) {
     return objectIn = [objectIn];
 }
 
-var convertTime = function(timeIn){
-    var convertedTime = moment('1970-01-01T18:00:00.000Z', 'HH:mm');
-    console.log(convertedTime);
-}
 

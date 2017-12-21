@@ -9,6 +9,7 @@ myApp.controller('LaiController', function (FormService, $http, $mdDialog) {
     vm.isEditing = FormService.isEditing;
 
     vm.sendLai = function(objectToSend){
+        objectToSend.la_form_time = FormService.convertTime(objectToSend.la_form_time);
         FormService.sendFormUpdate(objectToSend, 'la').then(function () {
             FormService.checkConfirm('is_la_complete');
         }).then(function () {

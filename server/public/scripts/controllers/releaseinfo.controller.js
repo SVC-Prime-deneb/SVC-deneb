@@ -30,4 +30,5 @@ myApp.controller('ReleaseInfoController', function (FormService, $http, $mdDialo
     vm.editMode = function(){
         vm.isEditing.editing = true;
     }
+    
 });
