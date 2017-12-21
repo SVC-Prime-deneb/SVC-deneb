@@ -17,7 +17,6 @@ myApp.controller('CreateNurseReportController', function (ReportService, $http) 
             
         }).catch(function (err) {
             console.log('failure', error);
-            
-        }
-    )}
+        });
+    }
 })

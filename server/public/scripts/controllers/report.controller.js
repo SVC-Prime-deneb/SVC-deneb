@@ -15,16 +15,18 @@ myApp.controller('ReportController', function (ReportService, $http) {
 
     // GET CHART
     vm.requestChart = function () {
-        hospitalName = ['HCMC', 'St.Francis', 'Fairview', 'Northeastern'];
-        advocateData = [15,20,24,30];
+        reportLabel = [];
+        advocateDispatchedNumber = [];
+        // hospitalName = ['SVC', 'St.Francis', 'Fairview', 'Northeastern'];
+        // advocateData = [15,20,24,30];
 
         vm.hospitalChart = new Chart(myChart, {
             type: 'bar',
             data: {
-                labels: hospitalName,
+                labels: reportLabel,
                 datasets: [{
-                    label: 'Advocates',
-                    data: advocateData,
+                    label: 'Nurse Report',
+                    data: advocateDispatchedNumber,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.6)',
                         'rgba(54, 162, 235, 0.6)',
@@ -40,7 +42,7 @@ myApp.controller('ReportController', function (ReportService, $http) {
             options: {
                 title: {
                     display: true,
-                    text: 'The Number of Advocates in Each Hospital',
+                    text: 'The Number of Advocates Dispatched per Location',
                     fontSize: 25
                 },
                 legend: {
