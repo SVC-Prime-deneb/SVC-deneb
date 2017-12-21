@@ -4,6 +4,7 @@ myApp.controller('UserController', function (UserService, FormService, $http) {
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
 
+
   vm.formService = FormService;
 
   vm.openCase = 0;
@@ -30,4 +31,5 @@ myApp.controller('UserController', function (UserService, FormService, $http) {
     //route to get all cases
     vm.displayOpenCase()
   }
+
 });

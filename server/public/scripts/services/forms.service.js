@@ -3,11 +3,10 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     var self = this;
     self.FormObject = {};
 
-    self.updatedAdvocate ={};
+    self.updatedAdvocate = {};
+    self.advocateList = { data: [] };
+    self.selectedAdvocate = { data: {} };
 
-    self.advocateList = {data: []};
-    self.selectedAdvocate = {data: {}};
-    
     // Hold advocateId of the row that was clicked
     self.currentAdvocateId = { currentId: 0 };
 
@@ -41,7 +40,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     self.saveFormId = function (id) {
         self.currentFormId.currentId = id;
     }
-   
+
     //function to show green release form popup
     self.showGreen = function (ev, id, type) {
         self.saveFormId(id);
