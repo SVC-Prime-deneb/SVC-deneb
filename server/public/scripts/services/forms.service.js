@@ -107,12 +107,14 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     //get route for all cases
     self.getCases = function () {
         $http.get('/case/form').then(function (response) {
-            console.log(response);
+            // console.log(response);
+            console.log('Success calling Get Cases');
             self.caseObject.cases = response.data;
         }).catch(function (error) {
             console.log('failure on GET Case Route');
         });
     }
+    
 
     // EDIT ADVOCATE
     self.editAdvocate = function (advocate) {
