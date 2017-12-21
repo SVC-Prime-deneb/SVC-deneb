@@ -37,20 +37,13 @@
             </thead>
             <tbody md-body >
                 <!-- this table row ng repeats over each case (20) -->
-<<<<<<< HEAD
-<<<<<<< HEAD
+
                 <!-- <tr md-row> -->
-                    {{cc.formService.caseObject.cases[0].is_case_complete}}
-                <tr ng-repeat="case in cc.formService.caseObject.cases | orderBy:cc.sortColumn:cc.reverseSort | filter:searchCase">
-                   
-=======
-                <tr  ng-repeat="case in cc.formService.caseObject.cases | orderBy: 'is_case_complete'">
->>>>>>> development
-=======
-                <!-- <tr md-row> -->
+                    <!-- {{cc.formService.caseObject.cases[0].is_case_complete}} -->
+                <!-- <tr ng-repeat="case in cc.formService.caseObject.cases | orderBy:cc.sortColumn:cc.reverseSort | filter:searchCase"> -->
+
                 <tr  ng-repeat="case in cc.formService.caseObject.cases | orderBy: 'is_case_complete'">
 
->>>>>>> development
                     <!-- date and time -->
                     <td>{{case.case_start_date | date}}</td>
                     <td>{{case.case_start_time | date: 'shortTime' }}</td>

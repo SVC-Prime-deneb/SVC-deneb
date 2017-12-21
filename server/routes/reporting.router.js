@@ -74,7 +74,7 @@ router.get('/taxi', function (req, res) {
     }
 });
 
-
+//  WHAT IS hos? Hospital per location
 router.get('/hos', function (req, res) {
     // check if logged in
     if (req.isAuthenticated()) {
