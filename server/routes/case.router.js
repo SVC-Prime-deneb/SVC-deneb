@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var pool = require('../modules/pool.js');
-
+var moment = require('moment');
 
 
 //                    GET ROUTES
@@ -37,8 +37,11 @@ router.get('/green/:id', function (req, res) {
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
                 res.sendStatus(500);
-            } else {
-                var queryText = 'SELECT*FROM "green_form_data" WHERE "green_form_id" = $1;';
+            } else {  //SELECT*FROM "green_form_data" WHERE "green_form_id" = $1;
+                var queryText = 'SELECT * ' +
+                                'FROM "public"."green_form_data" g ' +
+                                    'INNER JOIN "location" l ON l."location_id" = g."location_id" '
+                                'WHERE "green_form_id" = $1';
                 db.query(queryText, [green], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
@@ -168,23 +171,27 @@ router.post('/new/green', function (req, res) {
             start_time: req.body.start_time,
             location_id: req.body.location.location_id,
             nurse: req.body.nurse,
+            advocate_id: req.body.advocate_id,
             was_advocate_dispatched: req.body.was_advocate_dispatched,
-            advocate_name_dispatched: req.body.advocate_name_dispatched,
             green_form_notes: req.body.green_form_notes
         }
 
         pool.connect(function (errorConnectingToDB, db, done) {
             if (errorConnectingToDB) {
+                console.log('errorConnectingToDB', errorConnectingToDB);
+                
                 res.sendStatus(500);
             } else {
                 var queryText = 'INSERT INTO "green_form_data" ("date","start_time",' +
-                    '"location_id","nurse",' +
-                    '"was_advocate_dispatched", green_form_notes) VALUES($1,$2,$3,$4,$5,$6) RETURNING "green_form_id";'
+                    ' "location_id" , "nurse", "advocate_id" , ' +
+                    '"was_advocate_dispatched", "green_form_notes") VALUES($1,$2,$3,$4,$5,$6, $7) RETURNING "green_form_id" , "date";'
                 db.query(queryText, [green.date, green.start_time, green.location_id,
-                green.nurse, green.was_advocate_dispatched, green.green_form_notes],
+                green.nurse,green.advocate_id, green.was_advocate_dispatched, green.green_form_notes],
                     function (errorMakingQuery, result) {
                         done();
                         if (errorMakingQuery) {
+                            console.log('errorMakingQuery', errorMakingQuery);
+                            
                             res.sendStatus(500);
                         } else {
                             res.send(result.rows);
@@ -192,29 +199,46 @@ router.post('/new/green', function (req, res) {
                     })
             }
         });
-
-        pool.connect(function (errorConnectingToDB, db, done) {
-            if (errorConnectingToDB) {
-                res.sendStatus(500);
-            } else {
-                var queryText = 'UPDATE "monthly_location" SET $1 , is_first_attempt_date=$2,' +
-                    ' WHERE "referral_form_id" = $7 ;';
-                db.query(queryText, [id],
-                    function (errorMakingQuery, result) {
-                        done();
-                        if (errorMakingQuery) {
-                            res.sendStatus(500);
-                        } else {
-                            res.send(result.rows);
-                        }
-                    });
-            }
-        });
-
     } else {
         res.send(false);
-    }
+    }  
 });
+
+
+
+router.put('/month', function (req, res) {
+    console.log('this req.body', req.body);
+    
+    var loc = req.body.location_id
+    var date = req.body.date
+    var year_year=date.slice(0, 4)
+    var month=date.slice(5, 7)
+    console.log('month', month);
+    // console.log('year', year);
+    console.log('loc', loc);
+    
+    pool.connect(function (errorConnectingToDb, db, done) {
+        if (errorConnectingToDb) {
+            res.sendStatus(500);
+            console.log("errorConnectingToDb" , errorConnectingToDb);
+            
+        } else {
+            var queryText = 'UPDATE "monthly_location" SET ' + '"' + month + '" = ' + '("' + month + '"+1) WHERE "year" = ' +  year_year  + ' AND "location_id" = $1;'
+            console.log('query text', queryText);
+            
+            db.query(queryText, [loc], function (errorMakingQuery, result) {
+                done();
+                if (errorMakingQuery) {
+                    res.sendStatus(500);
+                    console.log('errorMakingQuery', errorMakingQuery);
+                    
+                } else {
+                    res.sendStatus(201);
+                }
+            }); // END QUERY
+        }
+    });
+});//End POST route
 
 router.post('/new/table/:id', function (req, res) {
     var id = req.params.id
@@ -434,7 +458,8 @@ router.put('/update/la/:id', function (req, res) {
             officer_involved_additional: req.body.officer_involved_additional,
             officer_involved_additional_two: req.body.officer_involved_additional_two,
             case_number: req.body.case_number,
-            type_of_report: req.body.type_of_report
+            type_of_report: req.body.type_of_report,
+            la_form_time: req.body.la_form_time
         }
 
         pool.connect(function (errorConnectingToDB, db, done) {
@@ -443,10 +468,10 @@ router.put('/update/la/:id', function (req, res) {
             } else {
                 var queryText = 'UPDATE "la_form_data" SET date = $1, advocate_name=$2, county=$3,' +
                     'officer_involved=$4, officer_involved_additional=$5,officer_involved_additional_two=$6,' +
-                    'case_number=$7,type_of_report=$8  WHERE "la_form_id"=$9;';
+                    'case_number=$7,type_of_report=$8, la_form_time = $9  WHERE "la_form_id"=$10;';
                 db.query(queryText, [la.date, la.advocate_name, la.county, la.officer_involved,
                 la.officer_involved_additional, la.officer_involved_additional_two,
-                la.case_number, la.type_of_report, id],
+                la.case_number, la.type_of_report,la_form_time, id],
                     function (errorMakingQuery, result) {
                         done();
                         if (errorMakingQuery) {
@@ -529,6 +554,40 @@ router.put('/update/release/:id', function (req, res) {
         res.send(false);
     }
 });
+
+
+// router.put('/update/:id', function (req, res) {
+//     console.log('update admin');
+//     // check if logged in
+
+//     // if (req.isAuthenticated()) {
+//     var id = req.params.id;
+//     var is_super_admin = req.headers.is_super_admin
+//     console.log('here', req.headers.is_super_admin);
+
+//     pool.connect(function (errorConnectingToDB, db, done) {
+//         if (errorConnectingToDB) {
+//             console.log('Error connecting to db', errorConnectingToDB);
+//             res.sendStatus(500);
+//         } else {
+//             var queryText = 'UPDATE "users" SET is_super_admin = $1 WHERE user_id = $2 ;';
+//             db.query(queryText, [is_super_admin, id], function (errorMakingQuery, result) {
+//                 done();
+//                 if (errorMakingQuery) {
+//                     console.log('Error making query', errorMakingQuery, result)
+//                     res.sendStatus(500);
+//                 } else {
+//                     console.log(result.rows);
+//                     res.send(result.rows);
+//                 }
+//             });
+//         }
+//     });
+//     // } else {
+//     //   console.log('not logged in');
+//     //   res.send(false);
+//     // }
+// });
 
 router.get('/form/search', function (req, res) { //search for a case, return the form table data
     // check if logged in

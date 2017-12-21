@@ -3,6 +3,7 @@ myApp.controller('UserController', function(UserService, FormService) {
   var vm = this;
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
+<<<<<<< HEAD
 
   // vm.formService = FormService;
   // vm.formObject = FormService.formObject;
@@ -32,4 +33,9 @@ myApp.controller('UserController', function(UserService, FormService) {
   // }
 
   // vm.countCaseComplete();
+=======
+  
+
+  
+>>>>>>> ceae36a365d549a92de2412467e0080cb4985a2d
 });

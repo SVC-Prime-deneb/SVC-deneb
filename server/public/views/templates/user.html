@@ -1,16 +1,9 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
     <div class="welcome">
-        <md-content>
-            <md-card>
-                <md-card-title>
-                    <md-card-title-text layout="center">
-                        <!-- <h1 class="md-headline">Register User</h1> -->
-                        <h1 id="welcome" class="lead md-headline">Welcome, {{uc.userObject.userName}}!</h1><br><br>
-                        <!-- <a href="#/advocatemanage">Advocate Managment</a> -->
-                    </md-card-title-text>
-                </md-card-title>
-
+        <div>
+            <img src="pictures/svc_img.jpeg" alt="">
+            <md-content>
                 <md-card>
             
                     <md-input-container>
@@ -29,40 +22,9 @@
                     </md-input-container>
                     <br>
                 </md-card>
-                <div layout="row">
-                    <md-input-container layout="column">
-                        <md-button href="#/advocatemanage" class="md-raised md-primary" type="submit" name="submit" value="advocatemanage">
-                        Advocate Management
-                        </md-button>
-                    </md-input-container>
-                
-                    <md-input-container layout="column">
-                        <md-button href="#/casemanage" class="md-raised md-primary" type="submit" name="submit" value="casemanage">
-                        Case Management
-                        </md-button>
-                    </md-input-container>
-                </div>
-                <div layout="row">
-                    <md-input-container layout="column">
-                        <md-button href="#/report" class="md-raised md-primary" type="submit" name="submit" value="report">
-                        Reporting
-                        </md-button>
-                    </md-input-container>
-                
-                    <md-input-container layout="column">
-                        <md-button href="#/dispatch" class="md-raised md-primary" type="submit" name="submit" value="dispatch">
-                        Dispatch
-                        </md-button>
-                    </md-input-container>
-                </div>
-                <div layout="row">
-                    <md-input-container>
-                        <md-button href="#/adminmanage" class="md-raised md-primary" type="submit" name="submit" value="adminmanage">
-                        Admin Management
-                        </md-button>
-                    </md-input-container>
-                </div>
-            </md-card>
-        </md-content>
+            </md-content>
+
+        </div>
+        
     </div>
 </div>
