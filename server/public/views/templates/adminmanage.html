@@ -1,5 +1,72 @@
-<!-- Admin Controller as ac -->
+<!-- Advocate Controller as ac -->
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-    <h1>Admin Management!</h1>
+    <div class="adminContainer">
+        <h1 id="advocateTitle" class="md-title">ADMIN MANAGEMENT</h1>
+        <br>
+    </div>
+    <!-- <div flex layout="row" layout-align="center center"> -->
+    <div class="searchBar">
+        <md-icon md-svg-icon="pictures/search.svg"></md-icon>
+        <input type="text" placeholder="Search..." ng-model="searchText" />
+
+        <!-- <md-button class="md-raised md-primary" href="#/newadvocate"> -->
+        <md-icon md-svg-icon="pictures/add.svg"></md-icon>
+        Create New Admin
+        </md-button>
+
+        <md-button class="md-raised md-primary" href="#/resetAdvocatePw">
+            <!-- <md-icon md-svg-icon="pictures/reset.png"></md-icon> -->
+            Reset Advocate Password
+        </md-button>
+    </div>
+    <br>
+    <br>
+    <div>
+        <md-table-container>
+            <table md-table class="transactionTbl2">
+                <thead md-head>
+                    <tr md-row>
+                        <th ng-click="ac.sortData('first_name')">FIRST NAME
+                            <div ng-class="ac.getSortClass('first_name')"></div>
+                        </th>
+                        <th ng-click="ac.sortData('last_name')">LAST NAME
+                            <div ng-class="ac.getSortClass('last_name')"></div>
+                        </th>
+                        <th ng-click="ac.sortData('is_super_admin')">FULL ACCESS
+                            <div ng-class="ac.getSortClass('is_super_admin')"></div>
+                        </th>
+                        <th ng-click="ac.sortData('username')">USERNAME
+                            <div ng-class="ac.getSortClass('username')"></div>
+                        </th>
+                        <th>DELETE</th>
+                        <th>EDIT</th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row ng-repeat="admin in ac.adminList.data | orderBy: ac.sortColumn:ac.reverseSort | filter:searchText">
+                        <div>
+                            <!-- <td ng-hide="ac.selectedIndex === $index" md-cell>{{$index}}</td> {{ac.selectedIndex}}-{{ac.selectedIndex==$index}} -->
+                            <td md-cell>{{admin.first_name}}</td>
+                            <td md-cell>{{admin.last_name}}</td>
+                            <td md-cell>{{admin.is_super_admin}}</td>
+                            <td md-cell>{{admin.username}}</td>
+                            <td>
+                                <md-button class="sm-raised sm-secondary" ng-click="ac.deleteAdmin(admin.admin_id)">
+                                    <md-icon md-svg-icon="pictures/trash.svg"></md-icon>
+                                </md-button>
+                            </td>
+                            <td>
+                                <md-button class="sm-raised sm-secondary" ng-click="ac.editAdmin(admin)" href="#/editadvocate">
+                                    <md-icon md-svg-icon="pictures/edit.svg"></md-icon>
+                                </md-button>
+                            </td>
+                        </div>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        <br>
+    </div>
+</div>
 </div>
