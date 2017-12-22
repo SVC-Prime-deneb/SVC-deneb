@@ -321,14 +321,14 @@ section {
 
 .transactionTbl {
   margin: 0 auto;
-  width: 100%;
+  width: 90%;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   display: table;
   /* @media screen and (max-width: 580px); */
   display: block;
   position: relative;
   background: rgb(102, 102, 102);
-}
+} 
 
 .transactionTbl tr:nth-child(odd){
     background: #d4eaf0;
