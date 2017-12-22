@@ -112,6 +112,11 @@ myApp.controller('ReportController', function (ReportService, $http) {
 });
 
 
+// BAR CHART FOR TAXIS
+        // vm.requestTaxiChart = function () {
+        //     hospitalName = ['SVC', 'St.Francis', 'Fairview', 'Northeastern'];
+        //     advocateData = [15, 20, 24, 30];
+
 
 
      // CHART
