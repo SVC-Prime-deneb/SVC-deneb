@@ -199,7 +199,7 @@
                         <p>Principal Victimization:
                             <span ng-hide="mc.formService.selectedForm.form[0].victimization === 'Other' ">{{mc.formService.selectedForm.form[0].victimization}}</span>
                             <span ng-show="mc.formService.selectedForm.form[0].victimization === 'Other' ">{{mc.formService.selectedForm.form[0].additional_notes}}</span>
-                            <p>Was a Mandated Report Triggered? {{mc.formService.selectedForm.form[0].was_mandatory_report}}
+                            <p>Was a Mandated Report Triggered?
                                 <span ng-hide="mc.formService.selectedForm.form[0].was_mandatory_report">No</span>
                                 <span ng-show="mc.formService.selectedForm.form[0].was_mandatory_report">Yes</span>
                             </p>
@@ -278,13 +278,10 @@
                             </div>
                     </md-card-content>
                     <md-card-actions layout="column">
-                        <md-button type="submit" class="md-primary md-raised" ng-click="mc.editMode()" class="md-raised">Edit Form</md-button>
+                        <md-button ng-hide="mc.formService.caseObject.cases[mc.formService.selectedForm.form[0].ma_id].is_case_complete" type="submit" class="md-primary md-raised" ng-click="mc.editMode()" class="md-raised">Edit Form</md-button>
                         <md-button ng-click="mc.closeForm()" class="md-raised">Cancel</md-button>
                 </md-card>
             </md-content>
-
-
-
         </div>
 
 </md-dialog>

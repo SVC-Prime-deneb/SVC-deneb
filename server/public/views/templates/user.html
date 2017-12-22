@@ -1,22 +1,13 @@
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
+<div>
     <div class="welcome">
         <div>
-            <img src="pictures/svc_img.jpeg" alt="">
+            <div id="picture">
+            <img id="svcBanner" src="pictures/svc_img.jpeg">
+            </div>
             <md-content>
                 <md-card>
-                    
-            
                     <md-card id="userTitle">
-                        <md-card-title>
-                            <md-card-title-text layout="center">
-                                <!-- <h1 class="md-headline">Register User</h1> -->
-                                <h1 id="welcome" class="lead md-headline">Welcome, {{uc.userObject.userName}}!</h1>
-                                <br>
-                                <br>
-                                <!-- <a href="#/advocatemanage">Advocate Managment</a> -->
-                            </md-card-title-text>
-                        </md-card-title>
                         <md-input-container>
                             <!-- <label id="openCase" for="openCase" >Open Cases: </label> -->
                             <md-button class="sm-raised sm-secondary" href ="#/casemanage">Open Cases: {{uc.openCase}}</md-button>

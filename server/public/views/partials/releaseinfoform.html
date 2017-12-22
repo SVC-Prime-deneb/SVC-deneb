@@ -45,7 +45,7 @@
                     <p>Contacted By: {{ric.formService.selectedForm.form[0].contacted_by}}</p>
                 </md-card-content>
                 <md-card-actions layout="column">
-                    <md-button type="submit" class="md-primary md-raised" ng-click="ric.editMode()" class="md-raised">Edit Form</md-button>
+                    <md-button ng-hide="ric.formService.caseObject.cases[ric.formService.selectedForm.form[0].release_form_id].is_case_complete" type="submit" class="md-primary md-raised" ng-click="ric.editMode()" class="md-raised">Edit Form</md-button>
                     <md-button ng-click="ric.closeForm()" class="md-raised">Cancel</md-button>
                 </md-card-actions>
             </md-card>

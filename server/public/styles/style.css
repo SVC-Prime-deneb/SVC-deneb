@@ -4,12 +4,13 @@ body, html {
   font-family: sans-serif;
   font-size: 14px;
 }
-
+/* for nav bar text*/
 .instructions .container h1 {
   font-size: 32px;
   font-weight: 600;
 }
 
+/* nav bar */
 .instructions {
   background-color: white;
   color: #027292;
@@ -248,7 +249,7 @@ section {
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   display: table;
   /* @media screen and (max-width: 580px); */
-    display: block;
+  display: block;
 }
 
 /* STYLING FOR NURSE REPORTS TABLE */
@@ -267,21 +268,22 @@ section {
   margin: 0 auto;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   width: 80%;
+  background: rgb(102, 102, 102);
 }
 
 .nurseReportTbl tr:hover {
-    background: silver;
+    background: #e6e6e6;
     cursor: pointer;
 }
 
 .nurseReportTbl tr:nth-child(odd){
-    background: #a5cdd8;
-}  
+    background: #d4eaf0;
+} 
 
-.nurseReportTbl tr:hover {
-    background: silver;
-    cursor: pointer;
-}
+.nurseReportTbl tr:nth-child(even){
+    background: #ffffff;
+} 
+
 
 
 /* STYLING FOR CASE MANAGEMENT TABLE */
@@ -294,14 +296,19 @@ section {
   /* @media screen and (max-width: 580px); */
   display: block;
   position: relative;
+  background: rgb(102, 102, 102);
 }
 
 .caseTbl tr:nth-child(odd){
-    background: #a5cdd8;
+    background: #d4eaf0;
+}  
+
+.caseTbl tr:nth-child(even){
+    background: #ffffff;
 }  
 
 .caseTbl tr:hover {
-    background: silver;
+    background: #e6e6e6;
     cursor: pointer;
 }
 
@@ -311,12 +318,28 @@ section {
   display: table-row;
   background: #f6f6f6;
 }  
+
+.transactionTbl {
+  margin: 0 auto;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  display: table;
+  /* @media screen and (max-width: 580px); */
+  display: block;
+  position: relative;
+  background: rgb(102, 102, 102);
+}
+
 .transactionTbl tr:nth-child(odd){
-    background: #a5cdd8;
-}  
+    background: #d4eaf0;
+} 
+
+.transactionTbl tr:nth-child(even){
+    background: #ffffff;
+} 
 
 .transactionTbl tr:hover {
-    background: silver;
+    background: #e6e6e6;
     cursor: pointer;
 }
 
@@ -352,8 +375,14 @@ h1 {
 }
 
 #svcBanner {
-  height: 80px;
+  width: 80%;
 }
+/* 
+#picture {
+  background: #027292;
+  padding-left: 15px;
+  padding-right: 15px;
+} */
 
 .invertColor {
   background-color: #027292;

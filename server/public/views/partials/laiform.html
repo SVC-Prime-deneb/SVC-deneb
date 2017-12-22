@@ -61,7 +61,7 @@
                     <br/>
                     <p>Type of Contact: {{lc.formService.selectedForm.form[0].type_of_report}} </p>
                     <p>Date of Contact: {{lc.formService.selectedForm.form[0].date | date}}</p>
-                    <p>Time of Contact: {{lc.formService.selectedForm.form[0].la_form_time}}</p>
+                    <p>Time of Contact: {{lc.formService.selectedForm.form[0].la_form_time | date: "shortTime"}}</p>
                     <p>Case Number: {{lc.formService.selectedForm.form[0].case_number}}</p>
                     <p>County: {{lc.formService.selectedForm.form[0].county}}</p>
                     <p>Officer Badge Number: {{lc.formService.selectedForm.form[0].officer_involved}}</p>
@@ -73,7 +73,7 @@
                     </div>
                 </md-card-content>
                 <md-card-actions layout="column">
-                    <md-button type="submit" class="md-primary md-raised" ng-click="lc.editMode()" class="md-raised">Edit Form</md-button>
+                    <md-button ng-hide="lc.formService.caseObject.cases[lc.formService.selectedForm.form[0].la_form_id].is_case_complete" type="submit" class="md-primary md-raised" ng-click="lc.editMode()" class="md-raised">Edit Form</md-button>
                     <md-button ng-click="lc.closeForm()" class="md-raised">Cancel</md-button>
             </md-card>
         </md-content>
