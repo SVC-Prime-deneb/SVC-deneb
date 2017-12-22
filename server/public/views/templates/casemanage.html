@@ -40,9 +40,9 @@
 
                 <!-- <tr md-row> -->
                     <!-- {{cc.formService.caseObject.cases[0].is_case_complete}} -->
-                <!-- <tr ng-repeat="case in cc.formService.caseObject.cases | orderBy:cc.sortColumn:cc.reverseSort | filter:searchCase"> -->
+                <tr ng-repeat="case in cc.formService.caseObject.cases | orderBy: cc.sortColumn:cc.reverseSort">
 
-                <tr  ng-repeat="case in cc.formService.caseObject.cases | orderBy: 'is_case_complete'">
+                <!-- <tr  ng-repeat="case in cc.formService.caseObject.cases | orderBy: 'is_case_complete'"> -->
 
                     <!-- date and time -->
                     <td>{{case.case_start_date | date}}</td>
