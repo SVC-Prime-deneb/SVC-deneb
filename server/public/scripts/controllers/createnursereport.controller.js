@@ -13,8 +13,7 @@ myApp.controller('CreateNurseReportController', function (ReportService, $http) 
         console.log(objectTosend);
         $http.post('/report/new/nursereport', objectTosend).then(function (response) {
             console.log('success adding new nurse report');
-            vm.viewNurseReport();
-            
+            vm.viewNurseReport();    
         }).catch(function (err) {
             console.log('failure', error);
         });
