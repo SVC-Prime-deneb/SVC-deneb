@@ -15,7 +15,13 @@
                     
                     <md-input-container>
                         <label>Nurse Report Hospital</label>
-                        <input type="text" ng-model="cnrc.newNurseReport.nurse_form_location_name">
+                        <md-select name="type" ng-model="cnrc.newNurseReport.nurse_form_location_name">
+                            <md-option value="SVC">SVC</md-option>
+                            <md-option value="Hennepin County SARS">Hennepin County SARS</md-option>
+                            <md-option value="St. Francis SANE">St. Francis SANE</md-option>
+                            <md-option value="Allina SANE">Allina SANE</md-option>
+                        </md-select>
+                        <!-- <input type="text" ng-model="cnrc.newNurseReport.nurse_form_location_name"> -->
                     </md-input-container>
 
                     <md-checkbox ng-model="cnrc.newNurseReport.nurse_was_adv_dispatched" class="md-primary" aria-label="Was an Advocate Dispatched">Was an Advocate Dispatched ?</md-checkbox>
