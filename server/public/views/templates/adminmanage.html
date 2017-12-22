@@ -1,6 +1,6 @@
 <!-- Advocate Controller as ac -->
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
+<div class="container" id="admintable">
     <div class="adminContainer">
         <h1 id="advocateTitle" class="md-title">ADMIN MANAGEMENT</h1>
         <br>
@@ -24,7 +24,7 @@
     <br>
     <div>
         <md-table-container>
-            <table md-table class="transactionTbl2">
+            <table md-table class="transactionTbl">
                 <thead md-head>
                     <tr md-row>
                         <th ng-click="ac.sortData('first_name')">FIRST NAME
@@ -52,7 +52,7 @@
                             <td md-cell>{{admin.is_super_admin}}</td>
                             <td md-cell>{{admin.username}}</td>
                             <td>
-                                <md-button class="sm-raised sm-secondary" ng-click="ac.deleteAdmin(admin.admin_id)">
+                                <md-button class="sm-raised sm-secondary" ng-click="ac.deleteAdmin(admin.user_id)">
                                     <md-icon md-svg-icon="pictures/trash.svg"></md-icon>
                                 </md-button>
                             </td>

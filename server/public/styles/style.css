@@ -207,6 +207,9 @@ md-card #userTitle {
 th,td {
   text-align: center !important;
   cursor: pointer;
+  align-content:middle !important;
+  vertical-align: middle;
+  
 }
 
 .arrow-up {
@@ -242,6 +245,10 @@ section {
   max-width: 1000px;
 }
 
+#admintable{
+  max-width: 550px !important;
+}
+
 .transactionTbl {
   margin: 0 0 40px 0;
   width: 100%;
@@ -250,6 +257,7 @@ section {
   /* @media screen and (max-width: 580px); */
     display: block;
 }
+
 
 /* STYLING FOR NURSE REPORTS TABLE */
 .container nurseReportTbl {
@@ -360,8 +368,29 @@ h1 {
   color: white;
 }
 
+#greenthing{
+    padding-bottom: 48px;
+  
+}
+
+#idiconMove{
+
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 16px;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  min-width: 20px;
+  min-height: 20px;
+  margin-left: 0;
+  margin-right: 16px;
 
 
 
-
-
+}
