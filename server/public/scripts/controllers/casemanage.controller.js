@@ -49,7 +49,7 @@ myApp.controller('CaseController', function (FormService, $http, $mdDialog) {
 
     //function to show green release form popup
     vm.showGreen = function (ev, id) {
-        FormService.showGreen(ev, id, type);
+        FormService.showGreen(ev, id);
     }
 
     //get route to populate cases

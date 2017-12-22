@@ -129,7 +129,12 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
                 self.selectedForm.form = objectAccept(response.data[0]);
                 console.log(self.selectedForm.form);
                 // self.selectedForm.form = response.data;
-            } else {
+            } if(form === 'la') {
+                console.log('LA form fixing time!');
+                response.data[0].la_form_time = new Date(response.data[0].la_form_time);
+                self.selectedForm.form = [response.data[0]];
+            } 
+            else {
                 self.selectedForm.form = response.data;
                 console.log(response.data);
             }
@@ -210,9 +215,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
 });
 
 
-
 //function to translate victimization object sent into a form friendly form to display and edit
 var objectAccept = function (objectIn) {
+    objectIn.ma_form_time = new Date(objectIn.ma_form_time);
     if(objectIn.was_adult_sexual_assault === true) {
         objectIn.victimization = "Adult Sexual Assault";
     } 

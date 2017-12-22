@@ -468,10 +468,10 @@ router.put('/update/la/:id', function (req, res) {
             } else {
                 var queryText = 'UPDATE "la_form_data" SET date = $1, advocate_name=$2, county=$3,' +
                     'officer_involved=$4, officer_involved_additional=$5,officer_involved_additional_two=$6,' +
-                    'case_number=$7,type_of_report=$8, la_form_time = $9  WHERE "la_form_id"=$10;';
+                    'case_number=$7,type_of_report=$8, la_form_time = $9  WHERE "la_form_id" = $10;';
                 db.query(queryText, [la.date, la.advocate_name, la.county, la.officer_involved,
                 la.officer_involved_additional, la.officer_involved_additional_two,
-                la.case_number, la.type_of_report,la_form_time, id],
+                la.case_number, la.type_of_report, la.la_form_time, id],
                     function (errorMakingQuery, result) {
                         done();
                         if (errorMakingQuery) {
