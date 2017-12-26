@@ -46,7 +46,7 @@
 
                     <!-- date and time -->
                     <td>{{case.case_start_date | date}}</td>
-                    <td>{{case.start_time | date: 'shortTime' }}</td>
+                    <td>{{case.case_start_time | date: 'shortTime' }}</td>
                     <!-- all ng-models will be sent with get route -->
                     <td><md-checkbox ng-disabled="true" ng-style="{opacity: 0 }"></md-checkbox><md-icon ng-click="cc.showGreen($event, case.green_form_id)" class="material-icons">description</md-icon></td>
                     <td><md-checkbox ng-click="cc.checkClicked(case.ma_form_id, case.is_ma_complete, 'is_ma_complete')" ng-disabled="case.is_case_complete" ng-model="case.is_ma_complete" class="md-primary" aria-label="Checkbox 2"></md-checkbox>
