@@ -4,33 +4,19 @@ myApp.controller('ReportController', function (ReportService, $http) {
     vm.reportService = ReportService;
 
     // COUNT the number of time Advocate was dispatched
-//     cases = []; 
-//     vm.countAdv = 0;
-//     vm.dispatchedAdvocates = [];
-//     // Calculate the number of advocate dispatched
-//     vm.countAdvDispatched = function () {
-//         $http.get('/report/nurse').then(function (response) {
-//         // vm.chartData = response.data;
-//         cases = response.data;
-//         // console.log('chartData', vm.chartData);
-//         console.log('cases', cases);
-//         for (var i = 0; i < cases.length; i++) {
-//             if (cases[i].nurse_was_adv_dispatched) {
-//                 vm.countAdv += 1;
-                
-//                 // console.log('cases.length', cases.length);
-                
-//             }
-//         }
-//             vm.dispatchedAdvocates.push(vm.countAdv);
+    vm.cases = []; 
+    
+    vm.countDispatch = function () {
+        $http.get('/report/nurse').then(function (response) {
+            vm.cases = response.data;
+            console.log('vm.cases', vm.cases);
+            console.log('success counting dispatch');
+        }).catch(function(error) {
+            console.log('failure', error);
+        });
+    }
 
-//             console.log('vm.dispatchedAdvocates', vm.dispatchedAdvocates);
-//     }).catch (function (error) {
-//         console.log('failure on Get advocate dispatched', error);
-//     });
-// }
-
-//     vm.countAdvDispatched();
+    vm.countDispatch();
 
 
 
@@ -38,40 +24,28 @@ myApp.controller('ReportController', function (ReportService, $http) {
 
     vm.myNurseChart = document.getElementById('myChart').getContext('2d');
 
-    // // Chart: Global Options
+    // Chart: Global Options
     Chart.defaults.global.defaultFontFamily = 'Lato';
     Chart.defaults.global.defaultFontSize = 15;
     Chart.defaults.global.defaultFontColor = '#777';
 
-    //     // GET CHART
+        // GET CHART
     vm.requestNurseChart = function () {
-
-        // hospitalLabel = [];
-        // advocateNumber = [];
-                hospitalName = ['SVC', 'St.Francis', 'Fairview', 'Northeastern'];
-                advocateData = [15,20,24,30];
-        // $http.get('/report').then(function (response) {
-        //     vm.nurseChart = response.data;
-        //     console.log('nurseChart', vm.nurseChart);
-        //     for (var i = 0; i < vm.nurseChart.length; i++) {
-        //         hospitalLabel.push(vm.nurseChart[i].nurse_form_location_name);
-        //         advocateNumber.push(vm.nurseChart[i].)
-        //     }
-
-        // })
-        // advocateDispatchedNumber.push(vm.chartData[i].amount);
-        // reportLabel.push(vm.chartData[i].nurse_form_location_name);
-        //console.log ("budgetLabel", budgetLabel);
-    // }
-
-// })
+    var nurseReportNames = [];
+    var advocateCounts = [];
+        for (var i = 0; i < vm.cases.length; i++) {
+            nurseReportNames.push(vm.cases[i].nurse_form_location_name);
+            advocateCounts.push(vm.cases[i].count);
+        }
+        console.log('nurseReportNames', nurseReportNames);
+        console.log('advocateCounts', advocateCounts);
         vm.myNurseChart = new Chart(myChart, {
     type: 'doughnut',
     data: {
-        labels: hospitalName,
+        labels: nurseReportNames,
         datasets: [{
             label: 'Nurse Report',
-            data: advocateData,
+            data: advocateCounts,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.6)',
                 'rgba(54, 162, 235, 0.6)',
@@ -113,6 +87,7 @@ myApp.controller('ReportController', function (ReportService, $http) {
 }
     
     
+
     vm.taxiData = [];
 
     // GET COUNT OF TAXIS PER LOCATION
@@ -122,7 +97,7 @@ myApp.controller('ReportController', function (ReportService, $http) {
             console.log('vm.taxiData', vm.taxiData);
             // console.log('vm.taxiData.count', vm.taxiData[0].count);
             // console.log('vm.taxiData.location_name', vm.taxiData[0].location_name);
-           console.log('success counting taxis');    
+        console.log('success counting taxis');    
         }).catch (function (error) {
             console.log('failure', error);    
         });
@@ -130,9 +105,8 @@ myApp.controller('ReportController', function (ReportService, $http) {
 
     vm.countTaxi();
 
-    // BAR CHART FOR TAXI
 
-        //GET TAXI CHART
+        //TAXI BAR CHART
         vm.requestTaxiChart = function () {
             // var myTaxiChart = document.getElementById('myTaxiChart').getContext('2d');
             var locationNames = [];
@@ -203,6 +177,24 @@ myApp.controller('ReportController', function (ReportService, $http) {
             });
         }
             
-    
+    // The Number of Advocates being sent Monthly Per Location - Line Chart
 
+    vm.monthlyAdvPerLoc = [];
+
+    // Get number of Advocates sent per month per location
+        vm.countAdv = function () {
+            $http.get('/report/locmonthly').then(function (response) {
+                vm.monthlyAdvPerLoc = response.data;
+                console.log('monthlyAdvPerLoc', vm.monthlyAdvPerLoc);    
+                console.log('success acounting monthlyAdvPerLoc');
+            }).catch(function (error) {
+                console.log('failure', error);    
+            });
+        }
+
+        vm.countAdv();
+
+        // vm.requestMonthlyAdvChart = function () {
+
+        // }
 });

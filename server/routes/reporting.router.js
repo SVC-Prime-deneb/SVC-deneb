@@ -145,7 +145,10 @@ router.get('/nurse', function (req, res) {
                 console.log('Error connecting', errorConnectingToDb);
                 res.sendStatus(500);
             } else {
-                var queryText = 'SELECT * FROM "public"."nurse_form_data" n;';
+                var queryText = ' SELECT COUNT(n.*), n."nurse_form_location_name" ' +
+                ' FROM "public"."nurse_form_data" n ' +
+                ' WHERE n."nurse_was_adv_dispatched" = TRUE ' +
+                ' GROUP BY n."nurse_form_location_name";';
                 db.query(queryText, function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
