@@ -3,10 +3,21 @@
 <div class="container">
     <h1>VIEW CHARTS</h1>
     <p>
-        <md-button class="md-raised md-primary" ng-click="rc.requestNurseChart()"><md-icon md-svg-icon="pictures/lineChart.svg"></md-icon> Show Chart</md-button>
+        <md-button class="md-raised md-primary" ng-click="rc.requestNurseChart()">
+            <md-icon md-svg-icon="pictures/lineChart.svg"></md-icon> Show Nurse Report Chart</md-button>
     </p>
+
+    <p>
+        <md-button class="md-raised md-primary" ng-click="rc.requestTaxiChart()">
+            <md-icon md-svg-icon="pictures/lineChart.svg"></md-icon> Show Taxi Chart</md-button>
+    </p>
+
     <div style="width: 70%;">
-        <canvas id="myNurseChart" height="750" width="700"></canvas>
+        <canvas id="myChart" height="750" width="700"></canvas>
     </div>
+    
+    <!-- <div style="width: 70%;">
+        <canvas id="myTaxiChart" height="750" width="700"></canvas>
+    </div> -->
 
 </div>
