@@ -2,8 +2,18 @@ myApp.controller('ReportController', function (ReportService, $http) {
     console.log('ReportController created');
     var vm = this;
     vm.reportService = ReportService;
-
+    // vm.year = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030];
+    vm.year = [];
+    for (var i = 2014; i<=2030;i++){
+        vm.year.push(i);
+    }
+    vm.selectedYear = 0;
+    vm.selectedMonth = "";
+    vm.month = ['jan', 'feb', 'march', 'april', 'may', 'june', 'july', 'aug', 'sept', 'oct', 'nov', 'dec'];
+    vm.Donut = false;
+    vm.Bar = false;
     // COUNT the number of time Advocate was dispatched
+    
     vm.cases = []; 
     
     vm.countDispatch = function () {
@@ -15,13 +25,9 @@ myApp.controller('ReportController', function (ReportService, $http) {
             console.log('failure', error);
         });
     }
-
+    
     vm.countDispatch();
-
-
-
     vm.nurseChart = [];
-
     vm.myNurseChart = document.getElementById('myChart').getContext('2d');
 
     // Chart: Global Options
@@ -33,6 +39,10 @@ myApp.controller('ReportController', function (ReportService, $http) {
     vm.requestNurseChart = function () {
     var nurseReportNames = [];
     var advocateCounts = [];
+    vm.Donut = true;
+    vm.Bar = false;
+    console.log('Donut and Bar status:', vm.Donut, vm.Bar);
+    
         for (var i = 0; i < vm.cases.length; i++) {
             nurseReportNames.push(vm.cases[i].nurse_form_location_name);
             advocateCounts.push(vm.cases[i].count);
@@ -89,7 +99,7 @@ myApp.controller('ReportController', function (ReportService, $http) {
     
 
     vm.taxiData = [];
-
+    vm.myNurseChart = document.getElementById('myChart').getContext('2d');
     // GET COUNT OF TAXIS PER LOCATION
     vm.countTaxi = function () {
         $http.get('/report/taxi').then(function (response) {
@@ -104,20 +114,22 @@ myApp.controller('ReportController', function (ReportService, $http) {
     }
 
     vm.countTaxi();
-
-
+    var myTaxiChart = document.getElementById('myTaxiChart').getContext('2d');
         //TAXI BAR CHART
         vm.requestTaxiChart = function () {
-            // var myTaxiChart = document.getElementById('myTaxiChart').getContext('2d');
+            
             var locationNames = [];
             var taxiCounts = [];
+            vm.Donut = false;
+            vm.Bar = true;
+            console.log('Donut and Bar status:', vm.Donut, vm.Bar);
             for (var i = 0; i < vm.taxiData.length; i++) {
                 locationNames.push(vm.taxiData[i].location_name);
                 taxiCounts.push(vm.taxiData[i].count);     
             }
             console.log('locationNames', locationNames);
             console.log('taxicount', taxiCounts);
-            vm.taxiChart = new Chart(myChart, {
+            vm.myTaxiChart = new Chart(myTaxiChart, {
                 type: 'bar', // bar,pie, line, horizontalBar
                 data: {
                     labels: locationNames ,
@@ -194,7 +206,10 @@ myApp.controller('ReportController', function (ReportService, $http) {
 
         vm.countAdv();
 
-        // vm.requestMonthlyAdvChart = function () {
+        
 
-        // }
+        vm.requestMonthlyAdvChart = function () {
+            console.log('Selected Year', vm.selectedYear);
+            console.log('Selected Month', vm.selectedMonth);
+        }
 });
