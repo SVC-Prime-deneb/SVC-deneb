@@ -1,7 +1,6 @@
 <!-- EditAdController as eac -->
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-    <h1></h1>
     <md-content class="editAdvocate">
         <md-card>
             <div class="layout-margin">
@@ -46,7 +45,7 @@
                     <div>
                         <!-- goes to advocate management page -->
                         <md-button class="md-raised md-warn" href="#/advocatemanage">Cancel</md-button>
-                        <md-button type="submit" class="md-raised md-primary" ng-click="eac.updateAdvocate()" href="#/advocatemanage">Update</md-button>
+                        <md-button type="submit" class="md-raised md-primary" ng-click="eac.updateAdvocate(eac.updatedAdvocate.advocate_id , eac.updatedAdvocate)" href="#/advocatemanage">Update</md-button>
                     </div>
                 </form>
             </div>

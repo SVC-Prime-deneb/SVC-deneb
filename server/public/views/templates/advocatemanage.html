@@ -1,6 +1,6 @@
 <!-- Advocate Controller as avc -->
 <div ng-include="'views/partials/nav.html'"></div>
-    <div class="container">       
+    <div class="container">      
             <div class="advocateContainer">
                 <h1 id="advocateTitle" class="md-title">ADVOCATE MANAGEMENT</h1><br>
             </div>
@@ -52,7 +52,7 @@
                         </tr>
                     </thead>
                     <tbody md-body >
-                        <tr md-row ng-repeat="advocate in avc.advocateList.data | orderBy: avc.sortColumn:avc.reverseSort | filter:searchText">
+                        <tr md-row ng-repeat="advocate in avc.formService.advocateList | orderBy: avc.sortColumn:avc.reverseSort | filter:searchText">
                             <div>
                                 <!-- <td ng-hide="avc.selectedIndex === $index" md-cell>{{$index}}</td> {{avc.selectedIndex}}-{{avc.selectedIndex==$index}} -->
                                 <td md-cell>{{advocate.advocate_first_name}}</td>

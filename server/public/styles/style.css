@@ -206,7 +206,7 @@ md-card #userTitle {
 }
 
 th,td {
-  text-align: center !important;
+  text-align: center;
   cursor: pointer;
 }
 
@@ -388,6 +388,22 @@ h1 {
   background-color: #027292;
   color: white;
 }
+
+.lightBlue {
+  background-color: #d4eaf0;
+}
+
+.dialogTbl{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dialogTbl tr td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 2px solid rgb(102, 102, 102); 
+}
+
 
 
 

@@ -31,7 +31,9 @@
                     <th>Yellow Form</th>
                     <th>Pink Form</th>                   
                     <th>Bill of Rights</th>
-                    <th>Case Status</th>
+                    <th ng-click="cc.sortData('is_case_complete')">Case Status
+                        <div ng-class="cc.getSortClass('is_case_complete')"></div>
+                    </th>
                     <th>Action</th>
                 </tr>
             </thead>

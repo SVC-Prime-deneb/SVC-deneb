@@ -2,7 +2,7 @@ myApp.controller('CreateNurseReportController', function (ReportService, $http) 
     console.log('CreateNurseReportController created');
     var vm = this;
     vm.reportService = ReportService;
-
+    
     vm.nurseReportHospital = "";
     vm.nurseReportId = "";
     vm.newNurseReport = {
