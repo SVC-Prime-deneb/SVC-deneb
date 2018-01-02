@@ -12,7 +12,12 @@
         </md-input-container>
 
         <md-input-container>
-            <md-datepicker ng-model="lc.formService.selectedForm.form[0].date" md-placeholder="Date and Time"></md-datepicker>
+            <md-datepicker ng-model="lc.formService.selectedForm.form[0].date" md-placeholder="Date"></md-datepicker>
+        </md-input-container>
+
+        <md-input-container>
+            <label>Time</label>
+            <input type="time" ng-model="lc.formService.selectedForm.form[0].la_form_time">
         </md-input-container>
 
         <md-input-container>
@@ -45,28 +50,53 @@
     </form>
 
     <div ng-hide="lc.formService.isEditing.editing">
-        <h1>New Legal Advocacy Information Form</h1>
-        <p>Type of Contact:</p>
-        <p>{{lc.formService.selectedForm.form[0].type_of_report}}</p>
-        <p>Date of Contact:</p>
-        <p>{{lc.formService.selectedForm.form[0].date}}</p>
-        <p>Time of Contact</p>
-        <p>{{}}</p>
-        <p>Case Number:</p>
-        <p>{{lc.formService.selectedForm.form[0].case_number}}</p>
-        <p>County:</p>
-        <p>{{lc.formService.selectedForm.form[0].county}}</p>
-        <p>Officer Badge Number</p>
-        <p>{{lc.formService.selectedForm.form[0].officer_involved}}</p>
-        <div ng-show="lc.formService.selectedForm.form[0].officer_involved">
-            <p>Additional Officer Badge Number:</p>
-            <p>{{lc.formService.selectedForm.form[0].officer_involved_additional}}</p>
-        </div>
-        <div ng-show="lc.formService.selectedForm.form[0].officer_involved_additional">
-            <p>Additional Officer Badge Number:</p>
-            <p>{{lc.formService.selectedForm.form[0].officer_involved_additional_two}}</p>
-        </div>
-        <md-button type="submit" class="md-primary md-raised" ng-click="lc.editMode()" class="md-raised">Edit Form</md-button>
-        <md-button ng-click="lc.closeForm()" class="md-raised">Cancel</md-button>
+        <md-content>
+            <md-card>
+                <md-card-title class="invertColor">
+                    <md-card-title-text>
+                        <h1 class="invertColor">Legal Advocacy Information Form</h1>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <table class="dialogTbl">
+                        <tr>
+                            <td>Type of Contact:</td>
+                            <td>{{lc.formService.selectedForm.form[0].type_of_report}}</td>
+                        </tr>
+                        <tr>
+                            <td>Date of Contact:</td>
+                            <td>{{lc.formService.selectedForm.form[0].date | date}}</td>
+                        </tr>
+                        <tr>
+                            <td>Time of Contact:</td>
+                            <td>{{lc.formService.selectedForm.form[0].la_form_time | date: "shortTime"}}</td>
+                        </tr>
+                        <tr>
+                            <td>Case Number:</td>
+                            <td>{{lc.formService.selectedForm.form[0].case_number}}</td>
+                        </tr>
+                        <tr>
+                            <td>County:</td>
+                            <td>{{lc.formService.selectedForm.form[0].county}}</td>
+                        </tr>
+                        <tr>
+                            <td>Officer Badge Number:</td>
+                            <td>{{lc.formService.selectedForm.form[0].officer_involved}}</td>
+                        </tr>
+                        <tr ng-show="lc.formService.selectedForm.form[0].officer_involved_additional">
+                            <td>Additional Officer Badge Number:</td>
+                            <td>{{lc.formService.selectedForm.form[0].officer_involved_additional}}</td>
+                        </tr>
+                        <tr ng-show="lc.formService.selectedForm.form[0].officer_involved_additional_two">
+                            <td>Additional Officer Badge Number:</td>
+                            <td>{{lc.formService.selectedForm.form[0].officer_involved_additional_two}}</td>
+                        </tr>
+                    </table>
+                </md-card-content>
+                <md-card-actions layout="column">
+                    <md-button ng-hide="lc.formService.caseObject.cases[lc.formService.selectedForm.form[0].la_form_id].is_case_complete" type="submit" class="md-primary md-raised" ng-click="lc.editMode()" class="md-raised">Edit Form</md-button>
+                    <md-button ng-click="lc.closeForm()" class="md-raised">Cancel</md-button>
+            </md-card>
+        </md-content>
     </div>
 </md-dialog>

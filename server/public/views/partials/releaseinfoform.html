@@ -14,35 +14,59 @@
                 <md-radio-button ng-value="false" class="md-primary">No</md-radio-button>
             </md-radio-group>
         </md-input-container>
-            <md-input-container ng-show="ric.formService.selectedForm.form[0].was_contact_made">
-                <md-datepicker ng-model="ric.formService.selectedForm.form[0].contact_date" md-placeholder="Contact Date"></md-datepicker>
-            </md-input-container>
+        <md-input-container ng-show="ric.formService.selectedForm.form[0].was_contact_made">
+            <md-datepicker ng-model="ric.formService.selectedForm.form[0].contact_date" md-placeholder="Contact Date"></md-datepicker>
+        </md-input-container>
 
-            <md-input-container>
-                <label>Who Contacted</label>
-                <input type="text" ng-model="ric.formService.selectedForm.form[0].contacted_by">
-            </md-input-container>
+        <md-input-container>
+            <label>Who Contacted</label>
+            <input type="text" ng-model="ric.formService.selectedForm.form[0].contacted_by">
+        </md-input-container>
 
         <md-button type="submit" class="md-primary md-raised" ng-click="ric.sendRelease(ric.formService.selectedForm.form[0])" class="md-raised">Submit</md-button>
         <md-button ng-click="ric.closeForm()" class="md-raised">Cancel</md-button>
     </form>
+    <!-- display -->
     <div ng-hide="ric.formService.isEditing.editing">
-                <h1>Release of Information Form</h1>
+        <md-content>
+            <md-card>
+                <md-card-title class="invertColor">
+                    <md-card-title-text>
+                        <h1 class="invertColor">Release of Information Form</h1>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <table class="dialogTbl">
+                        <br/>
+                        <tr>
+                            <td>Purpose of Release:</td>
+                            <td>{{ric.formService.selectedForm.form[0].purpose}}</td>
+                        </tr>
 
-                <p>Purpose of Release</p>
-                <p>{{ric.formService.selectedForm.form[0].purpose}}</p>
-                
-                <p>Was The Contact Made?</p>
-                <md-checkbox ng-model="ric.formService.selectedForm.form[0].was_contact_made"></md-checkbox>
-                <div ng-show="ric.formService.selectedForm.form[0].was_contact_made">
-                <p>Contact Date:</p>
-                <p>{{ric.formService.selectedForm.form[0].contact_date}}</p>
-                </div>
-                <p>Who Contacted Them?</p>
-                <p>{{ric.formService.selectedForm.form[0].contacted_by}}</p>
-                <md-button type="submit" class="md-primary md-raised" ng-click="ric.editMode()" class="md-raised">Edit Form</md-button>
-                <md-button ng-click="ric.closeForm()" class="md-raised">Cancel</md-button>
+                        <tr ng-show="ric.formService.selectedForm.form[0].was_contact_made">
+                            <td>Was The Contact Made?</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr ng-hide="ric.formService.selectedForm.form[0].was_contact_made">
+                            <td>Was The Contact Made?</td>
+                            <td>No</td>
+                        </tr>
+                        <tr ng-show="ric.formService.selectedForm.form[0].was_contact_made">
+                            <td>Contact Date:</td>
+                            <td>{{ric.formService.selectedForm.form[0].contact_date | date}}</td>
+                        </tr>
+                        <tr>
+                            <td>Contacted By:</td>
+                            <td>{{ric.formService.selectedForm.form[0].contacted_by}}</td>
+                        </tr>
+                    </table>
+                </md-card-content>
+                <md-card-actions layout="column">
+                    <md-button ng-hide="ric.formService.caseObject.cases[ric.formService.selectedForm.form[0].release_form_id].is_case_complete"
+                        type="submit" class="md-primary md-raised" ng-click="ric.editMode()" class="md-raised">Edit Form</md-button>
+                    <md-button ng-click="ric.closeForm()" class="md-raised">Cancel</md-button>
+                </md-card-actions>
+            </md-card>
+        </md-content>
     </div>
-
-
 </md-dialog>

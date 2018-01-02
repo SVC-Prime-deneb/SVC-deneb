@@ -4,7 +4,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     self.FormObject = {};
 
     self.updatedAdvocate = {};
-    self.advocateList = { data: [] };
+    self.advocateList;
     self.selectedAdvocate = { data: {} };
 
     // Hold advocateId of the row that was clicked
@@ -12,6 +12,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
 
     //holds info about editing or not for dialog displays
     self.isEditing = {editing: false};
+    
+    // array of selected advocates for dispatch
+    self.advocateDispatchArray = {data: []};
 
     // // Function to set current advocateId
     // self.saveAdvocateId = function(id) {
@@ -42,9 +45,8 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     }
 
     //function to show green release form popup
-    self.showGreen = function (ev, id, type) {
+    self.showGreen = function (ev, id) {
         self.saveFormId(id);
-        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/greenform.html',
             controller: 'GreenFormController as gc',
@@ -55,9 +57,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     }
 
     //show medical advocate dialog function
-    self.showMa = function (ev, id, type) {
+    self.showMa = function (ev, id, typeIn) {
+        self.checkEdit(typeIn);
         self.saveFormId(id);
-        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/maform.html',
             controller: 'MaController as mc',
@@ -68,9 +70,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     }
 
     //show legal advocate dialog function
-    self.showLa = function (ev, id, type) {
+    self.showLa = function (ev, id, typeIn) {
+        self.checkEdit(typeIn);
         self.saveFormId(id);
-        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/laiform.html',
             controller: 'LaiController as lc',
@@ -81,9 +83,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     }
 
     //show referral form dialog function
-    self.showRefer = function (ev, id, type) {
+    self.showRefer = function (ev, id, typeIn) {
+        self.checkEdit(typeIn);
         self.saveFormId(id);
-        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/releaseform.html',
             controller: 'ReleaseController as rc',
@@ -93,9 +95,9 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         })
     }
     //show release form dialog function
-    self.showRelease = function (ev, id, type) {
+    self.showRelease = function (ev, id, typeIn) {
+        self.checkEdit(typeIn);
         self.saveFormId(id);
-        self.isEditing.editing = false;
         $mdDialog.show({
             templateUrl: '../views/partials/releaseinfoform.html',
             controller: 'ReleaseInfoController as ric',
@@ -105,11 +107,20 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         })
     }
 
-    //get route for cases
+    //show release form dialog function
+    self.showDispatch = function (ev, array) {
+        self.advocateDispatchArray.data = array;
+        $mdDialog.show({
+            templateUrl: '../views/partials/dispatchdialog.html',
+            controller: 'DispatchDialogController as ddc',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+        })
+    }
+
+    //get route for all cases
     self.getCases = function () {
         $http.get('/case/form').then(function (response) {
-            // console.log(response);
-            console.log('Success calling Get Cases');
             self.caseObject.cases = response.data;
         }).catch(function (error) {
             console.log('failure on GET Case Route');
@@ -123,19 +134,32 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         self.updatedAdvocate = advocate;
     }
 
-    //get route for forms
+    //get route for specific form that was selected
     self.getForm = function (form) {
         $http.get('/case/' + form + '/' + self.currentFormId.currentId).then(function (response) {
             if (form === 'ma') {
                 self.selectedForm.form = objectAccept(response.data[0]);
-                console.log(self.selectedForm.form);
                 // self.selectedForm.form = response.data;
-            } else {
+            } if(form === 'la') {
+                response.data[0].la_form_time = new Date(response.data[0].la_form_time);
+                self.selectedForm.form = [response.data[0]];
+            } 
+            else {
                 self.selectedForm.form = response.data;
                 console.log(response.data);
             }
         }).catch(function (error) {
             console.log('failure on get Form Route');
+        });
+    }
+
+    //get route for search functionality
+    self.searchCase = function (datesIn) {
+        console.log(datesIn);
+        $http.get('/case/form/search', { params: datesIn }).then(function (response) {
+            self.caseObject.cases = response.data;
+        }).catch(function (error) {
+            console.log('failure on get Search Route');
         });
     }
 
@@ -147,7 +171,6 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         }
         
         $http.put('/case/update/checkbox/' + id, objectTosend).then(function (response) {
-            console.log('updated', name);
             self.getCases();
         }).catch(function (error) {
             console.log('update not sent :(');
@@ -160,10 +183,8 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
             formName: name,
             formValue: true
         }
-        console.log(objectTosend);
 
         $http.put('/case/update/checkbox/' + self.currentFormId.currentId, objectTosend).then(function (response) {
-            console.log('updated', name);
             self.getCases();
         }).catch(function (error) {
             console.log('update not sent :(');
@@ -178,13 +199,81 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         })
     }
 
+    self.checkEdit = function (stateIn) {
+        console.log(stateIn);
+        if (stateIn === 'edit') {
+            console.log('editing');
+            self.isEditing.editing = true;
+        } if (stateIn === 'view') {
+            console.log('viewing');
+
+            self.isEditing.editing = false;
+        }
+    }
+
+    //converts time to time stamp in ma form/ la form and green form
+    self.convertTime = function (timeIn) {
+        var convertedTime = moment(timeIn).format('YYYY-MM-DD HH:mm:ss');
+        return convertedTime;
+    }
+
+    // GET advocates 
+    self.viewAdvocate = function () {
+    return $http.get('/advocate/get').then(function (response) {
+        self.advocateList = languageSort(response.data);            
+        }).catch(function (error) {
+            console.log('failureee', error);
+        });
+    }
+
+    // edit advocates
+    self.updateAdvocate = function (id, objectIn) {
+        $http.put('/advocate/update/' + id, objectIn).then(function (response) {
+            console.log('success updating existing advocate');
+        }).catch(function (error) {
+            console.log('failure', error);
+        });
+    }
 
 });
 
+// function to sort advocate languages for display
+var languageSort = function (arrayIn) {
+    for (var i = 0; i < arrayIn.length; i++) {
+        // adding another property to the object
+        arrayIn[i].languageList = [];
+        self.languages = [];
+        if (arrayIn[i].asl) {
+            self.languages.push("ASL");
+        }
+        if (arrayIn[i].french) {
+            self.languages.push("French");
+        }
+        if (arrayIn[i].german) {
+            self.languages.push("German");
+        }
+        if (arrayIn[i].liberian) {
+            self.languages.push("Liberian");
+        }
+        if (arrayIn[i].somali) {
+            self.languages.push("Somalian");
+        }
+        if (arrayIn[i].spanish) {
+            self.languages.push("Spanish");
+        }
+        if (arrayIn[i].other_language != null) {
+            self.languages.push(arrayIn[i].other_language);
+        }
+        arrayIn[i].languageList = self.languages;
+        // console.log('Display Advocate Phone', self.advocateList.data[i].main_contact_phone);
+    }
+    return arrayIn;
+}
 
 
 //function to translate victimization object sent into a form friendly form to display and edit
 var objectAccept = function (objectIn) {
+    objectIn.ma_form_time = new Date(objectIn.ma_form_time);
     if(objectIn.was_adult_sexual_assault === true) {
         objectIn.victimization = "Adult Sexual Assault";
     } 
@@ -200,12 +289,7 @@ var objectAccept = function (objectIn) {
     else if (objectIn.was_other === true){
         objectIn.victimization = 'Other';
     }
-    console.log(objectIn);
     return objectIn = [objectIn];
 }
 
-var convertTime = function(timeIn){
-    var convertedTime = moment('1970-01-01T18:00:00.000Z', 'HH:mm');
-    console.log(convertedTime);
-}
 

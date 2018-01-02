@@ -184,7 +184,7 @@ router.post('/new/green', function (req, res) {
             } else {
                 var queryText = 'INSERT INTO "green_form_data" ("date","start_time",' +
                     ' "location_id" , "nurse", "advocate_id" , ' +
-                    '"was_advocate_dispatched", "green_form_notes") VALUES($1,$2,$3,$4,$5,$6, $7) RETURNING "green_form_id" , "date";'
+                    '"was_advocate_dispatched", "green_form_notes") VALUES($1,$2,$3,$4,$5,$6, $7) RETURNING "green_form_id" , "date" , location_id;'
                 db.query(queryText, [green.date, green.start_time, green.location_id,
                 green.nurse,green.advocate_id, green.was_advocate_dispatched, green.green_form_notes],
                     function (errorMakingQuery, result) {
@@ -209,7 +209,7 @@ router.post('/new/green', function (req, res) {
 router.put('/month', function (req, res) {
     console.log('this req.body', req.body);
     
-    var loc = req.body.location_id
+    var loc = req.body.loc
     var date = req.body.date
     var year_year=date.slice(0, 4)
     var month=date.slice(5, 7)
@@ -468,10 +468,10 @@ router.put('/update/la/:id', function (req, res) {
             } else {
                 var queryText = 'UPDATE "la_form_data" SET date = $1, advocate_name=$2, county=$3,' +
                     'officer_involved=$4, officer_involved_additional=$5,officer_involved_additional_two=$6,' +
-                    'case_number=$7,type_of_report=$8, la_form_time = $9  WHERE "la_form_id"=$10;';
+                    'case_number=$7,type_of_report=$8, la_form_time = $9  WHERE "la_form_id" = $10;';
                 db.query(queryText, [la.date, la.advocate_name, la.county, la.officer_involved,
                 la.officer_involved_additional, la.officer_involved_additional_two,
-                la.case_number, la.type_of_report,la_form_time, id],
+                la.case_number, la.type_of_report, la.la_form_time, id],
                     function (errorMakingQuery, result) {
                         done();
                         if (errorMakingQuery) {
