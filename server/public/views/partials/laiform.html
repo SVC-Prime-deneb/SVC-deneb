@@ -58,19 +58,40 @@
                     </md-card-title-text>
                 </md-card-title>
                 <md-card-content>
-                    <br/>
-                    <p>Type of Contact: {{lc.formService.selectedForm.form[0].type_of_report}} </p>
-                    <p>Date of Contact: {{lc.formService.selectedForm.form[0].date | date}}</p>
-                    <p>Time of Contact: {{lc.formService.selectedForm.form[0].la_form_time | date: "shortTime"}}</p>
-                    <p>Case Number: {{lc.formService.selectedForm.form[0].case_number}}</p>
-                    <p>County: {{lc.formService.selectedForm.form[0].county}}</p>
-                    <p>Officer Badge Number: {{lc.formService.selectedForm.form[0].officer_involved}}</p>
-                    <div ng-show="lc.formService.selectedForm.form[0].officer_involved_additional">
-                        <p>Additional Officer Badge Number: {{lc.formService.selectedForm.form[0].officer_involved_additional}}</p>
-                    </div>
-                    <div ng-show="lc.formService.selectedForm.form[0].officer_involved_additional_two">
-                        <p>Additional Officer Badge Number: {{lc.formService.selectedForm.form[0].officer_involved_additional_two}}</p>
-                    </div>
+                    <table class="dialogTbl">
+                        <tr>
+                            <td>Type of Contact:</td>
+                            <td>{{lc.formService.selectedForm.form[0].type_of_report}}</td>
+                        </tr>
+                        <tr>
+                            <td>Date of Contact:</td>
+                            <td>{{lc.formService.selectedForm.form[0].date | date}}</td>
+                        </tr>
+                        <tr>
+                            <td>Time of Contact:</td>
+                            <td>{{lc.formService.selectedForm.form[0].la_form_time | date: "shortTime"}}</td>
+                        </tr>
+                        <tr>
+                            <td>Case Number:</td>
+                            <td>{{lc.formService.selectedForm.form[0].case_number}}</td>
+                        </tr>
+                        <tr>
+                            <td>County:</td>
+                            <td>{{lc.formService.selectedForm.form[0].county}}</td>
+                        </tr>
+                        <tr>
+                            <td>Officer Badge Number:</td>
+                            <td>{{lc.formService.selectedForm.form[0].officer_involved}}</td>
+                        </tr>
+                        <tr ng-show="lc.formService.selectedForm.form[0].officer_involved_additional">
+                            <td>Additional Officer Badge Number:</td>
+                            <td>{{lc.formService.selectedForm.form[0].officer_involved_additional}}</td>
+                        </tr>
+                        <tr ng-show="lc.formService.selectedForm.form[0].officer_involved_additional_two">
+                            <td>Additional Officer Badge Number:</td>
+                            <td>{{lc.formService.selectedForm.form[0].officer_involved_additional_two}}</td>
+                        </tr>
+                    </table>
                 </md-card-content>
                 <md-card-actions layout="column">
                     <md-button ng-hide="lc.formService.caseObject.cases[lc.formService.selectedForm.form[0].la_form_id].is_case_complete" type="submit" class="md-primary md-raised" ng-click="lc.editMode()" class="md-raised">Edit Form</md-button>

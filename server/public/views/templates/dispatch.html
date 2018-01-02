@@ -1,5 +1,68 @@
 <!-- DispatchController as dc -->
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-    <h1>Dispatch</h1>
+    <div class="advocateContainer">
+        <h1>DISPATCH</h1>
+        <br>
+    </div>
+    <div class="searchBar">
+        <md-icon md-svg-icon="pictures/search.svg"></md-icon>
+        <input type="text" placeholder="Search..." ng-model="searchText" />
+        <md-button ng-click="dc.showDispatch($event, dc.formService.advocateList)" class="md-raised md-primary">DISPATCH</md-button>
+    </div>
+    <br>
+    <br>
+    <div>
+        <md-table-container>
+            <table md-table class="nurseReportTbl">
+                <thead md-head>
+                    <tr md-row>
+                        <th ng-click="dc.sortData('selected')">SELECTED
+                            <div ng-class="dc.getSortClass('selected')"></div>
+                        </th>
+                        <th ng-click="dc.sortData('advocate_first_name')">FIRST NAME
+                            <div ng-class="dc.getSortClass('advocate_first_name')"></div>
+                        </th>
+                        <th ng-click="dc.sortData('advocate_last_name')">LAST NAME
+                            <div ng-class="dc.getSortClass('advocate_last_name')"></div>
+                        </th>
+                        <th ng-click="dc.sortData('language')">LANGUAGE
+                            <div ng-class="dc.getSortClass('language')"></div>
+                        </th>
+                        <th ng-click="dc.sortData('is_hcmc_approved')">HCMC CERTIFIED
+                            <div ng-class="dc.getSortClass('is_hcmc_approved')"></div>
+                        </th>
+                        <th ng-click="dc.sortData('allow_text')">TEXT OPT-IN
+                            <div ng-class="dc.getSortClass('allow_text')"></div>
+                        </th>
+                        <th ng-click="dc.sortData('main_contact_phone')">PHONE NO.
+                            <div ng-class="dc.getSortClass('main_contact_phone')"></div>
+                        </th>
+                        <th ng-click="dc.sortData('main_contact_phone')">LAST CONTACTED
+                            <div ng-class="dc.getSortClass('main_contact_phone')"></div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row ng-repeat="advocate in dc.formService.advocateList | orderBy: dc.sortColumn:dc.reverseSort | filter:searchText">
+                        <div>
+                            <td md-cell><md-checkbox class="md-primary" ng-model="advocate.selected"></md-checkbox></td>
+                            <!-- <td ng-hide="avc.selectedIndex === $index" md-cell>{{$index}}</td> {{avc.selectedIndex}}-{{avc.selectedIndex==$index}} -->
+                            <td md-cell>{{advocate.advocate_first_name}}</td>
+                            <td md-cell>{{advocate.advocate_last_name}}</td>
+                            <td md-cell>
+                                <span ng-repeat="language in advocate.languageList">{{language}} </span>
+                            </td>
+                            <td md-cell>{{advocate.is_hcmc_approved}}</td>
+                            <td md-cell>{{advocate.allow_text}}</td>
+                            <td md-cell>{{advocate.main_contact_phone}}</td>
+                            <td md-cell>{{advocate.last_contacted_date | date}}</td>
+                        </div>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        <br>
+    </div>
+</div>
 </div>

@@ -10,7 +10,7 @@ myApp.controller('UserController', function (UserService, FormService, $http) {
   vm.openCase = 0;
   cases = [];
   
-  // Get Route to count how many cases are still open on Case Managemen table
+  // Get Route to count how many cases are still open on Case Management table
   vm.displayOpenCase = function () {
     // get case first
     $http.get('/case/form').then(function (response) {
