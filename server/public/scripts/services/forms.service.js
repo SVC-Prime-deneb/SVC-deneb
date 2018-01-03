@@ -234,7 +234,14 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
             console.log('failure', error);
         });
     }
-
+    //updated date when dispatched
+    self.updateDate = function (id, date) {
+        $http.put('/advocate/update/' + id, date).then(function (response) {
+            console.log('success updating existing advocate');
+        }).catch(function (error) {
+            console.log('failure', error);
+        });
+    }
 });
 
 // function to sort advocate languages for display

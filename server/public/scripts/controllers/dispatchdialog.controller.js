@@ -13,9 +13,8 @@ myApp.controller('DispatchDialogController', function (FormService, $http, $mdDi
         var today = moment().format('YYYY-MM-DD');
         for (var i = 0; i < array.length; i++){
             array[i].last_contacted_date = today;
-            FormService.updateAdvocate(array[i].advocate_id, array[i]);
+            FormService.updateDate(array[i].advocate_id, today);
         }
-        // FormService.updateAdvocate(id, objectIn);
         vm.closeForm();
     }
 })
