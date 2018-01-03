@@ -85,6 +85,33 @@ router.post('/new', function (req, res) {
 });//End POST route
 //                            UPDATE ROUTES
 
+
+router.put('/update/last/:id', function (req, res) {
+  console.log('this req.body', req.body);
+
+  var id = req.body.loc
+  var date = req.body
+  pool.connect(function (errorConnectingToDb, db, done) {
+    if (errorConnectingToDb) {
+      res.sendStatus(500);
+      console.log("errorConnectingToDb", errorConnectingToDb);
+    } else {
+      var queryText = 'UPDATE "advocates" SET="last_contacted_date TO $1 WHERE "advocate_id" = $2'
+      console.log('query text', queryText);
+
+      db.query(queryText, [loc], function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          res.sendStatus(500);
+          console.log('errorMakingQuery', errorMakingQuery);
+
+        } else {
+          res.sendStatus(201);
+        }
+      }); // END QUERY
+    }
+  });
+});//End POST route
 //TODO add forgot password and finish this route.
 router.put('/update/:id', function (req, res) {
   console.log('update admin');

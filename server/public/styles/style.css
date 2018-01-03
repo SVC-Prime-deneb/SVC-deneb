@@ -435,7 +435,13 @@ h1 {
   min-height: 20px;
   margin-left: 0;
   margin-right: 16px;
+}
 
+#loginForm{
+width: 500px;
+height: 1000px;
+}
 
-
+#inputLogin{
+  padding-right: 60px ;
 }
