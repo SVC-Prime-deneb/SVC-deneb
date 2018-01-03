@@ -3,29 +3,20 @@
     <div class="welcome">
         <div>
 
-            <md-content>
+            <md-content style="margin: auto" flex="80">
                 <md-card>
                     <md-card id="userTitle">
                         <div id="picture">
                             <img id="svcBanner" src="pictures/svc_img.jpeg">
                         </div>
-                        <md-input-container>
-                            <!-- <label id="openCase" for="openCase" >Open Cases: </label> -->
+                        <div layout="row" layout-align="center">
                             <md-button class="md-raised md-primary" href="#/casemanage">Active Cases: {{uc.openCase}}</md-button>
-                            <!-- <section layout="row"></section> -->
-                        </md-input-container>
-
-                        <!-- <md-input-container>
-                            <label id="upcomingDeadline" for="upcomingDeadline">Upcoming Deadlines:</label>
-                            <section layout="row"></section>
-                        </md-input-container>
-                        <br> -->
-                        <md-input-container>
-                            <md-button class="md-raised md-primary">New Cases: 4</md-button>
-                            <!-- <section layout="row"></section> -->
-                        </md-input-container>
-                        <br>
-                    </md-card>
+                            <md-button class="md-raised md-primary" href="#/casemanage">New Cases: 4</md-button>
+                        </div>
+                        <div>
+                    <md-button class="md-raised md-primary" href="#/green">Create New Case</md-button>
+                </div>
+                </md-card>
             </md-content>
 
         </div>

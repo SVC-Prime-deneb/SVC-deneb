@@ -40,7 +40,6 @@ myApp.config(function ($routeProvider, $locationProvider) {
         }
       }
     })
-    //if the get user doesnt work, might need to change the service
     .when('/green', {
       templateUrl: '/views/templates/green.html',
       controller: 'GreenController as gc',

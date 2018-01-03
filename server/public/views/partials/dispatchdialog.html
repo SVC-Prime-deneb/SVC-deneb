@@ -9,18 +9,20 @@
                     </md-card-title-text>
                 </md-card-title>
                 <md-card-content>
-                    <table>
+                    <h3 style="text-align: center" ng-show="ddc.reportService.advocateDispatchArray.data[0]===undefined">Please Select Advocates to Dispatch</h3>
+                    <table class="dialogTbl" ng-hide="ddc.reportService.advocateDispatchArray.data[0]===undefined">
                         <br/>
                         <thead>
                         <th>NAME</th>
                         <th>PHONE NUMBER</th>
-                        <th>TEXT OPT-IN</th>
+                        <th>TEXT STATUS</th>
                         </thead>
                         <tbody>
                         <tr ng-repeat="advocate in ddc.reportService.advocateDispatchArray.data">
                         <td>{{advocate.advocate_first_name}} {{advocate.advocate_last_name}}</td>
                         <td>{{advocate.main_contact_phone}}</td>
-                        <td>{{advocate.allow_text}}</td>
+                        <td ng-show="advocate.allow_text">Send Text</td>
+                        <td ng-hide="advocate.allow_text">Do Not Text</td>
                         </tr>
                         </tbody>
                     </table>
