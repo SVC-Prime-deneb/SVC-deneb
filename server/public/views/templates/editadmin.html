@@ -1,0 +1,34 @@
+<!-- EditAdController as eac -->
+<div ng-include="'views/partials/nav.html'"></div>
+<div class="container">
+    <md-content class="editAdvocate">
+        <md-card>
+            <div class="layout-margin">
+                <form name="editAdmin" layout="column">
+                    <h1>UPDATE ADMIN</h1>
+                    <md-input-container>
+                        <label>First Name </label>
+                        <input ng-model="eac.updatedAdmin.first_name" type="text">
+
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Last NAME </label>
+                        <input ng-model="eac.updatedAdmin.last_name" type="text">
+                    </md-input-container>
+                    <br/>
+                    <!-- language check boxes here -->
+                    <md-input-container>
+                        <p>FULL ACCESS</p>
+                        <md-checkbox ng-model="eac.updatedAdmin.fullAccess" class="md-primary" aria-label="FULL ACCESS">FULL ACCESS</md-checkbox>
+                    </md-input-container>
+                    <div>
+                        <!-- goes to admin management page -->
+                        <md-button class="md-raised md-warn" href="#/adminmanage">Cancel</md-button>
+                        <md-button type="submit" class="md-raised md-primary" ng-click="eac.updateAdmin(eac.updatedAdmin.admin_id , eac.updatedAdmin)"
+                            href="#/adminmanage">Update</md-button>
+                    </div>
+                </form>
+            </div>
+        </md-card>
+    </md-content>
+</div>

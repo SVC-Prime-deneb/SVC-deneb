@@ -3,6 +3,18 @@
   <h1 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
   <form ng-submit="lc.registerUser()">
     <div>
+      <label for="firstName">First Name:</label>
+      <input type="text" ng-model="lc.user.first_name" />
+    </div>
+    <div>
+      <label for="username">Last Name</label>
+      <input type="text" ng-model="lc.user.last_name" />
+    </div>
+    <div>
+      <label for="username">FULL ACCESS:</label>
+      <input type="text" ng-model="lc.user.is_super_admin" />
+    </div>
+    <div>
         <label for="username">Username:</label>
         <input type="text" ng-model="lc.user.username" />
     </div>
@@ -11,7 +23,6 @@
         <input type="password" ng-model="lc.user.password" />
     </div>
     <input class="btn btn-default" type="submit" name="submit" value="Register" />
-    <a href="#home">Cancel</a>
+    <a href="#adminmanage">Cancel</a>
   </form>
-
 </div>

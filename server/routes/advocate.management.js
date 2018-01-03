@@ -5,7 +5,6 @@ var encryptLib = require('../modules/encryption');
 var path = require('path');
 
 router.get('/get', function (req, res) {
-  console.log('get dem advos');
   // check if logged in
   if (req.isAuthenticated()) {
   pool.connect(function (errorConnectingToDB, db, done) {
@@ -20,7 +19,6 @@ router.get('/get', function (req, res) {
           console.log('Error making query', errorMakingQuery, result)
           res.sendStatus(500);
         } else {
-          console.log(result.rows);
           res.send(result.rows);
         }
       });
@@ -85,6 +83,36 @@ router.post('/new', function (req, res) {
 });//End POST route
 //                            UPDATE ROUTES
 
+
+router.put('/update/last/:id', function (req, res) {
+  console.log('this req.body', req.body);
+
+  var id = req.params.id
+  var date = req.body.date
+console.log(id);
+console.log(date);
+
+
+  pool.connect(function (errorConnectingToDb, db, done) {
+    if (errorConnectingToDb) {
+      res.sendStatus(500);
+      console.log("errorConnectingToDb", errorConnectingToDb);
+    } else {
+      var queryText = 'UPDATE "advocates" SET "last_contacted_date" = $1 WHERE "advocate_id" = $2;';
+      console.log('query text', queryText);
+      db.query(queryText, [date, id], function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          res.sendStatus(500);
+          console.log('errorMakingQuery', errorMakingQuery);
+
+        } else {
+          res.sendStatus(201);
+        }
+      }); // END QUERY
+    }
+  });
+});//End POST route
 //TODO add forgot password and finish this route.
 router.put('/update/:id', function (req, res) {
   console.log('update admin');
