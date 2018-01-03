@@ -1,52 +1,57 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Sexual Violence Center</title>
-        <!-- stylesheets -->
-        <link rel="stylesheet" href="styles/style.css">
-        <!-- angular -->
-        <script type="text/javascript" src="vendors/angular/angular.min.js"></script>
-        <script type="text/javascript" src="vendors/angular-route/angular-route.min.js"></script>
-        <script type="text/javascript" src="vendors/angular-material/angular-animate.min.js"></script>
-        <script type="text/javascript" src="vendors/angular-material/angular-aria.min.js"></script>
-        <link rel="stylesheet" href="vendors/angular-material/angular-material.min.css">
-        <script type="text/javascript" src="vendors/angular-material/angular-material.min.js"></script>
-        <script type="text/javascript" src="vendors/angular-material/angular-messages.min.js"></script>
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
-        <script type="text/javascript" src="scripts/client.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <script src="vendors/moment-with-locales.js"></script>
-        
-        <!-- controllers -->
-        <script type="text/javascript" src="scripts/controllers/info.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/login.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/user.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/casemanage.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/green.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/lai.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/ma.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/newadvocate.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/advocatemanage.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/editadvocate.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/report.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/nursereport.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/createnursereport.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/release.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/adminmanage.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/dispatch.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/releaseinfo.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/greenform.controller.js"></script>
-        <!-- services -->
-        <script type="text/javascript" src="scripts/services/forms.service.js"></script>
-        <script type="text/javascript" src="scripts/services/report.service.js"></script>
-        <script type="text/javascript" src="scripts/services/user.service.js"></script>
-        <script type="text/javascript" src="scripts/services/admin.service.js"></script>
-        
-    </head>
-    <body ng-app="myApp">
+
+<head>
+    <title>Sexual Violence Center</title>
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="styles/style.css">
+    <!-- angular -->
+    <script type="text/javascript" src="vendors/angular/angular.min.js"></script>
+    <script type="text/javascript" src="vendors/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="vendors/angular-material/angular-animate.min.js"></script>
+    <script type="text/javascript" src="vendors/angular-material/angular-aria.min.js"></script>
+    <link rel="stylesheet" href="vendors/angular-material/angular-material.min.css">
+    <script type="text/javascript" src="vendors/angular-material/angular-material.min.js"></script>
+    <script type="text/javascript" src="vendors/angular-material/angular-messages.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="scripts/client.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="vendors/moment-with-locales.js"></script>
+
+    <!-- controllers -->
+    <script type="text/javascript" src="scripts/controllers/info.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/login.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/user.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/casemanage.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/green.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/lai.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/ma.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/newadvocate.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/advocatemanage.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/editadvocate.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/report.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/nursereport.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/createnursereport.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/release.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/adminmanage.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/dispatch.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/releaseinfo.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/greenform.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/dispatchdialog.controller.js"></script>
+    <!-- services -->
+    <script type="text/javascript" src="scripts/services/forms.service.js"></script>
+    <script type="text/javascript" src="scripts/services/report.service.js"></script>
+    <script type="text/javascript" src="scripts/services/user.service.js"></script>
+    <script type="text/javascript" src="scripts/services/advocate.service.js"></script>
+
+
+</head>
+
+<body ng-app="myApp">
     <header ng-include="'/views/partials/header.html'"></header>
     <main ng-view></main>
 
-    </body>
+</body>
+
 </html>

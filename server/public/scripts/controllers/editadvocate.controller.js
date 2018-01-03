@@ -17,12 +17,8 @@ myApp.controller('EditAdController', function ($http, FormService, $routeParams)
     }
     
     // UPDATE ADVOCATE
-    vm.updateAdvocate = function () {
-        $http.put('/advocate/update/' + vm.updatedAdvocate.advocate_id, vm.updatedAdvocate).then(function (response) {
-            console.log('success updating existing advocate');    
-        }).catch(function (error) {
-            console.log('failure', error);
-        });
+    vm.updateAdvocate = function (id, objectIn) {
+        FormService.updateAdvocate(id, objectIn);
     }
     
     vm.editAdvocate();

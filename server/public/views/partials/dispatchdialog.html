@@ -1,0 +1,34 @@
+<!-- controller as ddc -->
+<md-dialog class="dialog">
+    <div>
+        <md-content>
+            <md-card>
+                <md-card-title class="invertColor">
+                    <md-card-title-text>
+                        <h1 class="invertColor">Dispatch</h1>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <table>
+                        <br/>
+                        <thead>
+                        <th>NAME</th>
+                        <th>PHONE NUMBER</th>
+                        <th>TEXT OPT-IN</th>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="advocate in ddc.reportService.advocateDispatchArray.data">
+                        <td>{{advocate.advocate_first_name}} {{advocate.advocate_last_name}}</td>
+                        <td>{{advocate.main_contact_phone}}</td>
+                        <td>{{advocate.allow_text}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-card-content>
+                <md-card-actions layout="column">
+                    <md-button class="md-raised md-primary"ng-click="ddc.updateDates(ddc.reportService.advocateDispatchArray.data)">Completed Dispatch</md-button>
+                    <md-button ng-click="ddc.closeForm()" class="md-raised">Cancel</md-button>
+            </md-card>
+        </md-content>
+    </div>
+</md-dialog>

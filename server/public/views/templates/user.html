@@ -1,26 +1,17 @@
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
+<div>
     <div class="welcome">
         <div>
-            <img src="pictures/svc_img.jpeg" alt="">
+            <div id="picture">
+            <img id="svcBanner" src="pictures/svc_img.jpeg">
+            </div>
             <md-content>
                 <md-card>
-                    
-            
                     <md-card id="userTitle">
-                        <md-card-title>
-                            <md-card-title-text layout="center">
-                                <!-- <h1 class="md-headline">Register User</h1> -->
-                                <h1 id="welcome" class="lead md-headline">Welcome, {{uc.userObject.userName}}!</h1>
-                                <br>
-                                <br>
-                                <!-- <a href="#/advocatemanage">Advocate Managment</a> -->
-                            </md-card-title-text>
-                        </md-card-title>
                         <md-input-container>
                             <!-- <label id="openCase" for="openCase" >Open Cases: </label> -->
-                            <md-button class="sm-raised sm-secondary" href ="#/casemanage">Open Cases: {{uc.openCase}}</md-button>
-                            <section layout="row"></section>
+                            <md-button class="md-raised md-primary" href ="#/casemanage">Active Cases: {{uc.openCase}}</md-button>
+                            <!-- <section layout="row"></section> -->
                         </md-input-container>
                     
                         <!-- <md-input-container>
@@ -29,8 +20,8 @@
                         </md-input-container>
                         <br> -->
                         <md-input-container>
-                            <label id="newCaseAdded" for="newCaseAdded">New Cases Added:</label>
-                            <section layout="row"></section>
+                            <md-button class="md-raised md-primary">New Cases: 4</md-button>
+                            <!-- <section layout="row"></section> -->
                         </md-input-container>
                     <br>
                 </md-card>
