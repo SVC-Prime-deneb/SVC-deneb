@@ -166,6 +166,15 @@ li.dropdown {
     min-width: 1%;
 }
 
+md-checkbox.md-checked .md-icon {
+ background-color: #027292;
+}
+
+md-checkbox.md-checked[disabled] .md-icon {
+ background-color: grey;
+}
+
+
 /* .welcome {
   width: 70%;
   text-align: center;
@@ -375,13 +384,14 @@ h1 {
 }
 
 #svcBanner {
-  width: 80%;
+  width: 100%;
 }
-/* 
-#picture {
+
+/* #picture {
   background: #027292;
   padding-left: 15px;
   padding-right: 15px;
+  width: 100%;
 } */
 
 .invertColor {
