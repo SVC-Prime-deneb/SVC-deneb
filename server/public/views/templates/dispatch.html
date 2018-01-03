@@ -46,7 +46,7 @@
                 <tbody md-body>
                     <tr md-row ng-repeat="advocate in dc.formService.advocateList | orderBy: dc.sortColumn:dc.reverseSort | filter:searchText">
                         <div>
-                            <td md-cell><md-checkbox class="md-primary" ng-model="advocate.selected"></md-checkbox></td>
+                            <td md-cell><md-checkbox ng-model="advocate.selected"></md-checkbox></td>
                             <!-- <td ng-hide="avc.selectedIndex === $index" md-cell>{{$index}}</td> {{avc.selectedIndex}}-{{avc.selectedIndex==$index}} -->
                             <td md-cell>{{advocate.advocate_first_name}}</td>
                             <td md-cell>{{advocate.advocate_last_name}}</td>
