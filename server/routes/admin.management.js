@@ -16,6 +16,8 @@ router.get('/get', function (req, res) {
       res.sendStatus(500);
     } else {
       var queryText = 'SELECT u."user_id" ' +
+                            ',u."first_name" ' +
+                            ',u."last_name" ' +
                             ',u."username" ' +
                             ',u."is_admin" ' +
                             ',u."is_super_admin" ' +
