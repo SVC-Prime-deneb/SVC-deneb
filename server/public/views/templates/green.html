@@ -51,8 +51,6 @@
                                 No Advocate "{{gc.searchText}}" was found.
                             </md-not-found>
                         </md-autocomplete>
-
-
                         <md-input-container>
                             <label>Notes:</label>
                             <textarea rows="5" cols="30" type="text" ng-model="gc.newGreen.green_form_notes"></textarea>
@@ -60,7 +58,7 @@
                     <div> 
                         <!-- goes to case management page -->
                         <md-button class="md-raised md-warn" href="#/casemanage">Cancel</md-button>
-                        <md-button type="submit" class="md-raised md-primary" ng-click="gc.submitGreen(gc.newGreen)">Create</md-button>
+                        <md-button type="submit" class="md-raised md-primary" ng-click="gc.submitGreen(gc.newGreen, $event)">Create</md-button>
                     </div>
                 </form>
             </div>
