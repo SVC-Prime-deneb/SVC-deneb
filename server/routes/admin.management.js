@@ -21,6 +21,8 @@ router.get('/get', function (req, res) {
                             ',u."username" ' +
                             ',u."is_admin" ' +
                             ',u."is_super_admin" ' +
+                            ',u."first_name" ' +
+                            ',u."last_name"' +
                       'FROM "users" u ' + 
                       'WHERE is_admin = true ;';  //pulls from user where the user is an admin
       db.query(queryText, function (errorMakingQuery, result) {
