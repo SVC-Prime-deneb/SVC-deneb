@@ -120,7 +120,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
 
     //get route for all cases
     self.getCases = function () {
-        $http.get('/case/form').then(function (response) {
+        return $http.get('/case/form').then(function (response) {
             self.caseObject.cases = response.data;
         }).catch(function (error) {
             console.log('failure on GET Case Route');

@@ -5,7 +5,9 @@ myApp.controller('DispatchDialogController', function (FormService, $http, $mdDi
     vm.advocateDispatchArray = FormService.advocateDispatchArray;
 
     vm.closeForm = function () {
-        $mdDialog.hide();
+        FormService.getCases().then(function(){
+            location.reload();
+        })
     }
 
     // UPDATE ADVOCATES TIME
