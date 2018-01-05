@@ -43,7 +43,7 @@ router.get('/advperloc', function (req, res) {
 //                    GET ROUTES
 router.get('/taxi', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated(), req.user.is_admin) {
+    // if (req.isAuthenticated(), req.user.is_admin) {
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
                 console.log('Error connecting', errorConnectingToDb);
@@ -67,11 +67,11 @@ router.get('/taxi', function (req, res) {
                 }); // END QUERY
             }
         });
-    } else {
-        // failure best handled on the server. do redirect here.
-        console.log('not logged in');
-        res.send(false);
-    }
+    // } else {
+    //     // failure best handled on the server. do redirect here.
+    //     console.log('not logged in');
+    //     res.send(false);
+    // }
 });
 
 //  WHAT IS hos? Hospital per location
