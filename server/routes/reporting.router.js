@@ -113,7 +113,7 @@ router.post('/new/locmonthly', function (req, res) {
 
 router.get('/locmonthly', function (req, res) {
     // check if logged in
-    console.log('in get route hjhjhj');
+    // console.log('in get route hjhjhj');
     pool.connect(function (errorConnectingToDb, db, done) {
         if (errorConnectingToDb) {
             console.log('Error connecting', errorConnectingToDb);
