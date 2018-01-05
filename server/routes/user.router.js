@@ -72,9 +72,9 @@ router.get('/newcases', function (req, res) {
                 res.sendStatus(500);
             } else {
                 var queryText = 'SELECT * ' + //pulls cases with the same date that have ben created within the last 12 hours
-                    'FROM "public"."green_form_data" g ' +
-                    'WHERE (g."start_time" BETWEEN (current_time - INTERVAL ' / '12 hours' / ') AND current_time ' +
-                    'AND g."date" = current_date);'; //start_time will need to be time without time zone
+                    'FROM "public"."form" f ' +
+                    'WHERE (f."case_start_time" BETWEEN current_time - INTERVAL ' / '1 DAY' / ' AND current_date + INTERVAL '/'1 DAY'/';';
+                    //start_time will need to be time without time zone
                 db.query(queryText, function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
