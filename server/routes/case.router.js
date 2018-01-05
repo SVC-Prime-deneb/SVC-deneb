@@ -245,12 +245,16 @@ router.post('/new/table/:id', function (req, res) {
 
     pool.connect(function (errorConnectingToDb, db, done) {
         if (errorConnectingToDb) {
+            console.log('errorConnectingToDb', errorConnectingToDb);
+            
             res.sendStatus(500);
         } else {
             var queryText = 'SELECT form_creation($1);';
             db.query(queryText, [id], function (errorMakingQuery, result) {
                 done();
                 if (errorMakingQuery) {
+                    console.log('errorMakingQuery', errorMakingQuery);
+                    
                     res.sendStatus(500);
                 } else {
                     res.sendStatus(201);

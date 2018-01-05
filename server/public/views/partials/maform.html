@@ -210,20 +210,20 @@
                                 <td ng-hide="mc.formService.selectedForm.form[0].victimization === 'Other' ">{{mc.formService.selectedForm.form[0].victimization}}</td>
                                 <td ng-show="mc.formService.selectedForm.form[0].victimization === 'Other' ">{{mc.formService.selectedForm.form[0].additional_notes}}</td>
                             </tr>
-                            <tr class="lightBlue">
+                            <tr>
                                 <td>Was a Mandated Report Triggered?</td>
                                 <td ng-hide="mc.formService.selectedForm.form[0].was_mandatory_report">No</td>
                                 <td ng-show="mc.formService.selectedForm.form[0].was_mandatory_report">Yes</td>
                             </tr>
-                            <tr class="lightBlue" ng-show="mc.formService.selectedForm.form[0].was_mandatory_report">
+                            <tr ng-show="mc.formService.selectedForm.form[0].was_mandatory_report">
                                 <td>Name of Advocate Reporting:</td>
                                 <td>{{mc.formService.selectedForm.form[0].reporting_advocate_name}}</td>
                             </tr>
-                            <tr class="lightBlue" ng-show="mc.formService.selectedForm.form[0].was_mandatory_report">
+                            <tr ng-show="mc.formService.selectedForm.form[0].was_mandatory_report">
                                 <td>Date of Report:</td>
                                 <td>{{mc.formService.selectedForm.form[0].reporting_date | date}}</td>
                             </tr>
-                            <tr class="lightBlue" ng-show="mc.formService.selectedForm.form[0].was_mandatory_report">
+                            <tr ng-show="mc.formService.selectedForm.form[0].was_mandatory_report">
                                 <td>Time:</td>
                                 <td>{{mc.formService.selectedForm.form[0].ma_form_time | date: "shortTime"}}</td>
                             </tr>
@@ -240,12 +240,12 @@
                                 <td>Nurse's Name:</td>
                                 <td>{{mc.formService.selectedForm.form[0].location_evidentiary_nurse}}</td>
                             </tr>
-                            <tr class="lightBlue">
+                            <tr>
                                 <td>Immediate Referral within 7 days to SVC?</td>
                                 <td ng-hide="mc.formService.selectedForm.form[0].immediate_referral">No</td>
                                 <td ng-show="mc.formService.selectedForm.form[0].immediate_referral">Yes</td>
                             </tr>
-                            <tr class="lightBlue" ng-show="mc.formService.selectedForm.form[0].immediate_referral === true">
+                            <tr ng-show="mc.formService.selectedForm.form[0].immediate_referral === true">
                                 <td>Services Provided:</td>
                                 <td>{{mc.formService.selectedForm.form[0].immediate_referral_notes}}</td>
                             </tr>
@@ -258,12 +258,12 @@
                                 <td>To Which Shelters?</td>
                                 <td>{{mc.formService.selectedForm.form[0].shelter_referral_name}}</td>
                             </tr>
-                            <tr class="lightBlue">
+                            <tr>
                                 <td>Was a Taxi Provided?</td>
                                 <td ng-hide="mc.formService.selectedForm.form[0].taxi_provided">No</td>
                                 <td ng-show="mc.formService.selectedForm.form[0].taxi_provided">Yes</td>
                             </tr>
-                            <tr class="lightBlue" ng-show="mc.formService.selectedForm.form[0].taxi_provided">
+                            <tr ng-show="mc.formService.selectedForm.form[0].taxi_provided">
                                 <td>Taxi Cost:</td>
                                 <td>{{mc.formService.selectedForm.form[0].taxi_cost}}</td>
                             </tr>
@@ -284,16 +284,16 @@
                                 <td>Follow Up Information For Medical Advocacy Program Coordinator:</td>
                                 <td>{{mc.formService.selectedForm.form[0].mapc_followup}}</td>
                             </tr>
-                            <tr class="lightBlue">
+                            <tr>
                                 <td>Was a Debrief Completed?</td>
                                 <td ng-hide="mc.formService.selectedForm.form[0].debrief_complete">No</td>
                                 <td ng-show="mc.formService.selectedForm.form[0].debrief_complete">Yes</td>
                             </tr>
-                            <tr class="lightBlue" ng-show="mc.formService.selectedForm.form[0].debrief_complete === true">
+                            <tr ng-show="mc.formService.selectedForm.form[0].debrief_complete === true">
                                 <td>Staff Member Who Conducted Debrief:</td>
                                 <td>{{mc.formService.selectedForm.form[0].debrief_complete_staff}}</td>
                             </tr>
-                            <tr class="lightBlue" ng-show="mc.formService.selectedForm.form[0].debrief_complete === true">
+                            <tr ng-show="mc.formService.selectedForm.form[0].debrief_complete === true">
                                 <td>Date Debrief was Completed:</td>
                                 <td>{{mc.formService.selectedForm.form[0].debrief_complete_date | date}}</td>
                             </tr>
@@ -315,6 +315,7 @@
                     <md-card-actions layout="column">
                         <md-button ng-hide="mc.formService.caseObject.cases[mc.formService.selectedForm.form[0].ma_id].is_case_complete" type="submit" class="md-primary md-raised" ng-click="mc.editMode()" class="md-raised">Edit Form</md-button>
                         <md-button ng-click="mc.closeForm()" class="md-raised">Cancel</md-button>
+                    </md-card-actions>
                 </md-card>
             </md-content>
         </div>

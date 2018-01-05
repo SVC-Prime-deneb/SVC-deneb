@@ -169,6 +169,15 @@ li.dropdown {
     min-width: 1%;
 }
 
+md-checkbox.md-checked .md-icon {
+ background-color: #027292;
+}
+
+md-checkbox.md-checked[disabled] .md-icon {
+ background-color: grey;
+}
+
+
 /* .welcome {
   width: 70%;
   text-align: center;
@@ -211,6 +220,9 @@ md-card #userTitle {
 th,td {
   text-align: center;
   cursor: pointer;
+  align-content:middle !important;
+  vertical-align: middle;
+  
 }
 
 .arrow-up {
@@ -246,6 +258,10 @@ section {
   max-width: 1000px;
 }
 
+#admintable{
+  max-width: 550px !important;
+}
+
 .transactionTbl {
   margin: 0 0 40px 0;
   width: 100%;
@@ -254,6 +270,7 @@ section {
   /* @media screen and (max-width: 580px); */
   display: block;
 }
+
 
 /* STYLING FOR NURSE REPORTS TABLE */
 .container nurseReportTbl {
@@ -314,8 +331,6 @@ section {
     background: #e6e6e6;
     cursor: pointer;
 }
-
-
 
 .row {
   display: table-row;
@@ -378,13 +393,14 @@ h1 {
 }
 
 #svcBanner {
-  width: 80%;
+  width: 100%;
 }
-/* 
-#picture {
+
+/* #picture {
   background: #027292;
   padding-left: 15px;
   padding-right: 15px;
+  width: 100%;
 } */
 
 .invertColor {
@@ -392,6 +408,10 @@ h1 {
   color: white;
 }
 
+#greenthing{
+    padding-bottom: 48px;
+  
+}
 .lightBlue {
   background-color: #d4eaf0;
 }
@@ -401,15 +421,41 @@ h1 {
   border-collapse: collapse;
 }
 
+.dialogTbl tr th {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 2px solid rgb(102, 102, 102); 
+}
+
 .dialogTbl tr td {
   text-align: left;
   padding: 10px;
   border-bottom: 2px solid rgb(102, 102, 102); 
 }
 
+#idiconMove {
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 16px;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  min-width: 20px;
+  min-height: 20px;
+  margin-left: 0;
+  margin-right: 16px;
+}
 
+#loginForm{
+width: 500px;
+height: 1000px;
+}
 
-
-
-
-
+#inputLogin{
+  padding-right: 60px ;
+}
