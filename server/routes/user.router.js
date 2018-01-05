@@ -65,7 +65,7 @@ router.get('/open', function (req, res) {
 //                    GET ROUTES
 router.get('/newcases', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated()) {
+    // if (req.isAuthenticated()) {
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
                 console.log('Error connecting', errorConnectingToDb);
@@ -86,13 +86,12 @@ router.get('/newcases', function (req, res) {
                 }); // END QUERY
             }
         });
-    } else {
-        // failure best handled on the server. do redirect here.
-        console.log('not logged in');
-        res.send(false);
-    }
+    // } else {
+    //     // failure best handled on the server. do redirect here.
+    //     console.log('not logged in');
+    //     res.send(false);
+    // }
 });
-
 
 //                    GET ROUTES
 router.get('/deadline', function (req, res) {
@@ -124,6 +123,5 @@ router.get('/deadline', function (req, res) {
         res.send(false);
     }
 });
-
 
 module.exports = router;
