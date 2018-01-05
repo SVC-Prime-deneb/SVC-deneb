@@ -6,13 +6,15 @@ var path = require('path');
 
 router.get('/get', function (req, res) {
   // check if logged in
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated(), req.user.is_super_admin === true) {
+    console.log('req', req.user.is_super_admin);
+
   pool.connect(function (errorConnectingToDB, db, done) {
     if (errorConnectingToDB) {
       console.log('Error connecting to db', errorConnectingToDB);
       res.sendStatus(500);
     } else {
-      var queryText = 'SELECT * FROM "advocates";';
+      var queryText = 'SELECT * FROM "advocates" ORDER BY "last_contacted_date";';
       db.query(queryText, function (errorMakingQuery, result) {
         done();
         if (errorMakingQuery) {

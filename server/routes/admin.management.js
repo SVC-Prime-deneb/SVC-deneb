@@ -4,7 +4,6 @@ var router = express.Router();
 var pool = require('../modules/pool.js');
 var pg = require('pg');
 
-
 //                      GET ROUTES
 router.get('/get', function (req, res) {
   console.log('get dem admins');
