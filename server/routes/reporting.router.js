@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var pool = require('../modules/pool.js');
 var pg = require('pg');
-
+var selectedYear = '';
 
 
 //                    GET ROUTES
@@ -103,36 +103,73 @@ router.get('/hos', function (req, res) {
     }
 });
 
+// POST route to get selected year and month on Chart
+router.post('/new/locmonthly', function (req, res) {
+    selectedYear = String(req.body.selectedYear);
+    console.log('selectedYear', selectedYear);
+    console.log('typeof selectedyear', typeof(selectedYear));
+        
+})
+
 router.get('/locmonthly', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated()) {
-        pool.connect(function (errorConnectingToDb, db, done) {
-            if (errorConnectingToDb) {
-                console.log('Error connecting', errorConnectingToDb);
-                res.sendStatus(500);
-            } else {
-                var queryText = 'SELECT l."location_name",ml.* ' +
-                                'FROM "public"."location" l ' +
-                                    'INNER JOIN "public"."monthly_location" ml ON ml."location_id" = l."location_id" '
-                                'WHERE ml."year" = date_part('/'year'/', current_date);';
-                db.query(queryText, function (errorMakingQuery, result) {
-                    done();
-                    if (errorMakingQuery) {
-                        console.log('Error making query', errorMakingQuery);
-                        res.sendStatus(500);
-                    } else {
-
-                        res.send(result.rows);
-                    }
-                }); // END QUERY
-            }
-        });
-    } else {
-        // failure best handled on the server. do redirect here.
-        console.log('not logged in');
-        res.send(false);
-    }
+    console.log('in get route hjhjhj');
+    pool.connect(function (errorConnectingToDb, db, done) {
+        if (errorConnectingToDb) {
+            console.log('Error connecting', errorConnectingToDb);
+            res.sendStatus(500);
+        } else {
+            var queryText = 'SELECT l."location_name",ml.* ' +
+                'FROM "public"."location" l ' +
+                'INNER JOIN "public"."monthly_location" ml ON ml."location_id" = l."location_id" '+
+            'WHERE ml."year" = '+ selectedYear +';';
+            console.log('queryText', queryText);
+            
+            db.query(queryText, function (errorMakingQuery, result) {
+                done();
+                if (errorMakingQuery) {
+                    console.log('Error making query', errorMakingQuery);
+                    res.sendStatus(500);
+                } else {
+                    
+                    res.send(result.rows);
+                }
+            }); // END QUERY
+        }
+    });
+    
 });
+
+// router.get('/locmonthly', function (req, res) {
+//     // check if logged in
+//     if (req.isAuthenticated()) {
+//         pool.connect(function (errorConnectingToDb, db, done) {
+//             if (errorConnectingToDb) {
+//                 console.log('Error connecting', errorConnectingToDb);
+//                 res.sendStatus(500);
+//             } else {
+//                 var queryText = 'SELECT l."location_name",ml.* ' +
+//                                 'FROM "public"."location" l ' +
+//                                     'INNER JOIN "public"."monthly_location" ml ON ml."location_id" = l."location_id" '
+//                                 'WHERE ml."year" = date_part('/'year'/', current_date);';
+//                 db.query(queryText, function (errorMakingQuery, result) {
+//                     done();
+//                     if (errorMakingQuery) {
+//                         console.log('Error making query', errorMakingQuery);
+//                         res.sendStatus(500);
+//                     } else {
+
+//                         res.send(result.rows);
+//                     }
+//                 }); // END QUERY
+//             }
+//         });
+//     } else {
+//         // failure best handled on the server. do redirect here.
+//         console.log('not logged in');
+//         res.send(false);
+//     }
+// });
 
 
 //                      DISPLAY Nurse Reports Table

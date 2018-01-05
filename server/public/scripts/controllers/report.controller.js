@@ -12,6 +12,7 @@ myApp.controller('ReportController', function (ReportService, $http) {
     vm.month = ['jan', 'feb', 'march', 'april', 'may', 'june', 'july', 'aug', 'sept', 'oct', 'nov', 'dec'];
     vm.Donut = false;
     vm.Bar = false;
+    vm.Line = false;
     // COUNT the number of time Advocate was dispatched
     
     vm.cases = []; 
@@ -32,16 +33,18 @@ myApp.controller('ReportController', function (ReportService, $http) {
 
     // Chart: Global Options
     Chart.defaults.global.defaultFontFamily = 'Lato';
-    Chart.defaults.global.defaultFontSize = 15;
+    
     Chart.defaults.global.defaultFontColor = '#777';
 
         // GET CHART
     vm.requestNurseChart = function () {
-    var nurseReportNames = [];
-    var advocateCounts = [];
-    vm.Donut = true;
-    vm.Bar = false;
-    console.log('Donut and Bar status:', vm.Donut, vm.Bar);
+        var nurseReportNames = [];
+        var advocateCounts = [];
+        vm.Donut = true;
+        vm.Bar = false;
+        vm.Line = false;
+        Chart.defaults.global.defaultFontSize = 15;
+        console.log('Donut and Bar status:', vm.Donut, vm.Bar);
     
         for (var i = 0; i < vm.cases.length; i++) {
             nurseReportNames.push(vm.cases[i].nurse_form_location_name);
@@ -117,11 +120,12 @@ myApp.controller('ReportController', function (ReportService, $http) {
     var myTaxiChart = document.getElementById('myTaxiChart').getContext('2d');
         //TAXI BAR CHART
         vm.requestTaxiChart = function () {
-            
+            Chart.defaults.global.defaultFontSize = 15;
             var locationNames = [];
             var taxiCounts = [];
             vm.Donut = false;
             vm.Bar = true;
+            vm.Line = false;
             console.log('Donut and Bar status:', vm.Donut, vm.Bar);
             for (var i = 0; i < vm.taxiData.length; i++) {
                 locationNames.push(vm.taxiData[i].location_name);
@@ -189,27 +193,142 @@ myApp.controller('ReportController', function (ReportService, $http) {
             });
         }
             
-    // The Number of Advocates being sent Monthly Per Location - Line Chart
-
-    vm.monthlyAdvPerLoc = [];
-
-    // Get number of Advocates sent per month per location
-        vm.countAdv = function () {
-            $http.get('/report/locmonthly').then(function (response) {
-                vm.monthlyAdvPerLoc = response.data;
-                console.log('monthlyAdvPerLoc', vm.monthlyAdvPerLoc);    
-                console.log('success acounting monthlyAdvPerLoc');
-            }).catch(function (error) {
-                console.log('failure', error);    
-            });
-        }
-
-        vm.countAdv();
-
-        
-
+// ADVOCATE PER LOCATION MONTHLY - LINE CHART
+        var myAdvChart = document.getElementById('myAdvChart').getContext('2d');
         vm.requestMonthlyAdvChart = function () {
-            console.log('Selected Year', vm.selectedYear);
-            console.log('Selected Month', vm.selectedMonth);
+            Chart.defaults.global.defaultFontSize = 11;
+            var objectToSend = {
+                selectedYear: vm.selectedYear
+                            };
+            var locmonthly = {};
+            $http.post('/report/new/locmonthly', objectToSend).then(function (response) {
+                console.log('success sending selected year');
+            }).catch(function (error) {
+                console.log('failure', error);
+                
+            })
+
+            $http.get('/report/locmonthly').then(function(response) {
+                locmonthly = response.data;
+                console.log('locmonthly', locmonthly); 
+                vm.displayAdvChart();             
+            }).catch(function(error) {
+                console.log('failure', error);              
+            })
+            // ADVOCATE PER LOCATION BAR CHART
+            vm.displayAdvChart = function () {
+
+                var locationNames = [];
+                var numOfAdvocates = [];
+                vm.Donut = false;
+                vm.Bar = false;
+                vm.Line = true;
+                // console.log('Donut and Bar status:', vm.Donut, vm.Bar);
+                for (var i = 0; i < locmonthly.length; i++) {
+                    locationNames.push(locmonthly[i].location_name);
+                    switch (vm.selectedMonth) {
+                        case 'jan':
+                            numOfAdvocates.push(locmonthly[i].jan);
+                            break;
+                        case 'feb':
+                            numOfAdvocates.push(locmonthly[i].feb);
+                            break;
+                        case 'march':
+                            numOfAdvocates.push(locmonthly[i].march);
+                            break;
+                        case 'april':
+                            numOfAdvocates.push(locmonthly[i].april);
+                            break;
+                        case 'may':
+                            numOfAdvocates.push(locmonthly[i].may);
+                            break;
+                        case 'june':
+                            numOfAdvocates.push(locmonthly[i].june);
+                            break;
+                        case 'july':
+                            numOfAdvocates.push(locmonthly[i].july);
+                            break;
+                        case 'aug':
+                            numOfAdvocates.push(locmonthly[i].aug);
+                            break;
+                        case 'sept':
+                            numOfAdvocates.push(locmonthly[i].sept);
+                            break;
+                        case 'oct':
+                            numOfAdvocates.push(locmonthly[i].oct);
+                            break;
+                        case 'jan':
+                            numOfAdvocates.push(locmonthly[i].nov);
+                            break;
+                        case 'nov':
+                            numOfAdvocates.push(locmonthly[i].dec);
+                            break;
+                        case 'dec':
+                            numOfAdvocates.push(locmonthly[i].jan);
+                            break;
+                    }
+
+                }
+                console.log('locationNames', locationNames);
+                console.log('numOfAdvocates', numOfAdvocates);
+                vm.myAdvChart = new Chart(myAdvChart, {
+                    type: 'line', // bar,pie, line, horizontalBar
+                    data: {
+                        labels: locationNames,
+                        datasets: [{
+                            label: 'LocationName',
+                            data: numOfAdvocates,
+                            fill: false,
+                            lineTension: 0.7,
+
+                            backgroundColor: 'green',
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.6)',
+                                'rgba(54, 162, 235, 0.6)'
+                                // 'rgba(255, 206, 86, 0.6)',
+                                // 'rgba(153, 102, 255, 0.6)',
+                                // 'rgba(255, 159, 64, 0.6)',
+                                // 'rgba(255, 99, 132, 0.6)',
+                                // 'rgba(75, 192, 192, 0.6)'
+                            ],
+                            borderWidth: 1,
+                            borderColor: '#777',
+                            hoverBorderWidth: 3,
+                            hoverBorderColor: '#000'
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        },
+                        title: {
+                            display: true,
+                            text: 'Number of Advocates sent to Hospitals Monthly',
+                            fontSize: 30
+                        },
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                fontColor: '#000'
+                            }
+                        },
+                        layout: {
+                            padding: {
+                                left: 50,
+                                right: 0,
+                                bottom: 0,
+                                top: 0
+                            }
+                        },
+                        tooltops: {
+                            enabled: true
+                        }
+                    }
+                });
+            }
         }
 });
