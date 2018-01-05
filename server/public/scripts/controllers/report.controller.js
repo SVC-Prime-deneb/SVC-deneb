@@ -14,95 +14,149 @@ myApp.controller('ReportController', function (ReportService, $http) {
     vm.Bar = false;
     vm.Line = false;
     // COUNT the number of time Advocate was dispatched
-    
     vm.cases = []; 
+    // Chart: Global Options
+    Chart.defaults.global.defaultFontFamily = 'Lato';
+    Chart.defaults.global.defaultFontColor = '#777';
+    
     
     vm.countDispatch = function () {
         $http.get('/report/nurse').then(function (response) {
             vm.cases = response.data;
-            console.log('vm.cases', vm.cases);
-            console.log('success counting dispatch');
+            // console.log('vm.cases', vm.cases);
+            // console.log('success counting dispatch');
         }).catch(function(error) {
             console.log('failure', error);
         });
     }
     
     vm.countDispatch();
+
+    function createChart (chartElement, boolDonut, boolBar, boolLine, fontSize, chartType, 
+                            displayLabel, labelData, data, text, boolStartZero){
+        vm.Donut = boolDonut;
+        vm.Bar = boolBar;
+        vm.Line = boolLine;
+        Chart.defaults.global.defaultFontSize = fontSize;
+        vm.chart = new Chart (chartElement, {
+            type: chartType,
+            data: {
+                labels: labelData,
+                datasets: [{
+                    label: displayLabel,
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)'
+                    ],
+                    borderWidth: 1,
+                    borderColor: '#777',
+                    hoverBorderWidth: 3,
+                    hoverBorderColor: '#000'
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: boolStartZero
+                        }
+                    }]
+                },
+                title: {
+                    display: true,
+                    text: text,
+                    fontSize: 25
+                },
+                legend: {
+                    display: true,
+                    position: 'right',
+                    labels: {
+                        fontColor: '#000'
+                    }
+                },
+                layout: {
+                    padding: {
+                        left: 50,
+                        right: 0,
+                        bottom: 0,
+                        top: 0
+                    }
+                },
+                tooltips: {
+                    enabled: true
+                }
+            }   
+        });
+        return vm.chart;
+    }
     vm.nurseChart = [];
-    vm.myNurseChart = document.getElementById('myChart').getContext('2d');
-
-    // Chart: Global Options
-    Chart.defaults.global.defaultFontFamily = 'Lato';
-    
-    Chart.defaults.global.defaultFontColor = '#777';
-
-        // GET CHART
+    vm.myNurseChart = document.getElementById('myNurseChart').getContext('2d');
+    // GET NURSE CHART
     vm.requestNurseChart = function () {
         var nurseReportNames = [];
         var advocateCounts = [];
+        //console.log('Donut and Bar status:', vm.Donut, vm.Bar);
         vm.Donut = true;
         vm.Bar = false;
         vm.Line = false;
         Chart.defaults.global.defaultFontSize = 15;
-        console.log('Donut and Bar status:', vm.Donut, vm.Bar);
-    
         for (var i = 0; i < vm.cases.length; i++) {
             nurseReportNames.push(vm.cases[i].nurse_form_location_name);
             advocateCounts.push(vm.cases[i].count);
         }
-        console.log('nurseReportNames', nurseReportNames);
-        console.log('advocateCounts', advocateCounts);
-        vm.myNurseChart = new Chart(myChart, {
-    type: 'doughnut',
-    data: {
-        labels: nurseReportNames,
-        datasets: [{
-            label: 'Nurse Report',
-            data: advocateCounts,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.6)',
-                'rgba(54, 162, 235, 0.6)',
-                'rgba(255, 206, 86, 0.6)',
-                'rgba(75, 192, 192, 0.6)'
-            ],
-            borderWidth: 1,
-            borderColor: '#777',
-            hoverBorderWidth: 3,
-            hoverBorderColor: '#000'
-        }]
-    },
-    options: {
-        title: {
-            display: true,
-            text: 'The Number of Advocates Dispatched per Hospital',
-            fontSize: 25
-        },
-        legend: {
-            display: true,
-            position: 'right',
-            labels: {
-                fontColor: '#000'
-            }
-        },
-        layout: {
-            padding: {
-                left: 50,
-                right: 0,
-                bottom: 0,
-                top: 0
-            }
-        },
-        tooltips: {
-            enabled: true
-        }
+        // console.log('nurseReportNames', nurseReportNames);
+        // console.log('advocateCounts', advocateCounts);
+        vm.myNurseChart = new Chart (vm.myNurseChart, {
+            type: "doughnut",
+            data: {
+                labels: nurseReportNames,
+                datasets: [{
+                    label: "Nurse Chart",
+                    data: advocateCounts,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)'
+                    ],
+                    borderWidth: 1,
+                    borderColor: '#777',
+                    hoverBorderWidth: 3,
+                    hoverBorderColor: '#000'
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "The Number of Advocates Dispatched Per Hospital",
+                    fontSize: 25
+                },
+                legend: {
+                    display: true,
+                    position: 'right',
+                    labels: {
+                        fontColor: '#000'
+                    }
+                },
+                layout: {
+                    padding: {
+                        left: 50,
+                        right: 0,
+                        bottom: 0,
+                        top: 0
+                    }
+                },
+                tooltips: {
+                    enabled: true
+                }
+            }  
+        });
     }
-});
-}
-    
-    
-
     vm.taxiData = [];
-    vm.myNurseChart = document.getElementById('myChart').getContext('2d');
+    
     // GET COUNT OF TAXIS PER LOCATION
     vm.countTaxi = function () {
         $http.get('/report/taxi').then(function (response) {
@@ -120,83 +174,81 @@ myApp.controller('ReportController', function (ReportService, $http) {
     var myTaxiChart = document.getElementById('myTaxiChart').getContext('2d');
         //TAXI BAR CHART
         vm.requestTaxiChart = function () {
-            Chart.defaults.global.defaultFontSize = 15;
             var locationNames = [];
             var taxiCounts = [];
-            vm.Donut = false;
-            vm.Bar = true;
-            vm.Line = false;
-            console.log('Donut and Bar status:', vm.Donut, vm.Bar);
             for (var i = 0; i < vm.taxiData.length; i++) {
                 locationNames.push(vm.taxiData[i].location_name);
                 taxiCounts.push(vm.taxiData[i].count);     
             }
-            console.log('locationNames', locationNames);
-            console.log('taxicount', taxiCounts);
-            vm.myTaxiChart = new Chart(myTaxiChart, {
-                type: 'bar', // bar,pie, line, horizontalBar
-                data: {
-                    labels: locationNames ,
-                    datasets: [{
-                        label: 'LocationName',
-                        data: taxiCounts,
-                        fill: false,
-                        lineTension: 0.7,
+            vm.myTaxiChart = createChart (myTaxiChart,false, true, false, 15,"bar",
+                                        "Location Name",locationNames, taxiCounts,
+                                        'Number of Taxis provided per Hospital', true);
+            // console.log('locationNames', locationNames);
+            // console.log('taxicount', taxiCounts);
+            // vm.myTaxiChart = new Chart(myTaxiChart, {
+            //     type: 'bar', // bar,pie, line, horizontalBar
+            //     data: {
+            //         labels: locationNames ,
+            //         datasets: [{
+            //             label: 'LocationName',
+            //             data: taxiCounts,
+            //             fill: false,
+            //             lineTension: 0.7,
                         
-                        backgroundColor: 'green',
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.6)',
-                            'rgba(54, 162, 235, 0.6)'
-                            // 'rgba(255, 206, 86, 0.6)',
-                            // 'rgba(153, 102, 255, 0.6)',
-                            // 'rgba(255, 159, 64, 0.6)',
-                            // 'rgba(255, 99, 132, 0.6)',
-                            // 'rgba(75, 192, 192, 0.6)'
-                        ],
-                        borderWidth: 1,
-                        borderColor: '#777',
-                        hoverBorderWidth: 3,
-                        hoverBorderColor: '#000'
-                    }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    },
-                    title: {
-                        display: true,
-                        text: 'Number of Taxis provided per Hospital',
-                        fontSize: 30
-                    },
-                    legend: {
-                        position: 'right',
-                        labels: {
-                            fontColor: '#000'
-                        }
-                    },
-                    layout: {
-                        padding: {
-                            left: 50,
-                            right: 0,
-                            bottom: 0,
-                            top: 0
-                        }
-                    },
-                    tooltops: {
-                        enabled: true
-                    }
-                } 
-            });
+            //             backgroundColor: 'green',
+            //             backgroundColor: [
+            //                 'rgba(255, 99, 132, 0.6)',
+            //                 'rgba(54, 162, 235, 0.6)'
+            //                 // 'rgba(255, 206, 86, 0.6)',
+            //                 // 'rgba(153, 102, 255, 0.6)',
+            //                 // 'rgba(255, 159, 64, 0.6)',
+            //                 // 'rgba(255, 99, 132, 0.6)',
+            //                 // 'rgba(75, 192, 192, 0.6)'
+            //             ],
+            //             borderWidth: 1,
+            //             borderColor: '#777',
+            //             hoverBorderWidth: 3,
+            //             hoverBorderColor: '#000'
+            //         }]
+            //     },
+            //     options: {
+            //         scales: {
+            //             yAxes: [{
+            //                 ticks: {
+            //                     beginAtZero: true
+            //                 }
+            //             }]
+            //         },
+            //         title: {
+            //             display: true,
+            //             text: 'Number of Taxis provided per Hospital',
+            //             fontSize: 30
+            //         },
+            //         legend: {
+            //             position: 'right',
+            //             labels: {
+            //                 fontColor: '#000'
+            //             }
+            //         },
+            //         layout: {
+            //             padding: {
+            //                 left: 50,
+            //                 right: 0,
+            //                 bottom: 0,
+            //                 top: 0
+            //             }
+            //         },
+            //         tooltops: {
+            //             enabled: true
+            //         }
+            //     } 
+            // });
         }
             
 // ADVOCATE PER LOCATION MONTHLY - LINE CHART
         var myAdvChart = document.getElementById('myAdvChart').getContext('2d');
         vm.requestMonthlyAdvChart = function () {
-            Chart.defaults.global.defaultFontSize = 11;
+            // Chart.defaults.global.defaultFontSize = 11;
             var objectToSend = {
                 selectedYear: vm.selectedYear
                             };
@@ -217,12 +269,12 @@ myApp.controller('ReportController', function (ReportService, $http) {
             })
             // ADVOCATE PER LOCATION BAR CHART
             vm.displayAdvChart = function () {
-
-                var locationNames = [];
-                var numOfAdvocates = [];
                 vm.Donut = false;
                 vm.Bar = false;
                 vm.Line = true;
+                Chart.defaults.global.defaultFontSize = 11;
+                var locationNames = [];
+                var numOfAdvocates = [];
                 // console.log('Donut and Bar status:', vm.Donut, vm.Bar);
                 for (var i = 0; i < locmonthly.length; i++) {
                     locationNames.push(locmonthly[i].location_name);
@@ -267,10 +319,12 @@ myApp.controller('ReportController', function (ReportService, $http) {
                             numOfAdvocates.push(locmonthly[i].jan);
                             break;
                     }
-
                 }
-                console.log('locationNames', locationNames);
-                console.log('numOfAdvocates', numOfAdvocates);
+                // vm.myAdvChart = createChart(vm.myAdvChart, false, false, true, 11, "line", 
+                //         "Location Name", locationNames, numOfAdvocates, 
+                //         'Number of Advocates sent to Hospitals Monthly',true);
+                // console.log('locationNames', locationNames);
+                // console.log('numOfAdvocates', numOfAdvocates);
                 vm.myAdvChart = new Chart(myAdvChart, {
                     type: 'line', // bar,pie, line, horizontalBar
                     data: {
