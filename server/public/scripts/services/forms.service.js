@@ -120,7 +120,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
 
     //get route for all cases
     self.getCases = function () {
-        $http.get('/case/form').then(function (response) {
+        return $http.get('/case/form').then(function (response) {
             self.caseObject.cases = response.data;
         }).catch(function (error) {
             console.log('failure on GET Case Route');
@@ -220,7 +220,8 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     // GET advocates 
     self.viewAdvocate = function () {
     return $http.get('/advocate/get').then(function (response) {
-        self.advocateList = languageSort(response.data);            
+        self.advocateList = languageSort(response.data);        
+        topFive(self.advocateList);    
         }).catch(function (error) {
             console.log('failureee', error);
         });
@@ -299,6 +300,15 @@ var objectAccept = function (objectIn) {
         objectIn.victimization = 'Other';
     }
     return objectIn = [objectIn];
+}
+
+//function to auto select 0-4 in array of advocates
+var topFive = function (arrayIn) {
+    for (var i = 0; i < arrayIn.length; i++) {
+        if (i < 5) {
+            arrayIn[i].selected = true;
+        }
+    }
 }
 
 
