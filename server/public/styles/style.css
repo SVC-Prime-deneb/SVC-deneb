@@ -27,6 +27,9 @@ body, html {
 
 form {
   padding:20px;
+  margin-top: 20px;
+  position: relative;
+
 }
 
 #container {
@@ -329,8 +332,6 @@ section {
     cursor: pointer;
 }
 
-
-
 .row {
   display: table-row;
   background: #f6f6f6;
@@ -420,7 +421,6 @@ h1 {
   border-collapse: collapse;
 }
 
-
 .dialogTbl tr th {
   text-align: left;
   padding: 10px;
@@ -433,10 +433,7 @@ h1 {
   border-bottom: 2px solid rgb(102, 102, 102); 
 }
 
-
-
-#idiconMove{
-
+#idiconMove {
   box-sizing: border-box;
   display: inline-block;
   margin-bottom: 16px;

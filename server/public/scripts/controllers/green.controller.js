@@ -27,7 +27,7 @@ myApp.controller('GreenController', function (FormService, $location, $http, $lo
             vm.createTables();
             vm.monthlyLocation();
         }).then(function(){
-            vm.greenConfirm(event)
+            vm.greenConfirm(event);
         }).catch(function (err) {
                 console.log('error in submit green sheet :(', err);
         });
