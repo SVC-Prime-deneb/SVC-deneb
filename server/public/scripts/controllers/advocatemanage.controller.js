@@ -1,4 +1,4 @@
-myApp.controller('AdvocateController', function (FormService, $http, $mdDialog) {
+myApp.controller('AdvocateController', function (UserService, FormService, $http, $mdDialog) {
     console.log('AdvocateController created');
     var vm = this;
     vm.formService = FormService;

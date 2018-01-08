@@ -1,4 +1,4 @@
-myApp.controller('GreenController', function (FormService, $location, $http, $log, $q, $mdDialog) {
+myApp.controller('GreenController', function (UserService, FormService, $location, $http, $log, $q, $mdDialog) {
     console.log('GreenController created');
     var vm = this;
     vm.formService = FormService;

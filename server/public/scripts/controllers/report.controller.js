@@ -1,7 +1,10 @@
-myApp.controller('ReportController', function (ReportService, $http) {
+myApp.controller('ReportController', function (UserService, ReportService, $http) {
     console.log('ReportController created');
     var vm = this;
     vm.reportService = ReportService;
+    vm.userObject = UserService.userObject
+    console.log(vm.userObject);
+    
     // vm.year = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030];
     vm.year = [];
     for (var i = 2014; i<=2030;i++){

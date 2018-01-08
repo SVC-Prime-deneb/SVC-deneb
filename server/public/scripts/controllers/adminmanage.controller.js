@@ -1,4 +1,4 @@
-myApp.controller('AdminController', function (FormService,AdminService, $http, $mdDialog) {
+myApp.controller('AdminController', function (UserService, FormService,AdminService, $http, $mdDialog) {
     console.log('AdminController created');
     var vm = this;
     vm.formService = FormService;

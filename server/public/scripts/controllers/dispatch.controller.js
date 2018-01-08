@@ -1,4 +1,4 @@
-myApp.controller('DispatchController', function (FormService, $http) {
+myApp.controller('DispatchController', function (UserService, FormService, $http) {
     console.log('DispatchController created');
     var vm = this;
     vm.formService = FormService;
