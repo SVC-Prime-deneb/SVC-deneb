@@ -120,7 +120,7 @@ router.get('/locmonthly', function (req, res) {
     if (req.isAuthenticated(), req.user.is_admin) {
 
     // check if logged in
-    console.log('in get route hjhjhj');
+    // console.log('in get route hjhjhj');
     pool.connect(function (errorConnectingToDb, db, done) {
         if (errorConnectingToDb) {
             console.log('Error connecting', errorConnectingToDb);
@@ -129,7 +129,7 @@ router.get('/locmonthly', function (req, res) {
             var queryText = 'SELECT l."location_name",ml.* ' +
                 'FROM "public"."location" l ' +
                 'INNER JOIN "public"."monthly_location" ml ON ml."location_id" = l."location_id" '+
-            'WHERE ml."year" = '+ selectedYear +';';
+                'WHERE ml."year" = '+ selectedYear +';';
             console.log('queryText', queryText);
             
             db.query(queryText, function (errorMakingQuery, result) {
