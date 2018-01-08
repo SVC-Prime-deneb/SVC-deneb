@@ -1,11 +1,13 @@
-myApp.controller('DispatchDialogController', function (FormService, $http, $mdDialog) {
+myApp.controller('DispatchDialogController', function (UserService, FormService, $http, $mdDialog) {
     console.log('DispatchDialogController created');
     var vm = this;
     vm.reportService = FormService;
     vm.advocateDispatchArray = FormService.advocateDispatchArray;
 
     vm.closeForm = function () {
-        $mdDialog.hide();
+        FormService.getCases().then(function(){
+            location.reload();
+        })
     }
 
     // UPDATE ADVOCATES TIME

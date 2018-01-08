@@ -40,7 +40,6 @@ myApp.config(function ($routeProvider, $locationProvider) {
         }
       }
     })
-    //if the get user doesnt work, might need to change the service
     .when('/green', {
       templateUrl: '/views/templates/green.html',
       controller: 'GreenController as gc',
@@ -123,8 +122,8 @@ myApp.config(function ($routeProvider, $locationProvider) {
       }
     })
     .when('/editadvocate', {
-      templateUrl: '/views/templates/editadmin.html',
-      controller: 'EditAdController as eac',
+      templateUrl: '/views/partials/nav.html',
+      controller: 'LoginController as lc',
       resolve: {
         getuser: function (UserService) {
           return UserService.getuser();

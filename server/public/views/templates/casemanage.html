@@ -13,6 +13,7 @@
         Create New Case
     </md-button>
     </div>
+    <br/>
     <md-table-container>
         <table md-table class="caseTbl" >
             <thead md-head>
@@ -34,7 +35,9 @@
                     <th ng-click="cc.sortData('is_case_complete')">Case Status
                         <div ng-class="cc.getSortClass('is_case_complete')"></div>
                     </th>
-                    <th>Action</th>
+                    <th ng-click="cc.sortData('is_case_complete')">Action
+                        <div ng-class="cc.getSortClass('is_case_complete')"></div>
+                    </th>
                 </tr>
             </thead>
             <tbody md-body >

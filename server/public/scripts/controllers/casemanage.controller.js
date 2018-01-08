@@ -1,12 +1,13 @@
 // controller for casemanage.html
-myApp.controller('CaseController', function (FormService, $http, $mdDialog) {
+myApp.controller('CaseController', function (UserService, FormService, $http, $mdDialog) {
     console.log('Caseontroller created');
     var vm = this;
     vm.formService = FormService;
 
 
     // Column sorting
-    vm.sortColumn = "case_start_date";
+    //default sort case complete status
+    vm.sortColumn = "is_case_complete";
     vm.reverseSort = false;
 
     vm.sortData = function (column) {
@@ -20,13 +21,10 @@ myApp.controller('CaseController', function (FormService, $http, $mdDialog) {
         }
             return '';
     }
-
-
     //function to set formId
     // vm.saveFormId = function (id) {
     //     FormService.saveFormId(id);
     // }
-
     //function to show MA form popup
     vm.showMa = function (ev, id, type) {
         FormService.showMa(ev, id, type);

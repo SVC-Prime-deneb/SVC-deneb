@@ -1,4 +1,4 @@
-myApp.controller('GreenController', function (FormService, $location, $http, $log, $q) {
+myApp.controller('GreenController', function (UserService, FormService, $location, $http, $log, $q, $mdDialog) {
     console.log('GreenController created');
     var vm = this;
     vm.formService = FormService;
@@ -14,22 +14,35 @@ myApp.controller('GreenController', function (FormService, $location, $http, $lo
 
     vm.advocateArray;
     
-    vm.submitGreen = function(objectTosend){
+    vm.submitGreen = function(objectTosend, event){
         objectTosend.advocate_id = vm.advocateId;
         objectTosend.start_time = FormService.convertTime(objectTosend.start_time);
         console.log(objectTosend);
         $http.post('/case/new/green', objectTosend).then(function (response) {  
             console.log(response);
-                      
             vm.formId = response.data[0].green_form_id;
             vm.date = response.data[0].date;
             vm.loc = response.data[0].location_id;
         }).then(function(){
             vm.createTables();
             vm.monthlyLocation();
-            }).catch(function (err) {
+        }).then(function(){
+            vm.greenConfirm(event);
+        }).catch(function (err) {
                 console.log('error in submit green sheet :(', err);
-            });
+        });
+    }
+
+    vm.greenConfirm = function (ev) {
+        $mdDialog.show(
+            $mdDialog.alert()
+                .parent(angular.element(document.querySelector('#popupContainer')))
+                .clickOutsideToClose(true)
+                .title('Green Form Successfully Submitted')
+                .ariaLabel('Green Form Success')
+                .ok('OK')
+                .targetEvent(ev)
+        )
     }
 
     vm.createTables = function () {    

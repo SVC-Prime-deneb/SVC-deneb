@@ -1,5 +1,5 @@
 // AKA referral form
-myApp.controller('ReleaseController', function (FormService, $http, $mdDialog) {
+myApp.controller('ReleaseController', function (UserService, FormService, $http, $mdDialog) {
     console.log('ReleaseController created');
     var vm = this;
     vm.formService = FormService;

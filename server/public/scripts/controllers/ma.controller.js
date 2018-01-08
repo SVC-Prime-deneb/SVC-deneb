@@ -1,5 +1,5 @@
 // controller for maform.html
-myApp.controller('MaController', function (FormService, $http, $mdDialog) {
+myApp.controller('MaController', function (UserService, FormService, $http, $mdDialog) {
     console.log('MaController created');
     var vm = this;
     vm.formService = FormService;

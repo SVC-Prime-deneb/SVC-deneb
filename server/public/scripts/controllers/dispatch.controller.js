@@ -1,4 +1,4 @@
-myApp.controller('DispatchController', function (FormService, $http) {
+myApp.controller('DispatchController', function (UserService, FormService, $http) {
     console.log('DispatchController created');
     var vm = this;
     vm.formService = FormService;
@@ -10,7 +10,7 @@ myApp.controller('DispatchController', function (FormService, $http) {
     }
 
     // Column sorting
-    vm.sortColumn = "advocate_first_name";
+    vm.sortColumn = "last_contacted_date";
     vm.reverseSort = false;
 
     vm.sortData = function (column) {
@@ -25,10 +25,10 @@ myApp.controller('DispatchController', function (FormService, $http) {
         return '';
     }
 
-    vm.selectAdvocates = function(advocateArray){
+    vm.selectAdvocates = function (advocateArray) {
         vm.advocatesDispatch = [];
-        for ( var i = 0; i < advocateArray.length; i++){
-            if (advocateArray[i].selected){
+        for (var i = 0; i < advocateArray.length; i++) {
+            if (advocateArray[i].selected) {
                 vm.advocatesDispatch.push(advocateArray[i]);
             }
         }
@@ -41,4 +41,5 @@ myApp.controller('DispatchController', function (FormService, $http) {
     }
 
     vm.viewAdvocate();
-});
+
+    });

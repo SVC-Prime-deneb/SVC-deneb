@@ -1,4 +1,4 @@
-myApp.controller('NurseReportController', function (ReportService, $http) {
+myApp.controller('NurseReportController', function (UserService, ReportService, $http) {
     console.log('NurseReportController created');
     var vm = this;
     vm.reportService = ReportService;

@@ -1,4 +1,4 @@
-myApp.controller('ReleaseInfoController', function (FormService, $http, $mdDialog) {
+myApp.controller('ReleaseInfoController', function (UserService, FormService, $http, $mdDialog) {
     console.log('ReleaseInfoController created');
     var vm = this;
     vm.formService = FormService;

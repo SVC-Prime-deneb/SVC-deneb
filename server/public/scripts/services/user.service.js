@@ -1,15 +1,23 @@
 myApp.service('UserService', function($http, $location){
   console.log('UserService Loaded');
   var self = this;
-  self.userObject = {};
+  self.userObject = {is_admin: true,
+                    is_super_admin: true,
+                                  };
 
   self.getuser = function(){
     console.log('UserService -- getuser');
     $http.get('/user').then(function(response) {
+      console.log(response);
+      // self.userObject.is_admin = response.data.is_admin;
+      // self.userObject.is_super_admin = response.data.is_super_admin;
         if(response.data.username) {
             // user has a curret session on the server
             self.userObject.userName = response.data.username;
+            
             console.log('UserService -- getuser -- User Data: ', self.userObject.userName);
+            console.log('UserService -- getuser -- User Data: ', self.userObject.is_admin);
+            console.log('UserService -- getuser -- User Data: ', self.userObject.is_super_admin);
         } else {
             console.log('UserService -- getuser -- failure');
             // user has no session, bounce them back to the login page
@@ -28,5 +36,5 @@ myApp.service('UserService', function($http, $location){
       $location.path("/home");
     });
   }
-  
+  self.getuser();
 });

@@ -10,8 +10,7 @@
         <input type="text" placeholder="Search..." ng-model="searchText" />
         <md-button ng-click="dc.showDispatch($event, dc.formService.advocateList)" class="md-raised md-primary">DISPATCH</md-button>
     </div>
-    <br>
-    <br>
+    <br/>
     <div>
         <md-table-container>
             <table md-table class="nurseReportTbl">
@@ -38,8 +37,8 @@
                         <th ng-click="dc.sortData('main_contact_phone')">PHONE NO.
                             <div ng-class="dc.getSortClass('main_contact_phone')"></div>
                         </th>
-                        <th ng-click="dc.sortData('main_contact_phone')">LAST CONTACTED
-                            <div ng-class="dc.getSortClass('main_contact_phone')"></div>
+                        <th ng-click="dc.sortData('last_contacted_date')">LAST CONTACTED
+                            <div ng-class="dc.getSortClass('last_contacted_date')"></div>
                         </th>
                     </tr>
                 </thead>

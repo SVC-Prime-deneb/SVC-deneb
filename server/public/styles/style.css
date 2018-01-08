@@ -27,6 +27,9 @@ body, html {
 
 form {
   padding:20px;
+  margin-top: 20px;
+  position: relative;
+
 }
 
 #container {
@@ -258,16 +261,17 @@ section {
 #admintable{
   max-width: 550px !important;
 }
-
+/* 
 .transactionTbl {
   margin: 0 0 40px 0;
-  width: 100%;
+  width: 80%;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   display: table;
   /* @media screen and (max-width: 580px); */
-  display: block;
-}
+  /* display: block; */
+/* } */ 
 
+.con
 
 /* STYLING FOR NURSE REPORTS TABLE */
 .container nurseReportTbl {
@@ -284,7 +288,7 @@ section {
   position: relative;
   margin: 0 auto;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  width: 80%;
+  width: 100%;
   background: rgb(102, 102, 102);
 }
 
@@ -329,8 +333,6 @@ section {
     cursor: pointer;
 }
 
-
-
 .row {
   display: table-row;
   background: #f6f6f6;
@@ -338,7 +340,7 @@ section {
 
 .transactionTbl {
   margin: 0 auto;
-  width: 90%;
+  width: 100%;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   display: table;
   /* @media screen and (max-width: 580px); */
@@ -420,16 +422,19 @@ h1 {
   border-collapse: collapse;
 }
 
+.dialogTbl tr th {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 2px solid rgb(102, 102, 102); 
+}
+
 .dialogTbl tr td {
   text-align: left;
   padding: 10px;
   border-bottom: 2px solid rgb(102, 102, 102); 
 }
 
-
-
-#idiconMove{
-
+#idiconMove {
   box-sizing: border-box;
   display: inline-block;
   margin-bottom: 16px;

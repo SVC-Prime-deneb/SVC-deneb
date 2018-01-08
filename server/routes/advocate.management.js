@@ -12,7 +12,7 @@ router.get('/get', function (req, res) {
       console.log('Error connecting to db', errorConnectingToDB);
       res.sendStatus(500);
     } else {
-      var queryText = 'SELECT * FROM "advocates";';
+      var queryText = 'SELECT * FROM "advocates" ORDER BY "last_contacted_date";';
       db.query(queryText, function (errorMakingQuery, result) {
         done();
         if (errorMakingQuery) {
@@ -30,10 +30,10 @@ router.get('/get', function (req, res) {
   }
 });
 
-
 //                          POST ROUTES
 
 router.post('/new', function (req, res) {
+  if (req.isAuthenticated(), req.user.is_admin === true) {
   var saveAd = {
     advocate_first_name: req.body.advocate_first_name,
     advocate_last_name: req.body.advocate_last_name,
@@ -80,11 +80,16 @@ router.post('/new', function (req, res) {
       }); // END QUERY
     }
   });
+  } else {
+    console.log('not logged in');
+    res.send(false);
+  }
 });//End POST route
 //                            UPDATE ROUTES
 
 
 router.put('/update/last/:id', function (req, res) {
+  if (req.isAuthenticated(), req.user.is_admin === true) {
   console.log('this req.body', req.body);
 
   var id = req.params.id
@@ -112,13 +117,17 @@ console.log(date);
       }); // END QUERY
     }
   });
+  } else {
+    console.log('not logged in');
+    res.send(false);
+  }
 });//End POST route
 //TODO add forgot password and finish this route.
 router.put('/update/:id', function (req, res) {
   console.log('update admin');
   // check if logged in
 
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated(), req.user.is_admin === true) {
     var id = req.params.id;
 
     var updateAd = {
@@ -176,7 +185,7 @@ router.put('/update/:id', function (req, res) {
 router.delete('/del/:id', function (req, res) {
   console.log('del admin');
   // check if logged in
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated(), req.user.is_admin === true) {
     var id = req.params.id;
 
     pool.connect(function (errorConnectingToDB, db, done) {

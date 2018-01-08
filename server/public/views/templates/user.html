@@ -3,28 +3,24 @@
     <div class="welcome">
         <div>
 
-            <md-content>
+            <md-content style="margin: auto" flex="80">
                 <md-card>
                     <md-card id="userTitle">
                         <div id="picture">
                             <img id="svcBanner" src="pictures/svc_img.jpeg">
                         </div>
-                        <md-input-container>
-                            <!-- <label id="openCase" for="openCase" >Open Cases: </label> -->
-                            <md-button class="md-raised md-primary" href="#/casemanage">Active Cases: {{uc.openCase}}</md-button>
-                            <!-- <section layout="row"></section> -->
-                        </md-input-container>
+                        <div layout="row" layout-align="center">
+                            <md-button class="md-raised md-primary" href="#/casemanage" ng-show="uc.userService.userObject.is_admin">Active Cases: {{uc.openCase}}</md-button>
+                            <md-button class="md-raised md-primary" href="#/casemanage" ng-show="uc.userService.userObject.is_admin">New Cases: 4</md-button>
+                        </div>
+                        <div>
+                            <md-button class="md-raised md-primary" href="#/green">
+                                <md-icon md-svg-icon="pictures/add.svg"></md-icon> New Case</md-button>
+                            <md-button class="md-raised md-primary" href="#/newadvocate">
+                                <md-icon md-svg-icon="pictures/add.svg"></md-icon> New Advocate</md-button>
+                            <md-button class="md-raised md-primary" href="#/dispatch"> Dispatch </md-button>
 
-                        <!-- <md-input-container>
-                            <label id="upcomingDeadline" for="upcomingDeadline">Upcoming Deadlines:</label>
-                            <section layout="row"></section>
-                        </md-input-container>
-                        <br> -->
-                        <md-input-container>
-                            <md-button class="md-raised md-primary">New Cases: 4</md-button>
-                            <!-- <section layout="row"></section> -->
-                        </md-input-container>
-                        <br>
+                        </div>
                     </md-card>
             </md-content>
 
