@@ -1,9 +1,7 @@
 myApp.service('UserService', function($http, $location){
   console.log('UserService Loaded');
   var self = this;
-  self.userObject = {is_admin: true,
-                    is_super_admin: true,
-                                  };
+  self.userObject = {};
 
   self.getuser = function(){
     console.log('UserService -- getuser');
@@ -14,6 +12,8 @@ myApp.service('UserService', function($http, $location){
         if(response.data.username) {
             // user has a curret session on the server
             self.userObject.userName = response.data.username;
+            self.userObject.is_admin = response.data.is_admin;
+            self.userObject.is_super_admin = response.data.is_super_admin;
             
             console.log('UserService -- getuser -- User Data: ', self.userObject.userName);
             console.log('UserService -- getuser -- User Data: ', self.userObject.is_admin);
