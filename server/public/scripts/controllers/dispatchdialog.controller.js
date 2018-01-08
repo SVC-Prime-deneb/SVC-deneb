@@ -1,4 +1,4 @@
-myApp.controller('DispatchDialogController', function (FormService, $http, $mdDialog) {
+myApp.controller('DispatchDialogController', function (UserService, FormService, $http, $mdDialog) {
     console.log('DispatchDialogController created');
     var vm = this;
     vm.reportService = FormService;

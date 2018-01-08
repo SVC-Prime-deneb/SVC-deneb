@@ -7,7 +7,7 @@ var moment = require('moment');
 //                    GET ROUTES
 router.get('/form', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated(), req.user.is_admin) {
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
                 res.sendStatus(500);
@@ -32,7 +32,7 @@ router.get('/form', function (req, res) {
 
 router.get('/green/:id', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated(), req.user.is_admin) {
         var green = req.params.id
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
@@ -61,7 +61,7 @@ router.get('/green/:id', function (req, res) {
 
 router.get('/la/:id', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated(), req.user.is_admin) {
         var la = req.params.id
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
@@ -87,7 +87,7 @@ router.get('/la/:id', function (req, res) {
 router.get('/ma/:id', function (req, res) {
     // check if logged in
 
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated(), req.user.is_admin) {
         var ma = req.params.id;
 
         pool.connect(function (errorConnectingToDb, db, done) {
@@ -114,7 +114,7 @@ router.get('/ma/:id', function (req, res) {
 
 router.get('/referral/:id', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated(), req.user.is_admin) {
         var referral = req.params.id
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
@@ -139,7 +139,7 @@ router.get('/referral/:id', function (req, res) {
 
 router.get('/release/:id', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated(), req.user.is_admin) {
         var release = req.params.id
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
@@ -208,7 +208,8 @@ router.post('/new/green', function (req, res) {
 
 router.put('/month', function (req, res) {
     console.log('this req.body', req.body);
-    
+    if (req.isAuthenticated()) {
+
     var loc = req.body.loc
     var date = req.body.date
     var year_year=date.slice(0, 4)
@@ -238,9 +239,14 @@ router.put('/month', function (req, res) {
             }); // END QUERY
         }
     });
+    } else {
+        res.send(false);
+    }
 });//End POST route
 
 router.post('/new/table/:id', function (req, res) {
+    if (req.isAuthenticated()) {
+
     var id = req.params.id
 
     pool.connect(function (errorConnectingToDb, db, done) {
@@ -262,6 +268,9 @@ router.post('/new/table/:id', function (req, res) {
             }); // END QUERY
         }
     });
+    } else {
+        res.send(false);
+    }
 });//End POST route
 
 //                      PUT 
@@ -269,7 +278,7 @@ router.post('/new/table/:id', function (req, res) {
 router.put('/update/checkbox/:id', function (req, res) {
     // check if logged in
 
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated(), req.user.is_admin) {
         var id = req.params.id;
         var form = {
             formName: req.body.formName,
@@ -326,7 +335,7 @@ router.put('/update/checkbox/:id', function (req, res) {
 
 router.put('/update/green/:id', function (req, res) {
 
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated(), req.user.is_admin) {
         var id = req.params.id;
         var green = {
             date: req.body.date,
@@ -370,7 +379,7 @@ router.put('/update/green/:id', function (req, res) {
 
 router.put('/update/ma/:id', function (req, res) {
 
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated(),  req.user.is_admin) {
         var id = req.params.id;
 
         var ma = {
@@ -452,7 +461,7 @@ router.put('/update/ma/:id', function (req, res) {
 router.put('/update/la/:id', function (req, res) {
     // check if logged in
 
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated(), req.user.is_admin) {
         var id = req.params.id;
         var la = {
             date: req.body.date,
@@ -492,7 +501,7 @@ router.put('/update/la/:id', function (req, res) {
 });
 
 router.put('/update/referral/:id', function (req, res) {
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated(), req.user.is_admin) {
         var id = req.params.id;
         var referral = {
             referral_location_name: req.body.referral_location_name,
@@ -528,7 +537,7 @@ router.put('/update/referral/:id', function (req, res) {
 
 router.put('/update/release/:id', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated(), req.user.is_admin) {
         var id = req.params.id;
         var release = {
             purpose: req.body.purpose,
@@ -559,43 +568,8 @@ router.put('/update/release/:id', function (req, res) {
     }
 });
 
-
-// router.put('/update/:id', function (req, res) {
-//     console.log('update admin');
-//     // check if logged in
-
-//     // if (req.isAuthenticated()) {
-//     var id = req.params.id;
-//     var is_super_admin = req.headers.is_super_admin
-//     console.log('here', req.headers.is_super_admin);
-
-//     pool.connect(function (errorConnectingToDB, db, done) {
-//         if (errorConnectingToDB) {
-//             console.log('Error connecting to db', errorConnectingToDB);
-//             res.sendStatus(500);
-//         } else {
-//             var queryText = 'UPDATE "users" SET is_super_admin = $1 WHERE user_id = $2 ;';
-//             db.query(queryText, [is_super_admin, id], function (errorMakingQuery, result) {
-//                 done();
-//                 if (errorMakingQuery) {
-//                     console.log('Error making query', errorMakingQuery, result)
-//                     res.sendStatus(500);
-//                 } else {
-//                     console.log(result.rows);
-//                     res.send(result.rows);
-//                 }
-//             });
-//         }
-//     });
-//     // } else {
-//     //   console.log('not logged in');
-//     //   res.send(false);
-//     // }
-// });
-
-router.get('/form/search', function (req, res) { //search for a case, return the form table data
-    // check if logged in
-    if (req.isAuthenticated()) {
+router.get('/form/search', function (req, res) { 
+    if (req.isAuthenticated(), req.user.is_admin) {
         
         var query = {
             start_date: req.query.start_date,
