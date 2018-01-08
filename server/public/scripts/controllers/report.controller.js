@@ -23,8 +23,8 @@ myApp.controller('ReportController', function (ReportService, $http) {
     vm.countDispatch = function () {
         $http.get('/report/nurse').then(function (response) {
             vm.cases = response.data;
-            // console.log('vm.cases', vm.cases);
-            // console.log('success counting dispatch');
+            console.log('vm.cases', vm.cases);
+            console.log('success counting dispatch');
         }).catch(function(error) {
             console.log('failure', error);
         });
@@ -107,8 +107,8 @@ myApp.controller('ReportController', function (ReportService, $http) {
             nurseReportNames.push(vm.cases[i].nurse_form_location_name);
             advocateCounts.push(vm.cases[i].count);
         }
-        // console.log('nurseReportNames', nurseReportNames);
-        // console.log('advocateCounts', advocateCounts);
+        console.log('nurseReportNames', nurseReportNames);
+        console.log('advocateCounts', advocateCounts);
         vm.myNurseChart = new Chart (vm.myNurseChart, {
             type: "doughnut",
             data: {
@@ -262,7 +262,10 @@ myApp.controller('ReportController', function (ReportService, $http) {
 
             $http.get('/report/locmonthly').then(function(response) {
                 locmonthly = response.data;
-                console.log('locmonthly', locmonthly); 
+                console.log('locmonthly All', locmonthly); 
+                console.log('locmonthlybnbh', locmonthly[0]); 
+                console.log('monthlyghghghghg', locmonthly[0]["01"]);
+                
                 vm.displayAdvChart();             
             }).catch(function(error) {
                 console.log('failure', error);              
@@ -280,46 +283,45 @@ myApp.controller('ReportController', function (ReportService, $http) {
                     locationNames.push(locmonthly[i].location_name);
                     switch (vm.selectedMonth) {
                         case 'jan':
-                            numOfAdvocates.push(locmonthly[i].jan);
+                            numOfAdvocates.push(locmonthly[i]["01"]);
                             break;
                         case 'feb':
-                            numOfAdvocates.push(locmonthly[i].feb);
+                            numOfAdvocates.push(locmonthly[i]["02"]);
                             break;
                         case 'march':
-                            numOfAdvocates.push(locmonthly[i].march);
+                            numOfAdvocates.push(locmonthly[i]["03"]);
                             break;
                         case 'april':
-                            numOfAdvocates.push(locmonthly[i].april);
+                            numOfAdvocates.push(locmonthly[i]["04"]);
                             break;
                         case 'may':
-                            numOfAdvocates.push(locmonthly[i].may);
+                            numOfAdvocates.push(locmonthly[i]["05"]);
                             break;
                         case 'june':
-                            numOfAdvocates.push(locmonthly[i].june);
+                            numOfAdvocates.push(locmonthly[i]["06"]);
                             break;
                         case 'july':
-                            numOfAdvocates.push(locmonthly[i].july);
+                            numOfAdvocates.push(locmonthly[i]["07"]);
                             break;
                         case 'aug':
-                            numOfAdvocates.push(locmonthly[i].aug);
+                            numOfAdvocates.push(locmonthly[i]["08"]);
                             break;
                         case 'sept':
-                            numOfAdvocates.push(locmonthly[i].sept);
+                            numOfAdvocates.push(locmonthly[i]["09"]);
                             break;
                         case 'oct':
-                            numOfAdvocates.push(locmonthly[i].oct);
-                            break;
-                        case 'jan':
-                            numOfAdvocates.push(locmonthly[i].nov);
+                            numOfAdvocates.push(locmonthly[i]["10"]);
                             break;
                         case 'nov':
-                            numOfAdvocates.push(locmonthly[i].dec);
+                            numOfAdvocates.push(locmonthly[i]["11"]);
                             break;
                         case 'dec':
-                            numOfAdvocates.push(locmonthly[i].jan);
+                            numOfAdvocates.push(locmonthly[i]["12"]);
                             break;
                     }
                 }
+                console.log('numOfAdvocates', numOfAdvocates);
+                
                 // vm.myAdvChart = createChart(vm.myAdvChart, false, false, true, 11, "line", 
                 //         "Location Name", locationNames, numOfAdvocates, 
                 //         'Number of Advocates sent to Hospitals Monthly',true);
