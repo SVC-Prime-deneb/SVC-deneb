@@ -231,9 +231,7 @@ router.put('/month', function (req, res) {
             console.log("errorConnectingToDb" , errorConnectingToDb);
             
         } else {
-            var queryText = 'UPDATE "monthly_location" SET ' + '"' + month + '" = ' + '("' + month + '"+1) WHERE "year" = ' +  year_year  + ' AND "location_id" = $1;'
-            console.log('query text', queryText);
-            
+            var queryText = 'UPDATE "monthly_location" SET ' + '"' + month + '" = ' + '("' + month + '"+1) WHERE "year" = ' +  year_year  + ' AND "location_id" = $1;'            
             db.query(queryText, [loc], function (errorMakingQuery, result) {
                 done();
                 if (errorMakingQuery) {
