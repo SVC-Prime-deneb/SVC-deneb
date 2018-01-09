@@ -32,31 +32,38 @@ router.get('/form', function (req, res) {
 
 router.get('/green/:id', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated(), req.user.is_admin) {
+    // if (req.isAuthenticated(), req.user.is_admin) {
         var green = req.params.id
+        console.log(green);
+        
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
+                console.log(errorConnectingToDb);
+                
                 res.sendStatus(500);
             } else {  //SELECT*FROM "green_form_data" WHERE "green_form_id" = $1;
                 var queryText = 'SELECT * ' +
                                 'FROM "public"."green_form_data" g ' +
-                                    'INNER JOIN "location" l ON l."location_id" = g."location_id" '
+                                'INNER JOIN "location" l ON l."location_id" = g."location_id" '
                                 'WHERE "green_form_id" = $1';
                 db.query(queryText, [green], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
+                        console.log(errorMakingQuery);
+                        
                         res.sendStatus(500);
                     } else {
-
+                        console.log(result.rows);
+                        
                         res.send(result.rows);
                     }
                 }); // END QUERY
             }
         });
-    } else {
-        // failure best handled on the server. do redirect here.
-        res.send(false);
-    }
+    // } else {
+    //     // failure best handled on the server. do redirect here.
+    //     res.send(false);
+    // }
 });
 
 router.get('/la/:id', function (req, res) {
