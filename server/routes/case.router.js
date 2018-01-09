@@ -36,6 +36,7 @@ router.get('/green/:id', function (req, res) {
         var green = req.params.id
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
+                console.log(errorConnectingToDb);
                 res.sendStatus(500);
             } else {  //SELECT*FROM "green_form_data" WHERE "green_form_id" = $1;
                 var queryText = 'SELECT * ' +

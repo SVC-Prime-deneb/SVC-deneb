@@ -457,6 +457,10 @@ width: 500px;
 height: 1000px;
 }
 
+#signUp{
+  width: 80%;
+}
+
 #inputLogin{
   padding-right: 60px ;
 }
