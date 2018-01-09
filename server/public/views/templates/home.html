@@ -1,27 +1,27 @@
 <div class="container" id="login" layout="column" layout-align="center center">
-        <md-content id="loginForm">
-            <md-card class="invertColor">
-                <md-card >
-                    <h1 class="lead">LOGIN</h1>
-                    <form ng-submit="lc.login()">
-                        <md-input-container>
-                            <label for="username">Username:</label>
-                            <input type="text" ng-model="lc.user.username" >
-                        </md-input-container>
-                        <br/>
-                        <div>
-                            <md-input-container>
-                                <label for="password">Password:</label>
-                                <input type="password" ng-model="lc.user.password">
-                        </div>
-                        <br/>
-                        <div>
-                            <md-card-actions layout="column">
-                                <md-button class="md-primary md-raised" ng-click="lc.login()">LOGIN</md-button>
-                            </md-card-actions>
-                        </div>
-                    </form>
-                </md-card>
+    <md-content id="loginForm">
+        <md-card class="invertColor">
+            <md-card>
+                <h1 class="lead">LOGIN</h1>
+                <form ng-submit="lc.login()">
+                    <md-input-container>
+                        <label for="username">Username:</label>
+                        <input type="text" ng-model="lc.user.username">
+                    </md-input-container>
+                    <br/>
+                    <md-input-container>
+                        <label for="password">Password:</label>
+                        <input type="password" ng-model="lc.user.password">
+                    </md-input-container>
+                    <br/>
+                    <div>
+                        <md-card-actions layout="column">
+                            <h4 style="color: red; text-align:center" class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">***{{lc.message}}***</h4>
+                            <md-button type="submit" class="md-primary md-raised" ng-click="lc.login()">LOGIN</md-button>
+                        </md-card-actions>
+                    </div>
+                </form>
             </md-card>
-        </md-content>
+        </md-card>
+    </md-content>
 </div>
