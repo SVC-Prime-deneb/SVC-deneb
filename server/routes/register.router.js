@@ -12,6 +12,7 @@ router.get('/', function(req, res, next) {
 
 // Handles POST request with new user data
 router.post('/', function(req, res, next) {
+  if (req.isAuthenticated(), req.user.is_super_admin) {
 
   var saveUser = {
     username: req.body.username,
@@ -41,7 +42,10 @@ router.post('/', function(req, res, next) {
           }
         });
   });
-
+  } else {
+    console.log('not logged in');
+    res.send(false);
+  }
 });
 
 

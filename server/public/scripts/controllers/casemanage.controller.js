@@ -1,5 +1,5 @@
 // controller for casemanage.html
-myApp.controller('CaseController', function (FormService, $http, $mdDialog) {
+myApp.controller('CaseController', function (UserService, FormService, $http, $mdDialog) {
     console.log('Caseontroller created');
     var vm = this;
     vm.formService = FormService;

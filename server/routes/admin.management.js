@@ -8,7 +8,7 @@ var pg = require('pg');
 router.get('/get', function (req, res) {
   console.log('get dem admins');
   // check if logged in
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated(), req.user.is_super_admin) {
   pool.connect(function (errorConnectingToDB, db, done) {
     if (errorConnectingToDB) {
       console.log('Error connecting to db', errorConnectingToDB);
@@ -49,7 +49,7 @@ router.put('/update/:id', function (req, res) {
   console.log('update admin');
   // check if logged in
 
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated(), req.user.is_super_admin) {
   var id = req.params.id;
   var is_super_admin = req.body.is_super_admin
   console.log('here',is_super_admin);
@@ -83,7 +83,7 @@ router.put('/update/:id', function (req, res) {
 router.delete('/del/:id', function (req, res) {
   console.log('del admin');
   // check if logged in
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated(), req.user.is_super_admin) {
     var id = req.params.id;
 
     pool.connect(function (errorConnectingToDB, db, done) {
