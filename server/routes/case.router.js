@@ -41,11 +41,12 @@ router.get('/green/:id', function (req, res) {
                 console.log(errorConnectingToDb);
                 
                 res.sendStatus(500);
-            } else {  //SELECT*FROM "green_form_data" WHERE "green_form_id" = $1;
-                var queryText = 'SELECT * ' +
-                                'FROM "public"."green_form_data" g ' +
-                                'INNER JOIN "location" l ON l."location_id" = g."location_id" '
-                                'WHERE "green_form_id" = $1';
+            } else { 
+                var queryText = 'SELECT*FROM "green_form_data" WHERE "green_form_id" = $1';
+                // var queryText = 'SELECT * ' +
+                //                 'FROM "public"."green_form_data" g ' +
+                //                 'INNER JOIN "location" l ON l."location_id" = g."location_id" '
+                //                 'WHERE "green_form_id" = $1';
                 db.query(queryText, [green], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
