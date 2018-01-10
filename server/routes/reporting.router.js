@@ -51,10 +51,10 @@ router.get('/taxi', function (req, res) {
         } else {
             var queryText = 'SELECT SUM(m."taxi_cost") ' +
             ', m."location_name" ' +
-        ' , date_part('/'year'/', current_date) ' +
-        ' FROM "public"."ma_form_data" m ' +
-        ' WHERE m."location_name" IS NOT NULL ' +
-        ' GROUP BY m."location_name";';
+            ' , date_part('/'year'/', current_date) ' +
+            ' FROM "public"."ma_form_data" m ' +
+            ' WHERE m."location_name" IS NOT NULL ' +
+            ' GROUP BY m."location_name";';
             db.query(queryText, function (errorMakingQuery, result) {
                 done();
                 if (errorMakingQuery) {

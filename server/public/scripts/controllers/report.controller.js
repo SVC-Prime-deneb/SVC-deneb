@@ -35,68 +35,70 @@ myApp.controller('ReportController', function (UserService, ReportService, $http
     
     vm.countDispatch();
 
-    function createChart (chartElement, boolDonut, boolBar, boolLine, fontSize, chartType, 
-                            displayLabel, labelData, data, text, boolStartZero){
-        vm.Donut = boolDonut;
-        vm.Bar = boolBar;
-        vm.Line = boolLine;
-        Chart.defaults.global.defaultFontSize = fontSize;
-        vm.chart = new Chart (chartElement, {
-            type: chartType,
-            data: {
-                labels: labelData,
-                datasets: [{
-                    label: displayLabel,
-                    data: data,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.6)',
-                        'rgba(54, 162, 235, 0.6)',
-                        'rgba(255, 206, 86, 0.6)',
-                        'rgba(75, 192, 192, 0.6)'
-                    ],
-                    borderWidth: 1,
-                    borderColor: '#777',
-                    hoverBorderWidth: 3,
-                    hoverBorderColor: '#000'
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: boolStartZero
-                        }
-                    }]
-                },
-                title: {
-                    display: true,
-                    text: text,
-                    fontSize: 25
-                },
-                legend: {
-                    display: true,
-                    position: 'right',
-                    labels: {
-                        fontColor: '#000'
-                    }
-                },
-                layout: {
-                    padding: {
-                        left: 50,
-                        right: 0,
-                        bottom: 0,
-                        top: 0
-                    }
-                },
-                tooltips: {
-                    enabled: true
-                }
-            }   
-        });
-        return vm.chart;
-    }
+    // FUNCTION TO CREATE CHART 
+    // function createChart (chartElement, boolDonut, boolBar, boolLine, fontSize, chartType, 
+    //                         displayLabel, labelData, data, text, boolStartZero){
+    //     vm.Donut = boolDonut;
+    //     vm.Bar = boolBar;
+    //     vm.Line = boolLine;
+    //     Chart.defaults.global.defaultFontSize = fontSize;
+    //     vm.chart = new Chart (chartElement, {
+    //         type: chartType,
+    //         data: {
+    //             labels: labelData,
+    //             datasets: [{
+    //                 label: displayLabel,
+    //                 data: data,
+    //                 backgroundColor: [
+    //                     'rgba(255, 99, 132, 0.6)',
+    //                     'rgba(54, 162, 235, 0.6)',
+    //                     'rgba(255, 206, 86, 0.6)',
+    //                     'rgba(75, 192, 192, 0.6)'
+    //                 ],
+    //                 borderWidth: 1,
+    //                 borderColor: '#777',
+    //                 hoverBorderWidth: 3,
+    //                 hoverBorderColor: '#000'
+    //             }]
+    //         },
+    //         options: {
+    //             scales: {
+    //                 yAxes: [{
+    //                     ticks: {
+    //                         beginAtZero: boolStartZero
+    //                     }
+    //                 }]
+    //             },
+    //             title: {
+    //                 display: true,
+    //                 text: text,
+    //                 fontSize: 25
+    //             },
+    //             legend: {
+    //                 display: true,
+    //                 position: 'right',
+    //                 labels: {
+    //                     fontColor: '#000'
+    //                 }
+    //             },
+    //             layout: {
+    //                 padding: {
+    //                     left: 50,
+    //                     right: 0,
+    //                     bottom: 0,
+    //                     top: 0
+    //                 }
+    //             },
+    //             tooltips: {
+    //                 enabled: true
+    //             }
+    //         }   
+    //     });
+    //     return vm.chart;
+    // }
     vm.nurseChart = [];
     vm.myNurseChart = document.getElementById('myNurseChart').getContext('2d');
+
     // GET NURSE CHART
     vm.requestNurseChart = function () {
         var nurseReportNames = [];
@@ -158,94 +160,129 @@ myApp.controller('ReportController', function (UserService, ReportService, $http
             }  
         });
     }
+    
+    
     vm.taxiData = [];
     
     // GET COUNT OF TAXIS PER LOCATION
-    vm.countTaxi = function () {
+    // vm.countTaxi = function () {
+    //     $http.get('/report/taxi').then(function (response) {
+    //         vm.taxiData = response.data;
+    //         console.log('vm.taxiData', vm.taxiData);
+    //         // console.log('vm.taxiData.count', vm.taxiData[0].count);
+    //         // console.log('vm.taxiData.location_name', vm.taxiData[0].location_name);
+    //     console.log('success counting taxis');    
+    //     }).catch (function (error) {
+    //         console.log('failure', error);    
+    //     });
+    // }
+
+    // vm.countTaxi();
+
+    // GET "taxi_cost" PER LOCATION AT THE CURRENT YEAR
+    vm.computeTaxiExpense = function () {
         $http.get('/report/taxi').then(function (response) {
             vm.taxiData = response.data;
             console.log('vm.taxiData', vm.taxiData);
-            // console.log('vm.taxiData.count', vm.taxiData[0].count);
-            // console.log('vm.taxiData.location_name', vm.taxiData[0].location_name);
-        console.log('success counting taxis');    
-        }).catch (function (error) {
-            console.log('failure', error);    
+            console.log('vm.taxiData.sum', vm.taxiData[1].sum);
+            console.log('vm.taxiData.location_name', vm.taxiData[1].nan);  
+        }).catch(function(error) {
+            console.log('failure', error);
         });
     }
 
-    vm.countTaxi();
+    vm.computeTaxiExpense();
+
+
+    // REQUEST FUNCTION FOR TAXI CHART 
     var myTaxiChart = document.getElementById('myTaxiChart').getContext('2d');
         //TAXI BAR CHART
         vm.requestTaxiChart = function () {
+            vm.Donut = false;
+            vm.Bar = true;
+            vm.Line = false;
+
             var locationNames = [];
-            var taxiCounts = [];
+            // var taxiCounts = [];
+            var taxiExpense = [];
             for (var i = 0; i < vm.taxiData.length; i++) {
-                locationNames.push(vm.taxiData[i].location_name);
-                taxiCounts.push(vm.taxiData[i].count);     
+                locationNames.push(vm.taxiData[i].nan);
+                taxiExpense.push((vm.taxiData[i].sum).slice(1));     
             }
-            vm.myTaxiChart = createChart (myTaxiChart,false, true, false, 15,"bar",
-                                        "Location Name",locationNames, taxiCounts,
-                                        'Taxi Expenses Spent per Hospital', true);
-            // console.log('locationNames', locationNames);
-            // console.log('taxicount', taxiCounts);
-            // vm.myTaxiChart = new Chart(myTaxiChart, {
-            //     type: 'bar', // bar,pie, line, horizontalBar
-            //     data: {
-            //         labels: locationNames ,
-            //         datasets: [{
-            //             label: 'LocationName',
-            //             data: taxiCounts,
-            //             fill: false,
-            //             lineTension: 0.7,
+            console.log('locationNames', locationNames);
+            console.log('taxiExpense', taxiExpense);
+            // vm.myTaxiChart = createChart (myTaxiChart,false, true, false, 15,"bar",
+            //                             "Hospital Name", locationNames, taxiExpense,
+            //                             'Taxi Expenses Spent per Hospital', true);
+            
+            vm.myTaxiChart = new Chart(myTaxiChart, {
+                type: 'bar', // bar,pie, line, horizontalBar
+                data: {
+                    labels: locationNames ,
+                    datasets: [{
+                        label: 'Hospital Name',
+                        data: taxiExpense,
+                        fill: false,
+                        lineTension: 0.7,
                         
-            //             backgroundColor: 'green',
-            //             backgroundColor: [
-            //                 'rgba(255, 99, 132, 0.6)',
-            //                 'rgba(54, 162, 235, 0.6)'
-            //                 // 'rgba(255, 206, 86, 0.6)',
-            //                 // 'rgba(153, 102, 255, 0.6)',
-            //                 // 'rgba(255, 159, 64, 0.6)',
-            //                 // 'rgba(255, 99, 132, 0.6)',
-            //                 // 'rgba(75, 192, 192, 0.6)'
-            //             ],
-            //             borderWidth: 1,
-            //             borderColor: '#777',
-            //             hoverBorderWidth: 3,
-            //             hoverBorderColor: '#000'
-            //         }]
-            //     },
-            //     options: {
-            //         scales: {
-            //             yAxes: [{
-            //                 ticks: {
-            //                     beginAtZero: true
-            //                 }
-            //             }]
-            //         },
-            //         title: {
-            //             display: true,
-            //             text: 'Number of Taxis provided per Hospital',
-            //             fontSize: 30
-            //         },
-            //         legend: {
-            //             position: 'right',
-            //             labels: {
-            //                 fontColor: '#000'
-            //             }
-            //         },
-            //         layout: {
-            //             padding: {
-            //                 left: 50,
-            //                 right: 0,
-            //                 bottom: 0,
-            //                 top: 0
-            //             }
-            //         },
-            //         tooltops: {
-            //             enabled: true
-            //         }
-            //     } 
-            // });
+                        backgroundColor: 'green',
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)'
+                            // 'rgba(255, 206, 86, 0.6)',
+                            // 'rgba(153, 102, 255, 0.6)',
+                            // 'rgba(255, 159, 64, 0.6)',
+                            // 'rgba(255, 99, 132, 0.6)',
+                            // 'rgba(75, 192, 192, 0.6)'
+                        ],
+                        borderWidth: 1,
+                        borderColor: '#777',
+                        hoverBorderWidth: 3,
+                        hoverBorderColor: '#000'
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Taxi Amount'
+                            },
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }],
+                        xAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Hospital'
+                            }
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: 'Taxi Expenses Spent Per Hospital',
+                        fontSize: 30
+                    },
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            fontColor: '#000'
+                        }
+                    },
+                    layout: {
+                        padding: {
+                            left: 50,
+                            right: 0,
+                            bottom: 0,
+                            top: 0
+                        }
+                    },
+                    tooltips: {
+                        enabled: true
+                    }
+                } 
+            });
         }
             
 // ADVOCATE PER LOCATION MONTHLY - LINE CHART
@@ -266,8 +303,8 @@ myApp.controller('ReportController', function (UserService, ReportService, $http
             $http.get('/report/locmonthly').then(function(response) {
                 locmonthly = response.data;
                 console.log('locmonthly All', locmonthly); 
-                console.log('locmonthlybnbh', locmonthly[0]); 
-                console.log('monthlyghghghghg', locmonthly[0]["01"]);
+                console.log('locmonthly[0]', locmonthly[0]); 
+                console.log('monthly[0]["01"]', locmonthly[0]["01"]);
                 
                 vm.displayAdvChart();             
             }).catch(function(error) {
@@ -335,11 +372,10 @@ myApp.controller('ReportController', function (UserService, ReportService, $http
                     data: {
                         labels: locationNames,
                         datasets: [{
-                            label: 'LocationName',
+                            label: 'Hospital Name',
                             data: numOfAdvocates,
                             fill: false,
                             lineTension: 0.7,
-
                             backgroundColor: 'green',
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.6)',
@@ -359,8 +395,18 @@ myApp.controller('ReportController', function (UserService, ReportService, $http
                     options: {
                         scales: {
                             yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Number of Advocates'
+                                },
                                 ticks: {
                                     beginAtZero: true
+                                }
+                            }],
+                            xAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Hospital'
                                 }
                             }]
                         },
@@ -383,7 +429,7 @@ myApp.controller('ReportController', function (UserService, ReportService, $http
                                 top: 0
                             }
                         },
-                        tooltops: {
+                        tooltips: {
                             enabled: true
                         }
                     }
