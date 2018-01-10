@@ -33,19 +33,22 @@
                 </md-card-title-text>
             </md-card-title>
             <md-card-content>
-                {{gc.formService}}
                 <table class="dialogTbl">
                     <tr>
                         <td>Date:</td>
-                        <td>{{gc.formService.selectedForm.form[0].date | date}}</td>
+                        <td>{{gc.formService.selectedForm.form.date | date}}</td>
                     </tr>
                     <tr>
                         <td>Time:</td>
-                        <td>{{gc.formService.selectedForm.form[0].start_time}}</td>
+                        <td>{{gc.formService.selectedForm.form.start_time | date: 'shortTime'}}</td>
+                    </tr>
+                    <tr>
+                        <td>Location:</td>
+                        <td>{{gc.formService.selectedForm.form.hospital}}</td>
                     </tr>
                     <tr>
                         <td>Nurse:</td>
-                        <td>{{gc.formService.selectedForm.form[0].nurse}}</td>
+                        <td>{{gc.formService.selectedForm.form.nurse}}</td>
                     </tr>
                     <tr>
                         <td>Was Advocate Dispatched:</td>
