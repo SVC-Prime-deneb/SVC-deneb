@@ -27,7 +27,7 @@ myApp.controller('ReleaseController', function (UserService, FormService, $http,
     vm.closeForm = function () {
         $mdDialog.hide();
     }
-i
+
     //changes is editing to true when edit button is clicked
     vm.editMode = function () {
         vm.isEditing.editing = true;

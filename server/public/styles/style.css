@@ -464,3 +464,8 @@ height: 1000px;
 #inputLogin{
   padding-right: 60px ;
 }
+
+.blueBar {
+  height: 10px;
+    background-color: #027292;
+}
