@@ -12,7 +12,6 @@ myApp.controller('MaController', function (UserService, FormService, $http, $mdD
     
     //arrays for drop downs
     vm.victimization = ['Adult Sexual Assault', 'Sexual Exploitation', 'Minor-CSA', 'Family/Minor-CSA', 'Other' ];
-    // note: may need an Other option here
     vm.services = ['1:1','Legal Advocacy','Support Group', 'Other'];
     
     //submit a new Medical Advocate form or update 
@@ -35,23 +34,17 @@ myApp.controller('MaController', function (UserService, FormService, $http, $mdD
     vm.getForm = function(){
         FormService.getForm('ma');
     }
-
     vm.getForm();
 
-    //funtion to close the dialog
+    //function to close the dialog
     vm.closeForm = function () {
         $mdDialog.hide();
     }
-
+    //changes is editing mode to true when edit button is clicked
     vm.editMode = function () {
         vm.isEditing.editing = true;
     }
 });
-
-var convertTime = function (timeIn) {
-    var convertedTime = moment(timeIn).format("H HH");
-    console.log(convertedTime);
-}
 
 //function to translate the victimization selection into a SQL friendly object
 var objectBuilder = function(objectIn){

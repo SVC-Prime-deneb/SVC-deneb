@@ -1,5 +1,4 @@
 myApp.controller('UserController', function (UserService, FormService, $http) {
-  console.log('UserController created');
   var vm = this;
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
@@ -14,8 +13,6 @@ myApp.controller('UserController', function (UserService, FormService, $http) {
   vm.displayOpenCase = function () {
     // get case first
     $http.get('/case/form').then(function (response) {
-      // console.log(response);
-      console.log('Success calling Get Cases');
       cases = response.data;
       for (var i = 0; i < cases.length; i++) {
         if (!cases[i].is_case_complete) {

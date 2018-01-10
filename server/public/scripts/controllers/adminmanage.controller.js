@@ -1,5 +1,4 @@
-myApp.controller('AdminController', function (UserService, FormService,AdminService, $http, $mdDialog) {
-    console.log('AdminController created');
+myApp.controller('AdminController', function (UserService, FormService, AdminService, $http, $mdDialog) {
     var vm = this;
     vm.formService = FormService;
     vm.formObject = FormService.formObject;
@@ -10,13 +9,12 @@ myApp.controller('AdminController', function (UserService, FormService,AdminServ
     vm.adminService = AdminService;
     vm.adminObject = AdminService.formObject;
 
-    vm.admin = AdminService.selectedAdmin;
-    vm.adminList = AdminService.adminList;
 
 
-    // Column sorting
+    // Column sorting variables
     vm.sortColumn = "first_name";
     vm.reverseSort = false;
+
 
     vm.sortData = function (column) {
         vm.reverseSort = (vm.sortColumn == column) ? !vm.reverseSort : false;
