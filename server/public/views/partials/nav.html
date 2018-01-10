@@ -1,20 +1,20 @@
-<div class="navbar">
+<div class="navbar" ng-controller="NavController as nc">
   <div>
     <ul>
       <li class="alignLeft"><a href="#/user">Home</a></li>
-      <li class="alignLeft"><a href="#/advocatemanage">Advocate Managment</a></li>
-      <li class="alignLeft"><a href="#/casemanage">Case Managment</a></li>
+      <li class="alignLeft" ng-show="nc.userService.userObject.is_admin"><a href="#/advocatemanage" >Advocate Managment</a></li>
+      <li class="alignLeft" ng-show="nc.userService.userObject.is_admin"><a href="#/casemanage">Case Managment</a></li>
       <li class="dropdown alignLeft">
-        <a href="javascript:void(0)" class="dropbtn">Reporting</a>
-        <div class="dropdown-content">
-          <a href="#/report">View Charts</a>
-          <a href="#/nursereport">View Nursing Reports</a>
+        <a href="javascript:void(0)" class="dropbtn" ng-show="nc.userService.userObject.is_admin" >Reporting</a>
+        <div class="dropdown-content" ng-show="nc.userService.userObject.is_admin">
+          <a href="#/report" >View Charts</a>
+          <a href="#/nursereport" >View Nursing Reports</a>
           <a href="#/createnursereport">Create New Nursing Reports</a>
         </div>
       </li>
       <li class="alignLeft"><a href="#/dispatch">Dispatch</a></li>
-      <li class="alignLeft"><a href="#/adminmanage">Admin Management</a></li>
-      <li><a class="logout" href="#" ng-click="uc.userService.logout()">Logout</a></li>
+      <li class="alignLeft" ng-show="nc.userService.userObject.is_super_admin"><a href="#/adminmanage">Admin Management</a></li>
+      <li><a class="logout" href="#" ng-click="nc.userService.logout()">Logout</a></li>
     </ul>
   </div>
 </div>

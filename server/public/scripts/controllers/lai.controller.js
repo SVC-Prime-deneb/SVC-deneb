@@ -1,4 +1,4 @@
-myApp.controller('LaiController', function (FormService, $http, $mdDialog) {
+myApp.controller('LaiController', function (UserService, FormService, $http, $mdDialog) {
     console.log('LaiController created');
     var vm = this;
     vm.formService = FormService;

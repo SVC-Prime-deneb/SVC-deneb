@@ -1,5 +1,5 @@
 // controller for casemanage.html
-myApp.controller('CaseController', function (FormService, $http, $mdDialog) {
+myApp.controller('CaseController', function (UserService, FormService, $http, $mdDialog) {
     console.log('Caseontroller created');
     var vm = this;
     vm.formService = FormService;
@@ -46,7 +46,7 @@ myApp.controller('CaseController', function (FormService, $http, $mdDialog) {
     }
 
     //function to show green release form popup
-    vm.showGreen = function (ev, id) {
+    vm.showGreen = function (ev, id, type) {
         FormService.showGreen(ev, id);
     }
 

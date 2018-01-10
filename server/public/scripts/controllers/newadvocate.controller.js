@@ -1,4 +1,4 @@
-myApp.controller('NewAdController', function (FormService, $http) {
+myApp.controller('NewAdController', function (UserService, FormService, $http) {
     console.log('NewAdController created');
     var vm = this;
     vm.formService = FormService;
