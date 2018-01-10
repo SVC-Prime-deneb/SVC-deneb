@@ -1,5 +1,4 @@
 myApp.service('AdminService', function ($http, $location, $mdDialog) {
-    console.log('AdminService Loaded');
     var self = this;
     self.FormObject = {};
 

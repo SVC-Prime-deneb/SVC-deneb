@@ -6,13 +6,18 @@
   <h1 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
   <form ng-submit="lc.registerUser()">
       <md-input-container>
-      <label for="firstName">First Name:</label>
+      <label for="firstName">First Name</label>
       <input type="text" ng-model="lc.user.first_name">
       </md-input-container>
       <md-input-container>
-      <label for="username">Last Name</label>
+      <label for="lastName">Last Name</label>
       <input type="text" ng-model="lc.user.last_name">
       </md-input-container>
+      <md-input-container>
+        <label for="email">Email</label>
+        <input type="text" ng-model="lc.user.email">
+      </md-input-container>
+
     <div layout="rows">
       <md-input-container>
         <p>Super Admin:</p>

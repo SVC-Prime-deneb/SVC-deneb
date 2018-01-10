@@ -34,10 +34,6 @@ CREATE TABLE "users" (
 );
 ```
 
-## Screen Shot
-
-Include one or two screen shots of your project here (optional). Remove if unused.
-
 ## Documentation
 
 - [Official Scope](https://docs.google.com/document/d/10ea3sJL2vFYip9U-cArUktH0k0BJ-HrILp8gBc3NkjQ/edit?usp=sharing)
@@ -46,12 +42,12 @@ Include one or two screen shots of your project here (optional). Remove if unuse
 
 High level list of items completed.
 
-- [x] Advocate Management (CRUD)
-- [x] Case Management (CRU & sorting)
-- [x] Nursing Reports (CRUD)
+- [x] Advocate Management
+- [x] Case Management
+- [x] Nursing Reports
 - [x] Data Visualization
 - [x] Dispatch Abilities (Select, Search, Dispatch)
-- [x] Admin Management (CRUD)
+- [x] Admin Management
 - [x] Password Reset Abilities (Admin & Advocate)
 
 ### Next Steps

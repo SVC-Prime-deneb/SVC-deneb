@@ -1,5 +1,4 @@
 myApp.controller('GreenFormController', function (UserService, FormService, $mdDialog) {
-    console.log('GreenFormController created');
     var vm = this;
     vm.formService = FormService;
     vm.formObject = FormService.formObject;
@@ -8,11 +7,13 @@ myApp.controller('GreenFormController', function (UserService, FormService, $mdD
     //holds selected form from get route
     vm.selectedForm = FormService.selectedForm;
 
+    //getroute for green form
     vm.getForm = function () {
         FormService.getForm('green');
     }
     vm.getForm();
 
+    //function to close form
     vm.closeForm = function () {
         $mdDialog.hide();
     }

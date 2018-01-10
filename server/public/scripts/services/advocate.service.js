@@ -1,5 +1,4 @@
 myApp.service('AdvocateService', function ($http, $location, $mdDialog) {
-    console.log('FormService Loaded');
     var self = this;
     self.AdvocateObject = {};
     self.updatedAdvocate = {};
@@ -13,22 +12,4 @@ myApp.service('AdvocateService', function ($http, $location, $mdDialog) {
         // console.log('Edit advocate on Form Services was called', advocate);
         self.updatedAdvocate = advocate;
     }
-
-    // // Function to set current advocateId
-    // self.saveAdvocateId = function(id) {
-    //     self.currentAdvocateId.currentId = id;
-    //     console.log('self.currentId', self.currentAdvocateId);     
-    // }
-
-    // // Show Edit Advocate Dialog function
-    // self.showAdvocateForm = function (ev, id) {
-    //     self.saveAdvocateId(id);
-    //     $mdDialog.show({
-    //         templateUrl: '../views/partials/editadvocate.html',
-    //         controller: 'EditAdController as eac',
-    //         parent: angular.element(document.body),
-    //         targetEvent: ev,
-    //         clickOutsideToClose: true,
-    //     })
-    // }
 })
