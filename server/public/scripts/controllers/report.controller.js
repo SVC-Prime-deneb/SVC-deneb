@@ -182,7 +182,7 @@ myApp.controller('ReportController', function (ReportService, $http) {
             }
             vm.myTaxiChart = createChart (myTaxiChart,false, true, false, 15,"bar",
                                         "Location Name",locationNames, taxiCounts,
-                                        'Number of Taxis provided per Hospital', true);
+                                        'Taxi Expenses Spent per Hospital', true);
             // console.log('locationNames', locationNames);
             // console.log('taxicount', taxiCounts);
             // vm.myTaxiChart = new Chart(myTaxiChart, {
