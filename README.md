@@ -40,6 +40,7 @@ CREATE TABLE "users" (
 	"is_super_admin" BOOLEAN NOT NULL DEFAULT 'false',
 	"first_name" VARCHAR(50),
 	"last_name" VARCHAR(50),
+  "email" VARCHAR(100),
 	CONSTRAINT users_pk PRIMARY KEY ("user_id")
 ) WITH (
   OIDS=FALSE
