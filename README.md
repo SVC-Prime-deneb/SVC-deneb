@@ -152,7 +152,6 @@ CREATE TABLE "form" (
 );
 
 
-
 CREATE TABLE "ma_form_data" (
 	"ma_id" serial NOT NULL,
 	"advocate_name" VARCHAR(100),
@@ -272,19 +271,13 @@ This function will also need to be created
 
 ```
 
-
-
-
 CREATE OR REPLACE FUNCTION form_creation(id INT) 
     RETURNS void AS $$
     
-   
-    /* Created by Laura for the sole purpose of making Alex's life easier.
-    Function should insert rows into all form and data tables after insert of greenform */
+    /* Function should insert rows into all form and data tables after insert of greenform */
     
     TRUNCATE "form_insert";    --drop temp table everytime this runs for recreation
     
-     
     		  
     		  /* Medical Advocacy Form, all defaults */
 	
@@ -437,22 +430,9 @@ INSERT INTO "public"."form_insert" (
 		INNER JOIN "public"."green_form_data" g ON g."green_form_id" = t."green_form_id";
    
    
-    
-    
-    
-    
     $$ LANGUAGE SQL;
-    
-    
-    
 
 ```
-
-
-
-## Screen Shot
-
-Include one or two screen shots of your project here (optional). Remove if unused.
 
 ## Documentation
 
@@ -462,12 +442,12 @@ Include one or two screen shots of your project here (optional). Remove if unuse
 
 High level list of items completed.
 
-- [x] Advocate Management (CRUD)
-- [x] Case Management (CRU & sorting)
-- [x] Nursing Reports (CRUD)
+- [x] Advocate Management
+- [x] Case Management
+- [x] Nursing Reports
 - [x] Data Visualization
 - [x] Dispatch Abilities (Select, Search, Dispatch)
-- [x] Admin Management (CRUD)
+- [x] Admin Management
 - [x] Password Reset Abilities (Admin & Advocate)
 
 ### Next Steps

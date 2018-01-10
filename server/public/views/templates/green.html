@@ -57,8 +57,8 @@
                         </md-input-container>
                     <div> 
                         <!-- goes to case management page -->
-                        <md-button class="md-raised md-warn" href="#/casemanage">Cancel</md-button>
-                        <md-button type="submit" href="#/user" class="md-raised md-primary" ng-click="gc.submitGreen(gc.newGreen, $event)">Create</md-button>
+                        <md-button ng-click="gc.greenPath()" class="md-raised md-warn">Cancel</md-button>
+                        <md-button type="submit" class="md-raised md-primary" ng-click="gc.submitGreen(gc.newGreen, $event)">Create</md-button>
                     </div>
                 </form>
             </div>

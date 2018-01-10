@@ -1,5 +1,4 @@
 myApp.service('FormService', function ($http, $location, $mdDialog) {
-    console.log('FormService Loaded');
     var self = this;
     self.FormObject = {};
 
@@ -15,24 +14,6 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     
     // array of selected advocates for dispatch
     self.advocateDispatchArray = {data: []};
-
-    // // Function to set current advocateId
-    // self.saveAdvocateId = function(id) {
-    //     self.currentAdvocateId.currentId = id;
-    //     console.log('self.currentId', self.currentAdvocateId);     
-    // }
-
-    // // Show Edit Advocate Dialog function
-    // self.showAdvocateForm = function (ev, id) {
-    //     self.saveAdvocateId(id);
-    //     $mdDialog.show({
-    //         templateUrl: '../views/partials/editadvocate.html',
-    //         controller: 'EditAdController as eac',
-    //         parent: angular.element(document.body),
-    //         targetEvent: ev,
-    //         clickOutsideToClose: true,
-    //     })
-    // }
 
     //holds formId of the form that was clicked
     self.currentFormId = { currentId: 0 };
@@ -130,7 +111,6 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
 
     // EDIT ADVOCATE
     self.editAdvocate = function (advocate) {
-        // console.log('Edit advocate on Form Services was called', advocate);
         self.updatedAdvocate = advocate;
     }
 
@@ -165,11 +145,11 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
 
     //route to update if selected form is complete from case management
     self.checkClicked = function (id, value, name) {
+        //send name of form and true or false (complete or not)
         var objectTosend = {
             formName: name,
             formValue: !value
         }
-        
         $http.put('/case/update/checkbox/' + id, objectTosend).then(function (response) {
             self.getCases();
         }).catch(function (error) {
@@ -178,12 +158,10 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     }
     //route to update if selected form is complete from dialog box
     self.checkConfirm = function (name) {
-        
         var objectTosend = {
             formName: name,
             formValue: true
         }
-
         $http.put('/case/update/checkbox/' + self.currentFormId.currentId, objectTosend).then(function (response) {
             self.getCases();
         }).catch(function (error) {
@@ -198,20 +176,17 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
             console.log('new form not sent');
         })
     }
-
+    //function to determine if dialog box is editing or viewing
     self.checkEdit = function (stateIn) {
         console.log(stateIn);
         if (stateIn === 'edit') {
-            console.log('editing');
             self.isEditing.editing = true;
         } if (stateIn === 'view') {
-            console.log('viewing');
-
             self.isEditing.editing = false;
         }
     }
 
-    //converts time to time stamp in ma form/ la form and green form
+    //converts time to time stamp in ma form, la form and green form
     self.convertTime = function (timeIn) {
         var convertedTime = moment(timeIn).format('YYYY-MM-DD HH:mm:ss');
         return convertedTime;
@@ -230,17 +205,13 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     // edit advocates
     self.updateAdvocate = function (id, objectIn) {
         $http.put('/advocate/update/' + id, objectIn).then(function (response) {
-            console.log('success updating existing advocate');
         }).catch(function (error) {
             console.log('failure', error);
         });
     }
     //updated date when dispatched
     self.updateDate = function (id, date) {
-        console.log(id,date);
-
         $http.put('/advocate/update/last/' + id, {date}).then(function (response) {
-            console.log('success updating existing advocate');
         }).catch(function (error) {
             console.log('failure', error);
         });
