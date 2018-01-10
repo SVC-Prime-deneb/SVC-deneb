@@ -15,8 +15,8 @@
                         <div>
                             <md-button class="md-raised md-primary" href="#/green">
                                 <md-icon md-svg-icon="pictures/add.svg"></md-icon> New Case</md-button>
-                            <md-button class="md-raised md-primary" href="#/newadvocate">
-                                <md-icon md-svg-icon="pictures/add.svg"></md-icon> New Advocate</md-button>
+                                <md-button class="md-raised md-primary" ng-show="uc.userService.userObject.is_admin" href="#/newadvocate">
+                                <md-icon md-svg-icon="pictures/add.svg" ng-show="uc.userService.userObject.is_admin"></md-icon> New Advocate</md-button>
                             <md-button class="md-raised md-primary" href="#/dispatch"> Dispatch </md-button>
                         </div>
                     </md-card>
