@@ -1,5 +1,4 @@
 myApp.controller('ReportController', function (UserService, ReportService, $http) {
-    console.log('ReportController created');
     var vm = this;
     vm.reportService = ReportService;
     vm.userObject = UserService.userObject

@@ -1,30 +1,28 @@
 // controller for casemanage.html
 myApp.controller('CaseController', function (UserService, FormService, $http, $mdDialog) {
-    console.log('Caseontroller created');
     var vm = this;
     vm.formService = FormService;
 
 
-    // Column sorting
+    // Column sorting variables
     //default sort case complete status
     vm.sortColumn = "is_case_complete";
     vm.reverseSort = false;
 
+    //sort data function
     vm.sortData = function (column) {
         vm.reverseSort = (vm.sortColumn == column) ? !vm.reverseSort : false;
         vm.sortColumn = column;
     }
 
+    //sets arrows
     vm.getSortClass = function (column) {
         if (vm.sortColumn == column) {
             return vm.reverseSort ? 'arrow-down' : 'arrow-up';
         }
             return '';
     }
-    //function to set formId
-    // vm.saveFormId = function (id) {
-    //     FormService.saveFormId(id);
-    // }
+
     //function to show MA form popup
     vm.showMa = function (ev, id, type) {
         FormService.showMa(ev, id, type);
@@ -54,8 +52,7 @@ myApp.controller('CaseController', function (UserService, FormService, $http, $m
     vm.getCases = function () {
         FormService.getCases();
     }
-
-    //route to get all cases
+    //call route to get all cases
     vm.getCases();
 
     //checkbox clicked function, sets each clicked form as complete or incomplete according to the checkbox status 
@@ -65,6 +62,7 @@ myApp.controller('CaseController', function (UserService, FormService, $http, $m
 
     }
 
+    //function to search cases
     vm.searchCase = function (datesIn){
         FormService.searchCase(datesIn);
     }
