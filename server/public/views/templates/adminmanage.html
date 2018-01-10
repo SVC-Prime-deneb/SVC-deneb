@@ -41,6 +41,9 @@
                         <th ng-click="ac.sortData('username')">USERNAME
                             <div ng-class="ac.getSortClass('username')"></div>
                         </th>
+                        <th ng-click="ac.sortData('email')">EMAIL
+                            <div ng-class="ac.getSortClass('email')"></div>
+                        </th>
                         <th>DELETE</th>
                         <th>EDIT</th>
                     </tr>
@@ -53,6 +56,7 @@
                             <td md-cell>{{admin.last_name}}</td>
                             <td md-cell>{{admin.is_super_admin}}</td>
                             <td md-cell>{{admin.username}}</td>
+                            <td md-cell>{{admin.email}}</td>
                             <td>
                                 <md-button class="sm-raised sm-secondary" ng-click="ac.deleteAdmin(admin.user_id)">
                                     <md-icon md-svg-icon="pictures/trash.svg"></md-icon>

@@ -4,8 +4,7 @@ myApp.controller('AdminController', function (UserService, FormService, AdminSer
     vm.formObject = FormService.formObject;
 
     vm.admin = FormService.selectedAdmin;
-    vm.adminList = FormService.adminList;
-
+    vm.adminList = [];
     vm.adminService = AdminService;
     vm.adminObject = AdminService.formObject;
 
