@@ -4,8 +4,7 @@ myApp.controller('AdminController', function (UserService, FormService, AdminSer
     vm.formObject = FormService.formObject;
 
     vm.admin = FormService.selectedAdmin;
-    vm.adminList = FormService.adminList;
-
+    vm.adminList = [];
     vm.adminService = AdminService;
     vm.adminObject = AdminService.formObject;
 
@@ -44,7 +43,7 @@ myApp.controller('AdminController', function (UserService, FormService, AdminSer
     // DELETE admin
     vm.deleteAdmin = function (adminId) {
         console.log('deleted', adminId);
-        $http.delete('/admin/del/' + adminId).then(function (response) {
+        $http.put('/admin/del/' + adminId).then(function (response) {
             console.log('success');
             vm.viewAdmin();
         }).catch(function (error) {
