@@ -124,9 +124,11 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
                 response.data[0].la_form_time = new Date(response.data[0].la_form_time);
                 self.selectedForm.form = [response.data[0]];
             } 
+            if(form === 'green'){
+                self.selectedForm.form = hospitalName(response.data[0]);
+            }
             else {
                 self.selectedForm.form = response.data;
-                console.log(response.data);
             }
         }).catch(function (error) {
             console.log('failure on get Form Route');
@@ -280,6 +282,45 @@ var topFive = function (arrayIn) {
             arrayIn[i].selected = true;
         }
     }
+}
+
+var hospitalName = function (objectIn){
+    switch(objectIn.location_id){
+    case 1: 
+        objectIn.hospital = 'Fairview - Southdale';
+        break;
+    case 2: 
+        objectIn.hospital = 'Methodist';
+        break;
+    case 3:
+        objectIn.hospital = 'HCMC';
+        break;
+    case 4:
+        objectIn.hospital = 'Nort Memorial';
+        break;
+    case 5:
+        objectIn.hospital = 'Abbott Northwestern';
+        break;
+    case 6:
+        objectIn.hospital = 'West Health';
+        break;
+    case 7:
+        objectIn.hospital = 'Maple Grove';
+        break;
+    case 8:
+        objectIn.hospital = 'St. Francis';
+        break;
+    case 9:
+        objectIn.hospital = 'Ridgeview- Waconia';
+        break;
+    case 10:
+        objectIn.hospital = '212';
+        break;
+    case 11:
+        objectIn.hospital = 'New Prague';
+        break;
+    }
+    return objectIn;
 }
 
 
