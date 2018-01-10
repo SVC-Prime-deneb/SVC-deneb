@@ -279,9 +279,6 @@ CREATE OR REPLACE FUNCTION form_creation(id INT)
     RETURNS void AS $$
     
    
-    /* Created by Laura for the sole purpose of making Alex's life easier.
-    Function should insert rows into all form and data tables after insert of greenform */
-    
     TRUNCATE "form_insert";    --drop temp table everytime this runs for recreation
     
      
