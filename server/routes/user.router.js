@@ -73,10 +73,11 @@ router.get('/newcases', function (req, res) {
                 console.log('Error connecting', errorConnectingToDb);
                 res.sendStatus(500);
             } else {
-                var queryText = 'SELECT * ' + //pulls cases with the same date that have ben created within the last 12 hours
-                    'FROM "public"."form" f ' +
-                    'WHERE (f."case_start_time" BETWEEN current_time - INTERVAL ' / '1 DAY' / ' AND current_date + INTERVAL '/'1 DAY'/';';
-                    //start_time will need to be time without time zone
+            var queryText = 'SELECT COUNT(g."green_form_id") ' +
+            ' FROM "public"."green_form_data" g ' +
+            ' WHERE(date_trunc("day", current_date) = date_trunc("day", g."start_time")' + 
+            ' OR date_trunc("day", current_date - INTERVAL '/' 1 DAY'/' )' +
+            '= date_trunc("day", g."start_time"));' ;
                 db.query(queryText, function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {

@@ -45,7 +45,7 @@ router.get('/green/:id', function (req, res) {
                 var queryText = 'SELECT * ' +
                                 'FROM "public"."green_form_data" g ' +
                                 'INNER JOIN "location" l ON l."location_id" = g."location_id" '
-                                'WHERE "green_form_id" = $1';
+                                'WHERE "green_form_id" = $1; ';
                 db.query(queryText, [green], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
@@ -175,7 +175,7 @@ router.post('/new/green', function (req, res) {
     if (req.isAuthenticated()) {
         var green = {
             date: req.body.date,
-            start_time: req.body.start_time,
+            start_time: req.body.date,
             location_id: req.body.location.location_id,
             nurse: req.body.nurse,
             advocate_id: req.body.advocate_id,
@@ -192,7 +192,7 @@ router.post('/new/green', function (req, res) {
                 var queryText = 'INSERT INTO "green_form_data" ("date","start_time",' +
                     ' "location_id" , "nurse", "advocate_id" , ' +
                     '"was_advocate_dispatched", "green_form_notes") VALUES($1,$2,$3,$4,$5,$6, $7) RETURNING "green_form_id" , "date" , location_id;'
-                db.query(queryText, [green.date, green.start_time, green.location_id,
+                db.query(queryText, [green.date, green.date, green.location_id,
                 green.nurse,green.advocate_id, green.was_advocate_dispatched, green.green_form_notes],
                     function (errorMakingQuery, result) {
                         done();

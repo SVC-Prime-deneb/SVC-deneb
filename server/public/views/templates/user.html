@@ -10,7 +10,7 @@
                         </div>
                         <div layout="row" layout-align="center">
                             <md-button class="md-raised md-primary" href="#/casemanage" ng-show="uc.userService.userObject.is_admin">Active Cases: {{uc.openCase}}</md-button>
-                            <md-button class="md-raised md-primary" href="#/casemanage" ng-show="uc.userService.userObject.is_admin">New Cases: 1</md-button>
+                            <md-button class="md-raised md-primary" href="#/casemanage" ng-show="uc.userService.userObject.is_admin">New Cases: {{uc.newcases.number}}</md-button>
                         </div>
                         <div>
                             <md-button class="md-raised md-primary" href="#/green">
