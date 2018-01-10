@@ -44,29 +44,28 @@ router.get('/advperloc', function (req, res) {
 router.get('/taxi', function (req, res) {
     // check if logged in
     // if (req.isAuthenticated(), req.user.is_admin) {
-        pool.connect(function (errorConnectingToDb, db, done) {
-            if (errorConnectingToDb) {
-                console.log('Error connecting', errorConnectingToDb);
-                res.sendStatus(500);
-            } else {
-                var queryText = 'SELECT COUNT(m.*), l."location_name" ' +
-                'FROM "public"."ma_form_data" m ' +
-                    'INNER JOIN "public"."form" f ON f."ma_form_id" = m."ma_id" ' +
-                    'INNER JOIN "public"."green_form_data" g ON g."green_form_id" = f."green_form_id" ' +
-                    'INNER JOIN "public"."location" l ON l."location_id" = g."location_id" ' +
-                'WHERE m."taxi_provided" = TRUE ' +
-                'GROUP BY l."location_name";';
-                db.query(queryText, function (errorMakingQuery, result) {
-                    done();
-                    if (errorMakingQuery) {
-                        console.log('Error making query', errorMakingQuery);
-                        res.sendStatus(500);
-                    } else {
-                        res.send(result.rows);
-                    }
-                }); // END QUERY
-            }
-        });
+    pool.connect(function (errorConnectingToDb, db, done) {
+        if (errorConnectingToDb) {
+            console.log('Error connecting', errorConnectingToDb);
+            res.sendStatus(500);
+        } else {
+            var queryText = 'SELECT SUM(m."taxi_cost") ' +
+            ', m."location_name" ' +
+        ' , date_part('/'year'/', current_date) ' +
+        ' FROM "public"."ma_form_data" m ' +
+        ' WHERE m."location_name" IS NOT NULL ' +
+        ' GROUP BY m."location_name";';
+            db.query(queryText, function (errorMakingQuery, result) {
+                done();
+                if (errorMakingQuery) {
+                    console.log('Error making query', errorMakingQuery);
+                    res.sendStatus(500);
+                } else {
+                    res.send(result.rows);
+                }
+            }); // END QUERY
+        }
+    });
     // } else {
     //     // failure best handled on the server. do redirect here.
     //     console.log('not logged in');
