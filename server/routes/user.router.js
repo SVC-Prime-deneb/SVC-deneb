@@ -75,15 +75,17 @@ router.get('/newcases', function (req, res) {
             } else {
             var queryText = 'SELECT COUNT(g."green_form_id") ' +
             ' FROM "public"."green_form_data" g ' +
-            ' WHERE(date_trunc("day", current_date) = date_trunc("day", g."start_time")' + 
-            ' OR date_trunc("day", current_date - INTERVAL '/' 1 DAY'/' )' +
-            '= date_trunc("day", g."start_time"));' ;
+            ' WHERE(date_trunc(\'day\', current_date) = date_trunc(\'day\', g."start_time")' + 
+            ' OR date_trunc(\'day\', current_date - INTERVAL \'1 DAY\' )' +
+            '= date_trunc(\'day\', g."start_time"));' ;
                 db.query(queryText, function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
                         console.log('Error making query', errorMakingQuery);
                         res.sendStatus(500);
                     } else {
+                        console.log(result);
+                        
                         res.send(result.rows);
                     }
                 }); // END QUERY
