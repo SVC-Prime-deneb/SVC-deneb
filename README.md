@@ -26,6 +26,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 Steps to get the development environment running.
 
+Below are the needed tables, contraints, and stored procedures for the application that need to be added to SQL, this application is originally written for plpgSQL
+
 ```sql
 
 CREATE TABLE "users" (
