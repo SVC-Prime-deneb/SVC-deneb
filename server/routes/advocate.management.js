@@ -12,7 +12,7 @@ router.get('/get', function (req, res) {
       console.log('Error connecting to db', errorConnectingToDB);
       res.sendStatus(500);
     } else {
-      var queryText = 'SELECT * FROM "advocates" ORDER BY "last_contacted_date";';
+      var queryText = 'SELECT * FROM "advocates" WHERE "is_active" = true ORDER BY "last_contacted_date";';
       db.query(queryText, function (errorMakingQuery, result) {
         done();
         if (errorMakingQuery) {
@@ -52,6 +52,7 @@ router.post('/new', function (req, res) {
     allow_call: req.body.allow_call,
     date_entered: req.body.date_entered,
     advocacy_start: req.body.advocacy_start,
+    is_active: true
   };
   console.log('new user:', saveAd);
 
@@ -62,13 +63,13 @@ router.post('/new', function (req, res) {
     } else {
       var queryText = 'INSERT INTO "advocates"("advocate_first_name","advocate_last_name","is_staff",' +
         '"is_hcmc_approved","spanish","somali","french","german","liberian","asl","other_language",'+
-        '"notes","main_contact_phone","allow_text","allow_call","date_entered","advocacy_start")'+
-        'VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17);';
+        '"notes","main_contact_phone","allow_text","allow_call","date_entered","advocacy_start", "is_active")'+
+        'VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17, $18);';
       db.query(queryText, [saveAd.advocate_first_name, saveAd.advocate_last_name, saveAd.is_staff,
       saveAd.is_hcmc_approved, saveAd.spanish, saveAd.somali, saveAd.french,
       saveAd.german, saveAd.liberian, saveAd.asl, saveAd.other_language,
       saveAd.notes, saveAd.main_contact_phone, saveAd.allow_text,
-      saveAd.allow_call, saveAd.date_entered, saveAd.advocacy_start]
+      saveAd.allow_call, saveAd.date_entered, saveAd.advocacy_start , saveAd.is_active]
       ,function (errorMakingQuery, result) {
         done();
         if (errorMakingQuery) {
@@ -182,18 +183,17 @@ router.put('/update/:id', function (req, res) {
 
 //                      DELETE ROUTES
 
-router.delete('/del/:id', function (req, res) {
-  console.log('del admin');
+router.put('/del/:id', function (req, res) {
+  console.log('del advocate');
   // check if logged in
   if (req.isAuthenticated(), req.user.is_admin === true) {
     var id = req.params.id;
-
     pool.connect(function (errorConnectingToDB, db, done) {
       if (errorConnectingToDB) {
         console.log('Error connecting to db', errorConnectingToDB);
         res.sendStatus(500);
       } else {
-        var queryText = 'DELETE FROM "advocates" WHERE advocate_id = $1 ;';
+        var queryText = 'UPDATE "advocates" SET "is_active" = false WHERE "advocate_id" = $1 ;';
         db.query(queryText, [id], function (errorMakingQuery, result) {
           done();
           if (errorMakingQuery) {

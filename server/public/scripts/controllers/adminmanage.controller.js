@@ -46,7 +46,7 @@ myApp.controller('AdminController', function (UserService, FormService,AdminServ
     // DELETE admin
     vm.deleteAdmin = function (adminId) {
         console.log('deleted', adminId);
-        $http.delete('/admin/del/' + adminId).then(function (response) {
+        $http.put('/admin/del/' + adminId).then(function (response) {
             console.log('success');
             vm.viewAdmin();
         }).catch(function (error) {

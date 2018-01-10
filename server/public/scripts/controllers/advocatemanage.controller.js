@@ -33,7 +33,7 @@ myApp.controller('AdvocateController', function (UserService, FormService, $http
     // DELETE advocate
     vm.deleteAdvocate = function (advocateId) {
         console.log('deleted', advocateId);
-        $http.delete('/advocate/del/' + advocateId).then(function (response) {
+        $http.put('/advocate/del/' + advocateId).then(function (response) {
             console.log('success');
             vm.viewAdvocate();           
         }).catch(function (error) {
