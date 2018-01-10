@@ -3,12 +3,11 @@ myApp.controller('UserController', function (UserService, FormService, $http) {
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
 
-
   vm.formService = FormService;
 
   vm.openCase = 0;
   cases = [];
-  newCases = 0
+  vm.newCases = 0
   // Get Route to count how many cases are still open on Case Management table
   vm.displayOpenCase = function () {
     // get case first
@@ -37,14 +36,17 @@ vm.newCases = function () {
     $http.get('/user/newcases').then(function (response) {
       // console.log(response);
       console.log('Success calling Getting new Cases');
-      cases = response.data;
-      for (var i = 0; i < cases.length; i++) {
-        if (!cases[i].is_case_complete) {
-          vm.openCase += 1;
-        }
-      }
+      console.log(response);
+      
+      vm.newCases = response.data[0].count;
+      console.log(newCases);
     }).catch(function (error) {
       console.log('failure on GET Case Route');
     });
   }
+
+  vm.newCases();
+
+
 });
+
