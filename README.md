@@ -28,6 +28,8 @@ Steps to get the development environment running.
 
 Below are the needed tables, contraints, and stored procedures for the application that need to be added to SQL, this application is originally written for plpgSQL
 
+The schema will need to be called "public" for your database.
+
 ```sql
 
 CREATE TABLE "users" (
