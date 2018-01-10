@@ -11,7 +11,6 @@ myApp.controller('GreenFormController', function (UserService, FormService, $mdD
     vm.getForm = function () {
         FormService.getForm('green');
     }
-
     vm.getForm();
 
     vm.closeForm = function () {
