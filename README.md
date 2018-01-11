@@ -461,10 +461,6 @@ Features that you would like to add at some point in the future.
 
 - [ ] Add Twilio 
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
 ## Authors
 
 * Hanna Nguyen
