@@ -111,9 +111,9 @@ myApp.config(function ($routeProvider, $locationProvider) {
         }
       }
     })
-    .when('/editadvocate', {
-      templateUrl: '/views/templates/editadvocate.html',
-      controller: 'EditAdController as eac',
+    .when('/editadmin', {
+      templateUrl: '/views/templates/editadmin.html',
+      controller: 'AdminController as adc',
       resolve: {
         getuser: function (UserService) {
           return UserService.getuser();

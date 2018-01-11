@@ -7,7 +7,7 @@ myApp.controller('AdminController', function (UserService, FormService, AdminSer
     vm.adminList = [];
     vm.adminService = AdminService;
     vm.adminObject = AdminService.formObject;
-
+    var changeAdmin = {}
 
 
     // Column sorting variables
@@ -43,7 +43,7 @@ myApp.controller('AdminController', function (UserService, FormService, AdminSer
     // DELETE admin
     vm.deleteAdmin = function (adminId) {
         console.log('deleted', adminId);
-        $http.put('/admin/del/' + adminId).then(function (response) {
+        $http.delete('/admin/del/' + adminId).then(function (response) {
             console.log('success');
             vm.viewAdmin();
         }).catch(function (error) {
@@ -53,7 +53,13 @@ myApp.controller('AdminController', function (UserService, FormService, AdminSer
 
     // EDIT Advocate
     vm.editAdmin = function (admin) {
-        vm.formService.editAdmin(admin);
+        console.log('deleted', adminId);
+        $http.put('/admin/del/' + adminId ,  changeAdmin).then(function (response) {
+            console.log('success');
+            vm.viewAdmin();
+        }).catch(function (error) {
+            console.log('failure', error);
+        });
     }
 
     vm.viewAdmin();
