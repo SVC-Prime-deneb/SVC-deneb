@@ -1,20 +1,30 @@
+
 var express = require('express');
 var router = express.Router();
 var pool = require('../modules/pool.js');
 var pg = require('pg');
 
-
 //                      GET ROUTES
 router.get('/get', function (req, res) {
   console.log('get dem admins');
   // check if logged in
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated(), req.user.is_super_admin) {
   pool.connect(function (errorConnectingToDB, db, done) {
     if (errorConnectingToDB) {
       console.log('Error connecting to db', errorConnectingToDB);
       res.sendStatus(500);
     } else {
-      var queryText = 'SELECT * FROM "users" WHERE is_admin = true ;';
+      var queryText = 'SELECT u."user_id" ' +
+                            ',u."first_name" ' +
+                            ',u."last_name" ' +
+                            ',u."username" ' +
+                            ',u."is_admin" ' +
+                            ',u."is_super_admin" ' +
+                            ',u."first_name" ' +
+                            ',u."last_name"' +
+                            ',u."email"' +
+                      'FROM "users" u ' + 
+                      'WHERE is_admin = true ;';  //pulls from user where the user is an admin
       db.query(queryText, function (errorMakingQuery, result) {
         done();
         if (errorMakingQuery) {
@@ -34,16 +44,13 @@ router.get('/get', function (req, res) {
 });
 
 
-//                          POST ROUTES
-
-
 //                            UPDATE ROUTES
 
 router.put('/update/:id', function (req, res) {
   console.log('update admin');
   // check if logged in
 
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated(), req.user.is_super_admin) {
   var id = req.params.id;
   var is_super_admin = req.body.is_super_admin
   console.log('here',is_super_admin);
@@ -53,7 +60,7 @@ router.put('/update/:id', function (req, res) {
       console.log('Error connecting to db', errorConnectingToDB);
       res.sendStatus(500);
     } else {
-      var queryText = 'UPDATE "users" SET is_super_admin = $1 WHERE user_id = $2 ;';
+      var queryText = 'UPDATE "users" SET is_super_admin = $1 WHERE user_id = $2 ;';  //updates an admin to super admin
       db.query(queryText, [is_super_admin, id], function (errorMakingQuery, result) {
         done();
         if (errorMakingQuery) {
@@ -77,7 +84,7 @@ router.put('/update/:id', function (req, res) {
 router.delete('/del/:id', function (req, res) {
   console.log('del admin');
   // check if logged in
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated(), req.user.is_super_admin) {
     var id = req.params.id;
 
     pool.connect(function (errorConnectingToDB, db, done) {
@@ -85,7 +92,7 @@ router.delete('/del/:id', function (req, res) {
         console.log('Error connecting to db', errorConnectingToDB);
         res.sendStatus(500);
       } else {
-        var queryText = 'DELETE FROM "users" WHERE user_id = $1 ;';
+        var queryText = 'DELETE FROM "users" WHERE user_id = $1 ;'; //delete from users where the id = the id
         db.query(queryText, [id], function (errorMakingQuery, result) {
           done();
           if (errorMakingQuery) {

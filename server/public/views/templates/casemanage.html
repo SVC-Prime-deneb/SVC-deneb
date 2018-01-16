@@ -1,34 +1,86 @@
 <!-- CaseController as cc -->
 <div ng-include="'views/partials/nav.html'"></div>
+<div>
 <div class="container">
     <h1>CASE MANAGMENT</h1>
-    
+    <div>
+    <md-datepicker ng-model="cc.searchObject.start_date" required md-placeholder="From Date"></md-datepicker>
+    <md-datepicker ng-model="cc.searchObject.end_date" required md-placeholder="To Date"></md-datepicker>
+    <md-button class="md-raised md-primary"><md-icon ng-click="cc.searchCase(cc.searchObject)" md-svg-icon="pictures/search.svg"></md-icon></md-button>
+    <md-button ng-click="cc.getCases()" class="md-raised md-primary">Clear Search</md-button>
+    <md-button class="md-raised md-primary" href="#/green">
+        <md-icon md-svg-icon="pictures/add.svg"></md-icon>
+        Create New Case
+    </md-button>
+    </div>
+    <br/>
     <md-table-container>
-        <table class="casemanagment">
-            <tbody>
-                <tr>
-                    <th>Date and Time</th>
+        <table md-table class="caseTbl" >
+            <thead md-head>
+                <tr md-row>
+                    <th ng-click="cc.sortData('case_start_date')">Date
+                        <div ng-class="cc.getSortClass('case_start_date')"></div>
+                    </th>
+                    <th ng-click="cc.sortData('case_start_time')">Time
+                        <div ng-class="cc.getSortClass('case_start_time')"></div>
+                    </th>
                     <th>Green Form</th>
                     <th>Medical Advocacy Form</th>
                     <th>Legal Advocacy Form</th>
                     <th>Referral for Contact Info</th>
                     <th>Release of Information</th>
                     <th>Yellow Form</th>
+                    <th>Pink Form</th>                   
                     <th>Bill of Rights</th>
+                    <th ng-click="cc.sortData('is_case_complete')">Case Status
+                        <div ng-class="cc.getSortClass('is_case_complete')"></div>
+                    </th>
+                    <th ng-click="cc.sortData('is_case_complete')">Action
+                        <div ng-class="cc.getSortClass('is_case_complete')"></div>
+                    </th>
                 </tr>
-
+            </thead>
+            <tbody md-body >
                 <!-- this table row ng repeats over each case (20) -->
-                <tr>
+
+                <!-- <tr md-row> -->
+                    <!-- {{cc.formService.caseObject.cases[0].is_case_complete}} -->
+                <tr ng-repeat="case in cc.formService.caseObject.cases | orderBy: cc.sortColumn:cc.reverseSort">
+
+                <!-- <tr  ng-repeat="case in cc.formService.caseObject.cases | orderBy: 'is_case_complete'"> -->
+
                     <!-- date and time -->
-                    <td>12/11/17 12:00PM</td>
-                    <!-- all ng-models will be send with get route -->
-                    <td><md-checkbox class="md-primary" ng-disabled="true" ng-model="cc.greencb" ng-init="cc.greencb=true" aria-label="Checkbox 1"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
-                    <td><md-checkbox class="md-primary" aria-label="Checkbox 2"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
-                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
-                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
-                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
-                    <td><md-checkbox  class="md-primary" aria-label="Checkbox 1"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
-                    <td><md-checkbox class="md-primary" aria-label="Checkbox 1"></md-checkbox><md-button class="md-raised md-small">Edit</md-button></td>
+                    <td>{{case.case_start_date | date}}</td>
+                    <td>{{case.case_start_time | date: 'shortTime' }}</td>
+                    <!-- all ng-models will be sent with get route -->
+                    <td><md-checkbox ng-disabled="true" ng-style="{opacity: 0 }"></md-checkbox><md-icon ng-click="cc.showGreen($event, case.green_form_id, 'view')" class="material-icons">description</md-icon></td>
+                    <td><md-checkbox ng-click="cc.checkClicked(case.ma_form_id, case.is_ma_complete, 'is_ma_complete')" ng-disabled="case.is_case_complete" ng-model="case.is_ma_complete" aria-label="Checkbox 2"></md-checkbox>
+                            <md-icon ng-click="cc.showMa($event, case.ma_form_id, 'edit')" ng-hide="case.is_ma_complete" class="material-icons">add</md-icon>
+                            <md-icon ng-click="cc.showMa($event, case.ma_form_id, 'view')" ng-show="case.is_ma_complete" class="material-icons">description</md-icon>
+                    </td>
+                    <td><md-checkbox ng-click="cc.checkClicked(case.la_form_id, case.is_la_complete, 'is_la_complete')" ng-disabled="case.is_case_complete" ng-model="case.is_la_complete" aria-label="Checkbox 3"></md-checkbox>
+                            <md-icon ng-click="cc.showLa($event, case.la_form_id, 'edit')" ng-hide="case.is_la_complete" class="material-icons">add</md-icon>
+                            <md-icon  ng-click="cc.showLa($event, case.la_form_id, 'view')" ng-show="case.is_la_complete" class="material-icons">description</md-icon>
+                    </td>
+                    <td><md-checkbox ng-click="cc.checkClicked(case.referral_form_id, case.is_referral_complete, 'is_referral_complete')" ng-disabled="case.is_case_complete" ng-model="case.is_referral_complete" aria-label="Checkbox 4"></md-checkbox>
+                            <md-icon ng-click="cc.showRefer($event, case.referral_form_id, 'edit')" ng-hide="case.is_referral_complete" class="material-icons">add</md-icon>
+                            <md-icon ng-click="cc.showRefer($event, case.referral_form_id, 'view')" ng-show="case.is_referral_complete" class="material-icons">description</md-icon>
+                        </td>
+                    <td><md-checkbox ng-click="cc.checkClicked(case.release_form_id, case.is_release_complete, 'is_release_complete')" ng-disabled="case.is_case_complete" ng-model="case.is_release_complete" aria-label="Checkbox 5"></md-checkbox>
+                        <md-icon ng-click="cc.showRelease($event, case.release_form_id, 'edit')" ng-hide="case.is_release_complete" class="material-icons">add</md-icon>
+                            <md-icon ng-click="cc.showRelease($event, case.release_form_id, 'view')" ng-show="case.is_release_complete" class="material-icons">description</md-icon>
+                    </td>
+                    <td><md-checkbox ng-click="cc.checkClicked(case.form_row_id, case.is_ys_complete, 'is_ys_complete')" ng-disabled="case.is_case_complete" ng-model="case.is_ys_complete" aria-label="Checkbox 6"></md-checkbox>
+                    </td>
+                    
+                    <td>
+                        <md-checkbox ng-click="cc.checkClicked(case.form_row_id, case.is_ps_complete, 'is_ps_complete')" ng-disabled="case.is_case_complete" ng-model="case.is_ps_complete" aria-label="Checkbox 7"></md-checkbox>
+                    </td>
+                    <td><md-checkbox ng-click="cc.checkClicked(case.form_row_id, case.is_bor_complete, 'is_bor_complete')" ng-disabled="case.is_case_complete" ng-model="case.is_bor_complete" aria-label="Checkbox 8"></md-checkbox></td>
+                    <td ng-hide="case.is_case_complete">Active</td>
+                    <td ng-show="case.is_case_complete">Inactive</td>
+                    <td ng-hide="case.is_case_complete"><md-button class="md-raised md-primary" ng-click="cc.checkClicked(case.form_row_id, case.is_case_complete, 'is_case_complete')">Close</md-button></td>
+                    <td ng-show="case.is_case_complete"><md-button class="md-raised" ng-click="cc.checkClicked(case.form_row_id, case.is_case_complete, 'is_case_complete')">Reopen</md-button></td>
                 </tr>
             </tbody>
         </table>

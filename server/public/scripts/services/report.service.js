@@ -1,10 +1,8 @@
-myApp.service('ReportService', function ($http, $location) {
-    console.log('ReportService loaded');
-    
+myApp.service('ReportService', function ($http, $location) {    
     var self = this;
     self.dataList = {data: []};
     self.selectedData = {data: {}};
 
-    self.categoryList = [];
-    self.selectedCategory = {};
+    self.nurseReportList = {data: []};
+    self.selectedNurseReport = {data: {}};
 })

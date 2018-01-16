@@ -1,9 +1,8 @@
 var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
 
 /// Routes ///
-myApp.config(function($routeProvider, $locationProvider) {
+myApp.config(function ($routeProvider, $locationProvider) {
   $locationProvider.hashPrefix('');
-  console.log('myApp -- config')
   $routeProvider
     .when('/home', {
       templateUrl: '/views/templates/home.html',
@@ -17,21 +16,20 @@ myApp.config(function($routeProvider, $locationProvider) {
       templateUrl: '/views/templates/user.html',
       controller: 'UserController as uc',
       resolve: {
-        getuser : function(UserService){
+        getuser: function (UserService) {
           return UserService.getuser();
         }
       }
     })
-    .when('/info', {
-      templateUrl: '/views/templates/info.html',
-      controller: 'InfoController as ic',
+    .when('/useradvocate', {
+      templateUrl: '/views/templates/useradvocate.html',
+      controller: 'UserController as uc',
       resolve: {
-        getuser : function(UserService){
+        getuser: function (UserService) {
           return UserService.getuser();
         }
       }
     })
-    //if the get user doesnt work, might need to change the service
     .when('/green', {
       templateUrl: '/views/templates/green.html',
       controller: 'GreenController as gc',
@@ -86,6 +84,15 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })
+    .when('/editadvocate', {
+      templateUrl: '/views/templates/editadvocate.html',
+      controller: 'EditAdController as eac',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
     .when('/casemanage', {
       templateUrl: '/views/templates/casemanage.html',
       controller: 'CaseController as cc',
@@ -98,6 +105,15 @@ myApp.config(function($routeProvider, $locationProvider) {
     .when('/adminmanage', {
       templateUrl: '/views/templates/adminmanage.html',
       controller: 'AdminController as ac',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/editadvocate', {
+      templateUrl: '/views/templates/editadvocate.html',
+      controller: 'EditAdController as eac',
       resolve: {
         getuser: function (UserService) {
           return UserService.getuser();

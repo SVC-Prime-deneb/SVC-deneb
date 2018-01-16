@@ -1,5 +1,4 @@
 myApp.controller('LoginController', function($http, $location, UserService) {
-    console.log('LoginController created');
     var vm = this;
     vm.user = {
       username: '',
@@ -24,7 +23,7 @@ myApp.controller('LoginController', function($http, $location, UserService) {
           }
         }).catch(function(response){
           console.log('LoginController -- registerUser -- failure: ', response);
-          vm.message = "Wrong!!";
+          vm.message = "Please enter a valid username and password";
         });
       }
     };
@@ -37,7 +36,7 @@ myApp.controller('LoginController', function($http, $location, UserService) {
         console.log('LoginController -- registerUser -- sending to server...', vm.user);
         $http.post('/register', vm.user).then(function(response) {
           console.log('LoginController -- registerUser -- success');
-          $location.path('/home');
+          $location.path('/adminmanage');
         }).catch(function(response) {
           console.log('LoginController -- registerUser -- error');
           vm.message = "Please try again."

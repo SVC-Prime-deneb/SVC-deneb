@@ -1,0 +1,70 @@
+<md-dialog class="dialog">
+    <!-- <div>
+        <md-content>
+            <md-card>
+                <md-card-title class="invertColor">
+                    <md-card-title-text>
+                        <h1 class="invertColor">Green Form</h1>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <br/>
+                    <p>Date: {{gc.formService.selectedForm.form[0].date | date}}</p>
+                    <p>Time: {{gc.formService.selectedForm.form[0].start_time}}</p>
+                    <p>Nurse: {{gc.formService.selectedForm.form[0].nurse}}</p>
+                    <p>Was Advocate Dispatched:
+                        <span ng-hide="gc.formService.selectedForm.form[0].was_advocate_dispatched">No</span>
+                        <span ng-show="gc.formService.selectedForm.form[0].was_advocate_dispatched">Yes</span>
+                    </p>
+                    <p>Notes: {{gc.formService.selectedForm.form[0].green_form_notes}}</p>
+                </md-card-content>
+                <md-card-actions layout="column">
+                    <md-button ng-click="gc.closeForm()" class="md-raised">Cancel</md-button>
+            </md-card>
+        </md-content>
+    </div> -->
+
+<div ng-hide="rc.formService.isEditing.editing">
+    <md-content>
+        <md-card>
+            <md-card-title class="invertColor">
+                <md-card-title-text>
+                    <h1 class="invertColor">Green Form</h1>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <table class="dialogTbl">
+                    <tr>
+                        <td>Date:</td>
+                        <td>{{gc.formService.selectedForm.form.date | date}}</td>
+                    </tr>
+                    <tr>
+                        <td>Time:</td>
+                        <td>{{gc.formService.selectedForm.form.start_time | date: 'shortTime'}}</td>
+                    </tr>
+                    <tr>
+                        <td>Location:</td>
+                        <td>{{gc.formService.selectedForm.form.hospital}}</td>
+                    </tr>
+                    <tr>
+                        <td>Nurse:</td>
+                        <td>{{gc.formService.selectedForm.form.nurse}}</td>
+                    </tr>
+                    <tr>
+                        <td>Was Advocate Dispatched:</td>
+                        <td ng-hide="gc.formService.selectedForm.form[0].was_advocate_dispatched">No</td>
+                        <td ng-show="gc.formService.selectedForm.form[0].was_advocate_dispatched">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Notes:</td>
+                        <td>{{gc.formService.selectedForm.form[0].green_form_notes}}</td>
+                    </tr>
+                </table>
+            </md-card-content>
+            <md-card-actions layout="column">
+                <md-button ng-click="gc.closeForm()" class="md-raised">Cancel</md-button>
+        </md-card>
+    </md-content>
+</div>
+
+</md-dialog>

@@ -1,49 +1,26 @@
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
+<div>
     <div class="welcome">
-        <md-content>
-            <md-card>
-                <md-card-title>
-                    <md-card-title-text layout="center">
-                        <!-- <h1 class="md-headline">Register User</h1> -->
-                        <h1 id="welcome" class="lead md-headline">Welcome, {{uc.userObject.userName}}!</h1><br><br>
-                        <!-- <a href="#/advocatemanage">Advocate Managment</a> -->
-                    </md-card-title-text>
-                </md-card-title>
-                <div layout="row">
-                    <md-input-container layout="column">
-                        <md-button href="#/advocatemanage" class="md-raised md-primary" type="submit" name="submit" value="advocatemanage">
-                        Advocate Management
-                        </md-button>
-                    </md-input-container>
-                
-                    <md-input-container layout="column">
-                        <md-button href="#/casemanage" class="md-raised md-primary" type="submit" name="submit" value="casemanage">
-                        Case Management
-                        </md-button>
-                    </md-input-container>
-                </div>
-                <div layout="row">
-                    <md-input-container layout="column">
-                        <md-button href="#/report" class="md-raised md-primary" type="submit" name="submit" value="report">
-                        Reporting
-                        </md-button>
-                    </md-input-container>
-                
-                    <md-input-container layout="column">
-                        <md-button href="#/dispatch" class="md-raised md-primary" type="submit" name="submit" value="dispatch">
-                        Dispatch
-                        </md-button>
-                    </md-input-container>
-                </div>
-                <div layout="row">
-                    <md-input-container>
-                        <md-button href="#/adminmanage" class="md-raised md-primary" type="submit" name="submit" value="adminmanage">
-                        Admin Management
-                        </md-button>
-                    </md-input-container>
-                </div>
-            </md-card>
-        </md-content>
+        <div>
+            <md-content style="margin: auto" flex="80">
+                <md-card>
+                    <md-card id="userTitle">
+                        <div id="picture">
+                            <img id="svcBanner" src="pictures/svc_img.jpeg">
+                        </div>
+                        <div layout="row" layout-align="center">
+                            <md-button class="md-raised md-primary" href="#/casemanage" ng-show="uc.userService.userObject.is_admin">Active Cases: {{uc.openCase}}</md-button>
+                            <md-button class="md-raised md-primary" href="#/casemanage" ng-show="uc.userService.userObject.is_admin">New Cases: {{uc.newCases}}</md-button>
+                        </div>
+                        <div>
+                            <md-button class="md-raised md-primary" href="#/green">
+                                <md-icon md-svg-icon="pictures/add.svg"></md-icon> New Case</md-button>
+                                <md-button class="md-raised md-primary" ng-show="uc.userService.userObject.is_admin" href="#/newadvocate">
+                                <md-icon md-svg-icon="pictures/add.svg" ng-show="uc.userService.userObject.is_admin"></md-icon> New Advocate</md-button>
+                            <md-button class="md-raised md-primary" href="#/dispatch"> Dispatch </md-button>
+                        </div>
+                    </md-card>
+            </md-content>
+        </div>
     </div>
 </div>

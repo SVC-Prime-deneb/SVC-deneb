@@ -1,5 +1,39 @@
-<!-- Report Controller as rc -->
+<!-- CreateNurseReportController as cnrc -->
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-    <h1>Report Controller! - Create New Nurse Reports</h1>
+    <!-- <h1>CREATE NEW NURSE REPORT</h1> -->
+    <md-content class="nurseForm">
+        <md-card>
+            <div layout-margin>
+                <form id="nurseForm" name="nurseForm" layout="column">
+                    <h1>NEW NURSE REPORT</h1>
+                    <md-datepicker ng-model="cnrc.newNurseReport.nursing_form_date" required md-placeholder="Date"></md-datepicker>
+                    <md-input-container>
+                        <label>Time</label>
+                        <input type="time" ng-model="cnrc.newNurseReport.nurse_form_time">
+                    </md-input-container>
+                    
+                    <md-input-container>
+                        <label>Nurse Report Hospital</label>
+                        <md-select name="type" ng-model="cnrc.newNurseReport.nurse_form_location_name">
+                            <md-option value="SVC">SVC</md-option>
+                            <md-option value="Hennepin County SARS">Hennepin County SARS</md-option>
+                            <md-option value="St. Francis SANE">St. Francis SANE</md-option>
+                            <md-option value="Allina SANE">Allina SANE</md-option>
+                        </md-select>
+                        <!-- <input type="text" ng-model="cnrc.newNurseReport.nurse_form_location_name"> -->
+                    </md-input-container>
+
+                    <md-checkbox ng-model="cnrc.newNurseReport.nurse_was_adv_dispatched" class="md-primary" aria-label="Was an Advocate Dispatched">Was an Advocate Dispatched ?</md-checkbox>
+
+                    <div>
+                        <!-- goes to case management page -->
+                        <md-button class="md-raised md-warn" href="#/nursereport">Cancel</md-button>
+                        <md-button type="submit" class="md-raised md-primary" href="#/nursereport" ng-click="cnrc.submitNurseReport(cnrc.newNurseReport)">Create</md-button>
+                    </div>
+                </form>
+            </div>
+        </md-card>
+    </md-content>
+    </div>
 </div>

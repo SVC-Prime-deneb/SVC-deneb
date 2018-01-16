@@ -4,20 +4,32 @@ body, html {
   font-family: sans-serif;
   font-size: 14px;
 }
-
+/* for nav bar text*/
 .instructions .container h1 {
   font-size: 32px;
   font-weight: 600;
 }
 
+/* nav bar */
 .instructions {
-  background-color: #333333;
-  color: #DDDDDD;
+  background-color: white;
+  color: #027292;
   padding: 15px;
 }
 
 #entryForm {
   margin-top: 14px;
+}
+
+#greenForm {
+  flex:20%;
+}
+
+form {
+  padding:20px;
+  margin-top: 20px;
+  position: relative;
+
 }
 
 #container {
@@ -49,7 +61,7 @@ body, html {
 }
 
 .navbar {
-  background-color: #333333;
+  background-color: #027292;
   width: 100%;
   border-radius: 0px;
 }
@@ -93,7 +105,7 @@ li a, .dropbtn {
 }
 
 li a:hover, .dropdown:hover .dropbtn {
-    background-color: teal;
+    background-color: #027292;
 }
 
 li.dropdown {
@@ -157,6 +169,15 @@ li.dropdown {
     min-width: 1%;
 }
 
+md-checkbox.md-checked .md-icon {
+ background-color: #027292;
+}
+
+md-checkbox.md-checked[disabled] .md-icon {
+ background-color: grey;
+}
+
+
 /* .welcome {
   width: 70%;
   text-align: center;
@@ -169,9 +190,282 @@ li.dropdown {
   height: 100%;
 }
 
+#welcome h1 {
+  text-align: center;
+  position: relative;
+}
+
+/* h1 #advocateTitle {
+  position: relative;
+  justify-content: center;
+} */
 .welcome {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   /* padding: 60px; */
+}
+
+md-card #userTitle {
+  text-align: center;
+}
+
+.container h1 {
+  font-size: 32px;
+  font-weight: 600;
+  
+}
+
+th,td {
+  text-align: center;
+  cursor: pointer;
+  align-content:middle !important;
+  vertical-align: middle;
+  
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 10px solid white;
+  display: inline-block;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 10px solid white;
+  display: inline-block;
+}
+
+.showChart {
+  display: center;
+  /* width: 70%; */  
+}
+
+section {
+  padding-bottom: 5px;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 40px;
+  max-width: 1000px;
+}
+
+#admintable{
+  max-width: 550px !important;
+}
+/* 
+.transactionTbl {
+  margin: 0 0 40px 0;
+  width: 80%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  display: table;
+  /* @media screen and (max-width: 580px); */
+  /* display: block; */
+/* } */ 
+
+.con
+
+/* STYLING FOR NURSE REPORTS TABLE */
+.container nurseReportTbl {
+  margin: 0 0 40px 0;
+  width: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  display: table;
+  /* @media screen and (max-width: 580px); */
+  display: block;
+  
+}
+
+.nurseReportTbl {
+  position: relative;
+  margin: 0 auto;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  width: 100%;
+  background: rgb(102, 102, 102);
+}
+
+.nurseReportTbl tr:hover {
+    background: #e6e6e6;
+    cursor: pointer;
+}
+
+.nurseReportTbl tr:nth-child(odd){
+    background: #d4eaf0;
+} 
+
+.nurseReportTbl tr:nth-child(even){
+    background: #ffffff;
+} 
+
+
+
+/* STYLING FOR CASE MANAGEMENT TABLE */
+
+.caseTbl {
+  margin: 0 auto;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  display: table;
+  /* @media screen and (max-width: 580px); */
+  display: block;
+  position: relative;
+  background: rgb(102, 102, 102);
+}
+
+.caseTbl tr:nth-child(odd){
+    background: #d4eaf0;
+}  
+
+.caseTbl tr:nth-child(even){
+    background: #ffffff;
+}  
+
+.caseTbl tr:hover {
+    background: #e6e6e6;
+    cursor: pointer;
+}
+
+.row {
+  display: table-row;
+  background: #f6f6f6;
+}  
+
+.transactionTbl {
+  margin: 0 auto;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  display: table;
+  /* @media screen and (max-width: 580px); */
+  display: block;
+  position: relative;
+  background: rgb(102, 102, 102);
+} 
+
+.transactionTbl tr:nth-child(odd){
+    background: #d4eaf0;
+} 
+
+.transactionTbl tr:nth-child(even){
+    background: #ffffff;
+} 
+
+.transactionTbl tr:hover {
+    background: #e6e6e6;
+    cursor: pointer;
+}
+
+thead th {
+  color: #ffffff;
+  font-weight: 900;
+  background: #027292;
+}
+
+h1 {
+  text-align: center;
+  color: #027292;
+  font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.title {
+  font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-align: center;
+}
+
+.searchBar {
+  text-align: center;
+  float: center;
+}
+
+.dialog {
+  width: 60%;
+  padding: 6px;
+}
+
+#svcIcon {
+  height: 65px;
+}
+
+#svcBanner {
+  width: 100%;
+}
+
+/* #picture {
+  background: #027292;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+} */
+
+.invertColor {
+  background-color: #027292;
+  color: white;
+}
+
+#greenthing{
+    padding-bottom: 48px;
+  
+}
+.lightBlue {
+  background-color: #d4eaf0;
+}
+
+.dialogTbl{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dialogTbl tr th {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 2px solid rgb(102, 102, 102); 
+}
+
+.dialogTbl tr td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 2px solid rgb(102, 102, 102); 
+}
+
+#idiconMove {
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 16px;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  min-width: 20px;
+  min-height: 20px;
+  margin-left: 0;
+  margin-right: 16px;
+}
+
+#loginForm{
+width: 500px;
+height: 1000px;
+}
+
+#signUp{
+  width: 80%;
+}
+
+#inputLogin{
+  padding-right: 60px ;
+}
+
+.blueBar {
+  height: 10px;
+    background-color: #027292;
 }

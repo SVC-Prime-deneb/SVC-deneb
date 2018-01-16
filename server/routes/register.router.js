@@ -12,11 +12,17 @@ router.get('/', function(req, res, next) {
 
 // Handles POST request with new user data
 router.post('/', function(req, res, next) {
+  if (req.isAuthenticated(), req.user.is_super_admin) {
 
   var saveUser = {
     username: req.body.username,
     password: encryptLib.encryptPassword(req.body.password),
-    is_admin: true
+    is_admin: true,
+    is_super_admin: req.body.is_super_admin,
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    email: req.body.email,
+
   };
   console.log('new user:', saveUser);
 
@@ -25,8 +31,8 @@ router.post('/', function(req, res, next) {
       console.log("Error connecting: ", err);
       res.sendStatus(500);
     }
-    client.query("INSERT INTO users (username, password, is_admin) VALUES ($1, $2, $3) RETURNING user_id",
-      [saveUser.username, saveUser.password, saveUser.is_admin],
+    client.query("INSERT INTO users (username, password, is_admin, is_super_admin, first_name, last_name, email) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING user_id",
+      [saveUser.username, saveUser.password, saveUser.is_admin, saveUser.is_super_admin, saveUser.first_name, saveUser.last_name, saveUser.email],
         function (err, result) {
           client.end();
           if(err) {
@@ -37,7 +43,10 @@ router.post('/', function(req, res, next) {
           }
         });
   });
-
+  } else {
+    console.log('not logged in');
+    res.send(false);
+  }
 });
 
 
