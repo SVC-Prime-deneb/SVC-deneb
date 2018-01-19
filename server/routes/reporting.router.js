@@ -8,7 +8,7 @@ var selectedYear = '';
 //                    GET ROUTES
 router.get('/advperloc', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated() && req.user.is_admin) {
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
                 console.log('Error connecting', errorConnectingToDb);
@@ -43,7 +43,7 @@ router.get('/advperloc', function (req, res) {
 //                    GET ROUTES
 router.get('/taxi', function (req, res) {
     // check if logged in
-    // if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated() && req.user.is_admin) {
     pool.connect(function (errorConnectingToDb, db, done) {
         if (errorConnectingToDb) {
             console.log('Error connecting', errorConnectingToDb);
@@ -66,17 +66,17 @@ router.get('/taxi', function (req, res) {
             }); // END QUERY
         }
     });
-    // } else {
-    //     // failure best handled on the server. do redirect here.
-    //     console.log('not logged in');
-    //     res.send(false);
-    // }
+    } else {
+        // failure best handled on the server. do redirect here.
+        console.log('not logged in');
+        res.send(false);
+    }
 });
 
 //  WHAT IS hos? Hospital per location
 router.get('/hos', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated() && req.user.is_admin) {
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
                 console.log('Error connecting', errorConnectingToDb);
@@ -104,7 +104,7 @@ router.get('/hos', function (req, res) {
 
 // POST route to get selected year and month on Chart
 router.post('/new/locmonthly', function (req, res) {
-    if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated() && req.user.is_admin) {
 
     selectedYear = String(req.body.selectedYear);
     console.log('selectedYear', selectedYear);
@@ -116,7 +116,7 @@ router.post('/new/locmonthly', function (req, res) {
 })
 
 router.get('/locmonthly', function (req, res) {
-    if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated() && req.user.is_admin) {
 
     // check if logged in
     // console.log('in get route hjhjhj');
@@ -154,7 +154,7 @@ router.get('/locmonthly', function (req, res) {
 
 router.get('/nurse', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated() && req.user.is_admin) {
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
                 console.log('Error connecting', errorConnectingToDb);
@@ -187,7 +187,7 @@ router.get('/nurse', function (req, res) {
 
 router.post('/new/nursereport', function (req, res) {
     console.log('post nurse');
-    if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated() && req.user.is_admin) {
         var nurse = {
             nursing_form_date: req.body.nursing_form_date,
             nurse_was_adv_dispatched: req.body.nurse_was_adv_dispatched,
@@ -226,7 +226,7 @@ router.post('/new/nursereport', function (req, res) {
 router.delete('/del/:id', function (req, res) {
     console.log('del nurse report');
     // check if logged in
-    if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated() && req.user.is_admin) {
         var id = req.params.id;
 
         pool.connect(function (errorConnectingToDB, db, done) {

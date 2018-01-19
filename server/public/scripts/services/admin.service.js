@@ -1,7 +1,6 @@
 myApp.service('AdminService', function ($http, $location, $mdDialog) {
     var self = this;
     self.FormObject = {};
-
     self.updatedAdmin = {};
     self.adminList = { data: [] };
     self.selectedAdmin = { data: {} };
@@ -14,9 +13,7 @@ myApp.service('AdminService', function ($http, $location, $mdDialog) {
 
 
 
-    // EDIT ADVOCATE
     self.editAdvocate = function (admin) {
-        // console.log('Edit advocate on Form Services was called', advocate);
         self.updatedAdmin = admin;
     }
 

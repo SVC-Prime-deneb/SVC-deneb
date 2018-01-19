@@ -1,34 +1,44 @@
-<!-- EditAdController as eac -->
-<div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
-    <md-content class="editAdvocate">
-        <md-card>
-            <div class="layout-margin">
-                <form name="editAdmin" layout="column">
-                    <h1>UPDATE ADMIN</h1>
-                    <md-input-container>
-                        <label>First Name </label>
-                        <input ng-model="eac.updatedAdmin.first_name" type="text">
+<div class="blueBar"></div>
+<div class="container" id="login" layout="column" layout-align="center center">
+    <md-content id="loginForm">
+        <md-card class="invertColor">
+            <md-card>
+                <h1 class="lead">Edit User</h1>
+                <h1 class="lead alert alert-danger" role="alert" ng-if="adc.message != ''">{{adc.message}}</h2>
+                    <form ng-submit="adc.registerUser()">
+                        <md-input-container>
+                            <label for="firstName">First Name</label>
+                            <input type="text" ng-model="adc.updateAdmin.first_name">
+                        </md-input-container>
+                        <md-input-container>
+                            <label for="lastName">Last Name</label>
+                            <input type="text" ng-model="adc.updateAdmin.last_name">
+                        </md-input-container>
+                        <md-input-container>
+                            <label for="email">Email</label>
+                            <input type="text" ng-model="adc.updateAdmin.email">
+                        </md-input-container>
 
-                    </md-input-container>
-                    <md-input-container>
-                        <label>Last NAME </label>
-                        <input ng-model="eac.updatedAdmin.last_name" type="text">
-                    </md-input-container>
-                    <br/>
-                    <!-- language check boxes here -->
-                    <md-input-container>
-                        <p>FULL ACCESS</p>
-                        <md-checkbox ng-model="eac.updatedAdmin.fullAccess" class="md-primary" aria-label="FULL ACCESS">FULL ACCESS</md-checkbox>
-                    </md-input-container>
-                    <div>
-                        <!-- goes to admin management page -->
-                        <md-button class="md-raised md-warn" href="#/adminmanage">Cancel</md-button>
-                        <md-button type="submit" class="md-raised md-primary" ng-click="eac.updateAdmin(eac.updatedAdmin.admin_id , eac.updatedAdmin)"
-                            href="#/adminmanage">Update</md-button>
-                    </div>
-                </form>
-            </div>
+                        <div layout="rows">
+                            <md-input-container>
+                                <p>Super Admin:</p>
+                                <md-radio-group ng-model="adc.updateAdmin.is_super_admin" aria-label="super admin status">
+                                    <md-radio-button ng-value="true" class="md-primary">Yes</md-radio-button>
+                                    <md-radio-button ng-value="false" class="md-primary">No</md-radio-button>
+                                </md-radio-group>
+                            </md-input-container>
+                        </div>
+                        <md-input-container>
+                            <label for="username">Username:</label>
+                            <input type="text" ng-model="adc.updateAdmin.username">
+                        <md-card-actions>
+                            <div>
+                                <md-button class="md-primary md-raised" href="#adminmanage" ng-click="adc.updatedAdmin(adc.updateAdmin.user_id , adc.updateAdmin)" type="submit" name="submit" value="edit">Edit</md-button>
+                                <a href="#adminmanage">Cancel</a>
+                            </div>
+                        </md-card-actions>
+                    </form>
+            </md-card>
         </md-card>
     </md-content>
 </div>
