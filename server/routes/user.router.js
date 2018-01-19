@@ -3,7 +3,11 @@ var router = express.Router();
 var pool = require('../modules/pool.js');
 var pg = require('pg');
 
-// Handles Ajax request for user information if user is authenticated
+
+//                    GET ROUTES
+
+
+
 router.get('/', function (req, res) {
     // check if logged in
     if (req.isAuthenticated()) {
@@ -31,8 +35,7 @@ router.get('/logout', function (req, res) {
     res.sendStatus(200);
 });
 
-
-//                    GET ROUTES
+//Route for getting all open cases
 router.get('/open', function (req, res) {
     // check if logged in
     if (req.isAuthenticated()) {
@@ -64,10 +67,11 @@ router.get('/open', function (req, res) {
 
 
 
+//route for getting all cases added within the past 24 hours
 //                    GET ROUTES
 router.get('/newcases', function (req, res) {
     // check if logged in
-    // if (req.isAuthenticated()) {
+    if (req.isAuthenticated()) {
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
                 console.log('Error connecting', errorConnectingToDb);
@@ -91,11 +95,11 @@ router.get('/newcases', function (req, res) {
                 }); // END QUERY
             }
         });
-    // } else {
-    //     // failure best handled on the server. do redirect here.
-    //     console.log('not logged in');
-    //     res.send(false);
-    // }
+    } else {
+        // failure best handled on the server. do redirect here.
+        console.log('not logged in');
+        res.send(false);
+    }
 });
 
 //                    GET ROUTES
