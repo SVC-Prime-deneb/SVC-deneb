@@ -1,42 +1,42 @@
-
 var express = require('express');
 var router = express.Router();
 var pool = require('../modules/pool.js');
 var pg = require('pg');
 
 //                      GET ROUTES
+////gets the admins
 router.get('/get', function (req, res) {
   console.log('get dem admins');
   // check if logged in
-  if (req.isAuthenticated(), req.user.is_super_admin) {
-  pool.connect(function (errorConnectingToDB, db, done) {
-    if (errorConnectingToDB) {
-      console.log('Error connecting to db', errorConnectingToDB);
-      res.sendStatus(500);
-    } else {
-      var queryText = 'SELECT u."user_id" ' +
-                            ',u."first_name" ' +
-                            ',u."last_name" ' +
-                            ',u."username" ' +
-                            ',u."is_admin" ' +
-                            ',u."is_super_admin" ' +
-                            ',u."first_name" ' +
-                            ',u."last_name"' +
-                            ',u."email"' +
-                      'FROM "users" u ' + 
-                      'WHERE is_admin = true ;';  //pulls from user where the user is an admin
-      db.query(queryText, function (errorMakingQuery, result) {
-        done();
-        if (errorMakingQuery) {
-          console.log('Error making query', errorMakingQuery, result)
-          res.sendStatus(500);
-        } else {
-          console.log(result.rows);
-          res.send(result.rows);
-        }
-      });
-    }
-  });
+  if (req.isAuthenticated() && req.user.is_super_admin) {
+    pool.connect(function (errorConnectingToDB, db, done) {
+      if (errorConnectingToDB) {
+        console.log('Error connecting to db', errorConnectingToDB);
+        res.sendStatus(500);
+      } else {
+        var queryText = 'SELECT u."user_id" ' +
+          ',u."first_name" ' +
+          ',u."last_name" ' +
+          ',u."username" ' +
+          ',u."is_admin" ' +
+          ',u."is_super_admin" ' +
+          ',u."first_name" ' +
+          ',u."last_name"' +
+          ',u."email"' +
+          'FROM "users" u ' +
+          'WHERE is_admin = true ;';  //pulls from user where the user is an admin
+        db.query(queryText, function (errorMakingQuery, result) {
+          done();
+          if (errorMakingQuery) {
+            console.log('Error making query', errorMakingQuery, result)
+            res.sendStatus(500);
+          } else {
+            console.log(result.rows);
+            res.send(result.rows);
+          }
+        });
+      }
+    });
   } else {
     console.log('not logged in');
     res.send(false);
@@ -45,33 +45,42 @@ router.get('/get', function (req, res) {
 
 
 //                            UPDATE ROUTES
-
+//edits admin status
 router.put('/update/:id', function (req, res) {
   console.log('update admin');
   // check if logged in
 
   if (req.isAuthenticated(), req.user.is_super_admin) {
-  var id = req.params.id;
-  var is_super_admin = req.body.is_super_admin
-  
-  pool.connect(function (errorConnectingToDB, db, done) {
-    if (errorConnectingToDB) {
-      console.log('Error connecting to db', errorConnectingToDB);
-      res.sendStatus(500);
-    } else {
-      var queryText = 'UPDATE "users" SET is_super_admin = $1 WHERE user_id = $2 ;';  //updates an admin to super admin
-      db.query(queryText, [is_super_admin, id], function (errorMakingQuery, result) {
-        done();
-        if (errorMakingQuery) {
-          console.log('Error making query', errorMakingQuery, result)
-          res.sendStatus(500);
-        } else {
-          console.log(result.rows);
-          res.send(result.rows);
-        }
-      });
+    var id = req.params.id;
+    var is_super_admin = req.body.is_super_admin
+    var updateUser = {
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      email: req.body.email,
+      username: req.body.username
     }
-  });
+    console.log(req.body);
+
+    pool.connect(function (errorConnectingToDB, db, done) {
+      if (errorConnectingToDB) {
+        console.log('Error connecting to db', errorConnectingToDB);
+        res.sendStatus(500);
+      } else {
+        var queryText = 'UPDATE "users" SET "is_super_admin" = $1, "first_name" = $2, "last_name" = $3,' +
+          ' "email" = $4, "username" = $5  WHERE "user_id" = $6 ;';  //updates an admin to super admin
+        db.query(queryText, [is_super_admin, updateUser.first_name, updateUser.last_name,
+          updateUser.email, updateUser.username, id], function (errorMakingQuery, result) {
+            done();
+            if (errorMakingQuery) {
+              console.log('Error making query', errorMakingQuery, result)
+              res.sendStatus(500);
+            } else {
+              console.log(result.rows);
+              res.send(result.rows);
+            }
+          });
+      }
+    });
   } else {
     console.log('not logged in');
     res.send(false);
@@ -79,7 +88,7 @@ router.put('/update/:id', function (req, res) {
 });
 
 //                      DELETE ROUTES
-
+//delete admins
 router.delete('/del/:id', function (req, res) {
   console.log('del admin');
   // check if logged in

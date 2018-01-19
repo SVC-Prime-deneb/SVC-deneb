@@ -2,8 +2,9 @@ myApp.controller('AdminController', function (UserService, FormService, AdminSer
     var vm = this;
     vm.formService = FormService;
     vm.formObject = FormService.formObject;
-
+    vm.adminId = 0
     vm.admin = FormService.selectedAdmin;
+    vm.updatedAdmin = {};
     vm.adminList = [];
     vm.adminService = AdminService;
     vm.adminObject = AdminService.formObject;
@@ -51,15 +52,9 @@ myApp.controller('AdminController', function (UserService, FormService, AdminSer
         });
     }
 
-    // EDIT Advocate
     vm.editAdmin = function (admin) {
-        console.log('deleted', adminId);
-        $http.put('/admin/del/' + adminId ,  changeAdmin).then(function (response) {
-            console.log('success');
-            vm.viewAdmin();
-        }).catch(function (error) {
-            console.log('failure', error);
-        });
+        console.log(admin);
+        vm.formService.editAdmin(admin);
     }
 
     vm.viewAdmin();

@@ -22,7 +22,6 @@ myApp.controller('AdvocateController', function (UserService, FormService, $http
         return '';
     }
 
-
     // VIEW advocates 
     vm.viewAdvocate = function () {
         FormService.viewAdvocate();
@@ -42,7 +41,6 @@ myApp.controller('AdvocateController', function (UserService, FormService, $http
 
     // EDIT Advocate
     vm.editAdvocate = function (advocate) {
-        // console.log('sending advocate to edit_Advocate controller', advocate);
         vm.formService.editAdvocate(advocate);
         // console.log('Finish sending');
     }
