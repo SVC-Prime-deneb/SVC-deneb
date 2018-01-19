@@ -275,12 +275,6 @@ This function will also need to be created
 CREATE OR REPLACE FUNCTION form_creation(id INT) 
     RETURNS void AS $$
     
-<<<<<<< HEAD
-   
-=======
-    /* Function should insert rows into all form and data tables after insert of greenform */
-    
->>>>>>> 672a4582d16607334fec7b34c1b5f87aebcbbbdd
     TRUNCATE "form_insert";    --drop temp table everytime this runs for recreation
     
     		  

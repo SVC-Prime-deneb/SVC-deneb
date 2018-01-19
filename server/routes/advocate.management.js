@@ -4,6 +4,8 @@ var pool = require('../modules/pool.js');
 var encryptLib = require('../modules/encryption');
 var path = require('path');
 
+//                          GET ROUTES
+// get advocates that are active
 router.get('/get', function (req, res) {
   // check if logged in
   if (req.isAuthenticated()) {
@@ -31,9 +33,9 @@ router.get('/get', function (req, res) {
 });
 
 //                          POST ROUTES
-
+//create new advocates
 router.post('/new', function (req, res) {
-  if (req.isAuthenticated(), req.user.is_admin === true) {
+  if (req.isAuthenticated() && req.user.is_admin === true) {
   var saveAd = {
     advocate_first_name: req.body.advocate_first_name,
     advocate_last_name: req.body.advocate_last_name,
@@ -55,7 +57,6 @@ router.post('/new', function (req, res) {
     is_active: true
   };
   console.log('new user:', saveAd);
-
   pool.connect(function (errorConnectingToDb, db, done) {
     if (errorConnectingToDb) {
       console.log('Error connecting', errorConnectingToDb);
@@ -88,9 +89,9 @@ router.post('/new', function (req, res) {
 });//End POST route
 //                            UPDATE ROUTES
 
-
+//update last contacted date for admins
 router.put('/update/last/:id', function (req, res) {
-  if (req.isAuthenticated(), req.user.is_admin === true) {
+  if (req.isAuthenticated()&& req.user.is_admin === true) {
   console.log('this req.body', req.body);
 
   var id = req.params.id
@@ -123,14 +124,13 @@ console.log(date);
     res.send(false);
   }
 });//End POST route
-//TODO add forgot password and finish this route.
+
+//update advocates indormation
 router.put('/update/:id', function (req, res) {
   console.log('update admin');
   // check if logged in
-
-  if (req.isAuthenticated(), req.user.is_admin === true) {
+  if (req.isAuthenticated() && req.user.is_admin === true) {
     var id = req.params.id;
-
     var updateAd = {
       advocate_first_name: req.body.advocate_first_name,
       advocate_last_name: req.body.advocate_last_name,
@@ -182,11 +182,11 @@ router.put('/update/:id', function (req, res) {
 });
 
 //                      DELETE ROUTES
-
+//deactivate advocates status
 router.put('/del/:id', function (req, res) {
   console.log('del advocate');
   // check if logged in
-  if (req.isAuthenticated(), req.user.is_admin === true) {
+  if (req.isAuthenticated() && req.user.is_admin === true) {
     var id = req.params.id;
     pool.connect(function (errorConnectingToDB, db, done) {
       if (errorConnectingToDB) {
@@ -211,6 +211,5 @@ router.put('/del/:id', function (req, res) {
     res.send(false);
   }
 });
-
 
 module.exports = router;

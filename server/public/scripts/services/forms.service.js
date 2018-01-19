@@ -3,6 +3,7 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
     self.FormObject = {};
 
     self.updatedAdvocate = {};
+    self.updatedAdmin = {};
     self.advocateList;
     self.selectedAdvocate = { data: {} };
 
@@ -114,6 +115,12 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
         self.updatedAdvocate = advocate;
     }
 
+    //EDIT ADMIN
+    self.editAdmin = function (admin) {
+        self.updatedAdmin = admin;
+        
+    }
+
     //get route for specific form that was selected
     self.getForm = function (form) {
         $http.get('/case/' + form + '/' + self.currentFormId.currentId).then(function (response) {
@@ -211,6 +218,14 @@ myApp.service('FormService', function ($http, $location, $mdDialog) {
             console.log('failure', error);
         });
     }
+
+    self.updateAdmin = function (id, objectIn) {
+        $http.put('/admin/update/' + id, objectIn).then(function (response) {
+        }).catch(function (error) {
+            console.log('failure', error);
+        });
+    }
+
     //updated date when dispatched
     self.updateDate = function (id, date) {
         $http.put('/advocate/update/last/' + id, {date}).then(function (response) {
