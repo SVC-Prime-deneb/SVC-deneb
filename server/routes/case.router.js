@@ -5,9 +5,11 @@ var moment = require('moment');
 
 
 //                    GET ROUTES
+
+// gets 15 most recent active forms
 router.get('/form', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated() && req.user.is_admin) {
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
                 res.sendStatus(500);
@@ -30,9 +32,10 @@ router.get('/form', function (req, res) {
     }
 });
 
-router.get('/green/:id', function (req, res) {
+//gets specifit green form
+router.get('/green/:id' && function (req, res) {
     // check if logged in
-    // if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated()&& req.user.is_admin) {
         var green = req.params.id
         console.log(green);
         
@@ -59,15 +62,16 @@ router.get('/green/:id', function (req, res) {
                 }); // END QUERY
             }
         });
-    // } else {
-    //     // failure best handled on the server. do redirect here.
-    //     res.send(false);
-    // }
+    } else {
+        // failure best handled on the server. do redirect here.
+        res.send(false);
+    }
 });
 
+// gets specific la form
 router.get('/la/:id', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated() && req.user.is_admin) {
         var la = req.params.id
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
@@ -90,10 +94,11 @@ router.get('/la/:id', function (req, res) {
     }
 });
 
+//gets specific ma form
 router.get('/ma/:id', function (req, res) {
     // check if logged in
 
-    if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated() && req.user.is_admin) {
         var ma = req.params.id;
 
         pool.connect(function (errorConnectingToDb, db, done) {
@@ -117,10 +122,10 @@ router.get('/ma/:id', function (req, res) {
         res.send(false);
     }
 });
-
+// get refferal form by ID
 router.get('/referral/:id', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated() && req.user.is_admin) {
         var referral = req.params.id
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
@@ -142,10 +147,10 @@ router.get('/referral/:id', function (req, res) {
         res.send(false);
     }
 });
-
+//getting release form data
 router.get('/release/:id', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated() && req.user.is_admin) {
         var release = req.params.id
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
@@ -168,8 +173,43 @@ router.get('/release/:id', function (req, res) {
     }
 });
 
+//search for a specific form
+router.get('/form/search', function (req, res) {
+    if (req.isAuthenticated() && req.user) {
+
+        var query = {
+            start_date: req.query.start_date,
+            end_date: req.query.end_date,
+        }
+        pool.connect(function (errorConnectingToDb, db, done) {
+            if (errorConnectingToDb) {
+                console.log('Error connecting', errorConnectingToDb);
+                res.sendStatus(500);
+            } else {
+                var queryText = 'SELECT f.* ' +
+                    'FROM "public"."green_form_data" g ' +
+                    'INNER JOIN "public"."form" f ON f."green_form_id" = g."green_form_id" ' +
+                    'WHERE g."date" BETWEEN $1 AND $2 ; ';
+
+                db.query(queryText, [query.start_date, query.end_date], function (errorMakingQuery, result) {
+                    done();
+                    if (errorMakingQuery) {
+                        res.sendStatus(500);
+                    } else {
+                        res.send(result.rows);
+                    }
+                }); // END QUERY
+            }
+        });
+    } else {
+        // failure best handled on the server. do redirect here.
+        res.send(false);
+    }
+});
+
 
 //                      POST
+//creating a new green sheet
 router.post('/new/green', function (req, res) {
     if (req.isAuthenticated()) {
         var green = {
@@ -210,44 +250,7 @@ router.post('/new/green', function (req, res) {
     }  
 });
 
-
-
-router.put('/month', function (req, res) {
-    console.log('this req.body', req.body);
-    if (req.isAuthenticated()) {
-
-    var loc = req.body.loc
-    var date = req.body.date
-    var year_year=date.slice(0, 4)
-    var month=date.slice(5, 7)
-    console.log('month', month);
-    // console.log('year', year);
-    console.log('loc', loc);
-    
-    pool.connect(function (errorConnectingToDb, db, done) {
-        if (errorConnectingToDb) {
-            res.sendStatus(500);
-            console.log("errorConnectingToDb" , errorConnectingToDb);
-            
-        } else {
-            var queryText = 'UPDATE "monthly_location" SET ' + '"' + month + '" = ' + '("' + month + '"+1) WHERE "year" = ' +  year_year  + ' AND "location_id" = $1;'            
-            db.query(queryText, [loc], function (errorMakingQuery, result) {
-                done();
-                if (errorMakingQuery) {
-                    res.sendStatus(500);
-                    console.log('errorMakingQuery', errorMakingQuery);
-                    
-                } else {
-                    res.sendStatus(201);
-                }
-            }); // END QUERY
-        }
-    });
-    } else {
-        res.send(false);
-    }
-});//End POST route
-
+//takes returned green form ID and runs stored precedure
 router.post('/new/table/:id', function (req, res) {
     if (req.isAuthenticated()) {
 
@@ -279,16 +282,49 @@ router.post('/new/table/:id', function (req, res) {
 
 //                      PUT 
 
+
+//takes data returned from green form and inserts into location table
+router.put('/month', function (req, res) {
+    console.log('this req.body', req.body);
+    if (req.isAuthenticated()) {
+        var loc = req.body.loc
+        var date = req.body.date
+        var year_year = date.slice(0, 4)
+        var month = date.slice(5, 7)
+        console.log('month', month);
+        // console.log('year', year);
+        console.log('loc', loc);
+        pool.connect(function (errorConnectingToDb, db, done) {
+            if (errorConnectingToDb) {
+                res.sendStatus(500);
+                console.log("errorConnectingToDb", errorConnectingToDb);
+            } else {
+                var queryText = 'UPDATE "monthly_location" SET ' + '"' + month + '" = ' + '("' + month + '"+1) WHERE "year" = ' + year_year + ' AND "location_id" = $1;'
+                db.query(queryText, [loc], function (errorMakingQuery, result) {
+                    done();
+                    if (errorMakingQuery) {
+                        res.sendStatus(500);
+                        console.log('errorMakingQuery', errorMakingQuery);
+                    } else {
+                        res.sendStatus(201);
+                    }
+                }); // END QUERY
+            }
+        });
+    } else {
+        res.send(false);
+    }
+});//End POST route
+
+//route for updating checkboxs
 router.put('/update/checkbox/:id', function (req, res) {
     // check if logged in
-
-    if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated() && req.user.is_admin) {
         var id = req.params.id;
         var form = {
             formName: req.body.formName,
             formValue: req.body.formValue,
         }
-
         let queryText = ""
         if (form.formName === "is_ys_complete") {
             queryText = 'UPDATE "form" SET is_ys_complete = $1 WHERE "form_row_id" = $2 ;';
@@ -336,10 +372,9 @@ router.put('/update/checkbox/:id', function (req, res) {
     }
 });
 
-
+//edit route for changing green form data
 router.put('/update/green/:id', function (req, res) {
-
-    if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated() && req.user.is_admin) {
         var id = req.params.id;
         var green = {
             date: req.body.date,
@@ -381,11 +416,11 @@ router.put('/update/green/:id', function (req, res) {
     }
 });
 
+//edits ma form
 router.put('/update/ma/:id', function (req, res) {
 
-    if (req.isAuthenticated(),  req.user.is_admin) {
+    if (req.isAuthenticated() &&  req.user.is_admin) {
         var id = req.params.id;
-
         var ma = {
             advocate_name: req.body.advocate_name,
             advocate_name_additional: req.body.advocate_name_additional,
@@ -422,7 +457,6 @@ router.put('/update/ma/:id', function (req, res) {
             expiration_date: req.body.expiration_date,
             ma_form_time: req.body.ma_form_time
         }
-
         pool.connect(function (errorConnectingToDB, db, done) {
             if (errorConnectingToDB) {
                 res.sendStatus(500);
@@ -462,10 +496,10 @@ router.put('/update/ma/:id', function (req, res) {
     }
 });
 
+//edits la form
 router.put('/update/la/:id', function (req, res) {
     // check if logged in
-
-    if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated() && req.user.is_admin) {
         var id = req.params.id;
         var la = {
             date: req.body.date,
@@ -478,7 +512,6 @@ router.put('/update/la/:id', function (req, res) {
             type_of_report: req.body.type_of_report,
             la_form_time: req.body.la_form_time
         }
-
         pool.connect(function (errorConnectingToDB, db, done) {
             if (errorConnectingToDB) {
                 res.sendStatus(500);
@@ -504,8 +537,9 @@ router.put('/update/la/:id', function (req, res) {
     }
 });
 
+//edit refferal form data
 router.put('/update/referral/:id', function (req, res) {
-    if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated() && req.user.is_admin) {
         var id = req.params.id;
         var referral = {
             referral_location_name: req.body.referral_location_name,
@@ -539,9 +573,10 @@ router.put('/update/referral/:id', function (req, res) {
     }
 });
 
+//update release form data
 router.put('/update/release/:id', function (req, res) {
     // check if logged in
-    if (req.isAuthenticated(), req.user.is_admin) {
+    if (req.isAuthenticated() && req.user.is_admin) {
         var id = req.params.id;
         var release = {
             purpose: req.body.purpose,
@@ -549,7 +584,6 @@ router.put('/update/release/:id', function (req, res) {
             contact_date: req.body.contact_date,
             contacted_by: req.body.contacted_by,
         }
-
         pool.connect(function (errorConnectingToDB, db, done) {
             if (errorConnectingToDB) {
                 res.sendStatus(500);
@@ -568,39 +602,6 @@ router.put('/update/release/:id', function (req, res) {
             }
         });
     } else {
-        res.send(false);
-    }
-});
-
-router.get('/form/search', function (req, res) { 
-    if (req.isAuthenticated(), req.user.is_admin) {
-        
-        var query = {
-            start_date: req.query.start_date,
-            end_date: req.query.end_date,
-        }
-        pool.connect(function (errorConnectingToDb, db, done) {
-            if (errorConnectingToDb) {
-                console.log('Error connecting', errorConnectingToDb);
-                res.sendStatus(500);
-            } else {
-                var queryText = 'SELECT f.* ' +
-                    'FROM "public"."green_form_data" g ' +
-                    'INNER JOIN "public"."form" f ON f."green_form_id" = g."green_form_id" ' +
-                    'WHERE g."date" BETWEEN $1 AND $2 ; ';
-                    
-                db.query(queryText,[query.start_date, query.end_date], function (errorMakingQuery, result) {
-                    done();
-                    if (errorMakingQuery) {
-                        res.sendStatus(500);
-                    } else {
-                        res.send(result.rows);
-                    }
-                }); // END QUERY
-            }
-        });
-    } else {
-        // failure best handled on the server. do redirect here.
         res.send(false);
     }
 });
