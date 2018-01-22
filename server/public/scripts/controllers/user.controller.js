@@ -34,9 +34,7 @@ myApp.controller('UserController', function (UserService, FormService, $http) {
 vm.newCases = function () {
     // get case first
     $http.get('/user/newcases').then(function (response) {
-      console.log(response);
       vm.newCases = response.data[0].count;
-      console.log(newCases);
     }).catch(function (error) {
       console.log('failure on GET Case Route');
     });

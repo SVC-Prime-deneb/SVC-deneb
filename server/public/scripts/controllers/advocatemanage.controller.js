@@ -30,19 +30,16 @@ myApp.controller('AdvocateController', function (UserService, FormService, $http
 
     // DELETE advocate
     vm.deleteAdvocate = function (advocateId) {
-        console.log('deleted', advocateId);
         $http.put('/advocate/del/' + advocateId).then(function (response) {
-            console.log('success');
             vm.viewAdvocate();           
         }).catch(function (error) {
-            console.log('failure', error);        
+            console.log('failure deleteing advocate', error);        
         });    
     }
 
     // EDIT Advocate
     vm.editAdvocate = function (advocate) {
         vm.formService.editAdvocate(advocate);
-        // console.log('Finish sending');
     }
 
     vm.viewAdvocate();

@@ -32,28 +32,22 @@ myApp.controller('AdminController', function (UserService, FormService, AdminSer
     // VIEW advocates 
     vm.viewAdmin = function () {
         $http.get('/admin/get').then(function (response) {
-            console.log(response.data);
-            
             vm.adminList.data = response.data;
-
         }).catch(function (error) {
-            console.log('failureee', error);
+            console.log('failure on admin get route', error);
         });
     }
 
     // DELETE admin
     vm.deleteAdmin = function (adminId) {
-        console.log('deleted', adminId);
         $http.delete('/admin/del/' + adminId).then(function (response) {
-            console.log('success');
             vm.viewAdmin();
         }).catch(function (error) {
-            console.log('failure', error);
+            console.log('failure on admin delete', error);
         });
     }
 
     vm.editAdmin = function (admin) {
-        console.log(admin);
         vm.formService.editAdmin(admin);
     }
 

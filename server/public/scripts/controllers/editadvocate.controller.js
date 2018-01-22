@@ -10,9 +10,7 @@ myApp.controller('EditAdController', function (UserService, $http, FormService, 
     
     // EDIT ADVOCATE
     vm.editAdvocate = function (){
-        // console.log('Edit Advocate controller was called');
         vm.updatedAdvocate = vm.formService.updatedAdvocate;
-        // console.log('Success', vm.updatedAdvocate);
     }
     
     // UPDATE ADVOCATE
