@@ -8,9 +8,7 @@ myApp.controller('EditAdminController', function (UserService, $http, FormServic
 
     // EDIT ADMIN
     vm.editAdmin = function () {
-        vm.updateAdmin = vm.formService.updatedAdmin;
-        console.log('here', vm.updateAdmin);
-        
+        vm.updateAdmin = vm.formService.updatedAdmin;        
     }
 
     // UPDATE ADMIN

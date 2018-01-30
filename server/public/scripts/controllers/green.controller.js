@@ -6,6 +6,7 @@ myApp.controller('GreenController', function (UserService, FormService, $locatio
 
     //hospitals for drop down
     vm.hospitals = [{ hospital: 'Fairview Southdale', location_id: 1 }, { hospital: 'Methodist', location_id: 2 }, { hospital: 'HCMC', location_id: 3 }, { hospital: 'North Memorial', location_id: 4 }, { hospital: 'Abbott Northwestern', location_id: 5 }, { hospital: 'West Health', location_id: 6 }, { hospital: 'Maple Grove', location_id: 7 }, { hospital: 'St. Francis', location_id: 8 }, { hospital: 'Ridgeview Waconia', location_id: 9 }, { hospital: '212', location_id: 10 }, { hospital: 'New Prague', location_id: 11}];
+    
     //default variables
     vm.formId = "";
     vm.date = 0;
@@ -20,9 +21,7 @@ myApp.controller('GreenController', function (UserService, FormService, $locatio
     vm.submitGreen = function(objectTosend, event){
         objectTosend.advocate_id = vm.advocateId;
         objectTosend.start_time = FormService.convertTime(objectTosend.start_time);
-        console.log(objectTosend);
         $http.post('/case/new/green', objectTosend).then(function (response) {  
-            console.log(response);
             vm.formId = response.data[0].green_form_id;
             vm.date = response.data[0].date;
             vm.loc = response.data[0].location_id;
@@ -32,7 +31,7 @@ myApp.controller('GreenController', function (UserService, FormService, $locatio
         }).then(function(){
             vm.greenConfirm(event);
         }).catch(function (err) {
-                console.log('error in submit green sheet :(', err);
+                console.log('error in submit green sheet', err);
         });
     }
 
@@ -51,11 +50,10 @@ myApp.controller('GreenController', function (UserService, FormService, $locatio
 
     //creates takes returned green form id to create and link other SQL table ids
     vm.createTables = function () {    
-        console.log(vm.formId);
         $http.post('case/new/table/' + vm.formId).then(function (err) {
             vm.greenPath();
         }).catch(function (err) {
-            console.log('error in form creation :(', err);
+            console.log('error in form creation', err);
         })
     }
 
