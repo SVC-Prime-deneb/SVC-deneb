@@ -7,7 +7,8 @@ myApp.controller('UserController', function (UserService, FormService, $http) {
 
   vm.openCase = 0;
   cases = [];
-  vm.newCases = 0
+  vm.newCases = 0;
+  
   // Get Route to count how many cases are still open on Case Management table
   vm.displayOpenCase = function () {
     // get case first
@@ -25,7 +26,6 @@ myApp.controller('UserController', function (UserService, FormService, $http) {
   
   // Check array if Get cases was called
   if (cases.length == 0) {
-    console.log('calling getCases');
     //route to get all cases
     vm.displayOpenCase()
   }
@@ -34,12 +34,7 @@ myApp.controller('UserController', function (UserService, FormService, $http) {
 vm.newCases = function () {
     // get case first
     $http.get('/user/newcases').then(function (response) {
-      // console.log(response);
-      console.log('Success calling Getting new Cases');
-      console.log(response);
-      
       vm.newCases = response.data[0].count;
-      console.log(newCases);
     }).catch(function (error) {
       console.log('failure on GET Case Route');
     });

@@ -11,10 +11,7 @@ myApp.controller('NewAdController', function (UserService, FormService, $http) {
     }
     // ADD advocate
     vm.addAdvocate = function (advocateToAdd, name, id) {
-        console.log('name, id', name, id);
         $http.post('advocate/new', advocateToAdd).then(function (response) {
-            console.log('sucessful adding advocate');
-            
         }).catch(function (error) {
             console.log('failure', error);
         });
@@ -29,9 +26,9 @@ myApp.controller('NewAdController', function (UserService, FormService, $http) {
     }
 
     vm.submitAdvocate = function (newAdvocate) {
-        console.log('newAdvocate', newAdvocate);
         $http.post('/advocate/new/', newAdvocate).then(function (response) {
         }).catch(function (err) {
+            console.log('Error submitting advocate', err);
         }
         )}
 });
