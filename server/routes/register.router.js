@@ -12,8 +12,7 @@ router.get('/', function(req, res, next) {
 
 // Handles POST request with new user data
 router.post('/', function(req, res, next) {
-  if (req.isAuthenticated(), req.user.is_super_admin) {
-
+  if (req.isAuthenticated() && req.user.is_super_admin) {
   var saveUser = {
     username: req.body.username,
     password: encryptLib.encryptPassword(req.body.password),
@@ -22,10 +21,8 @@ router.post('/', function(req, res, next) {
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     email: req.body.email,
-
   };
   console.log('new user:', saveUser);
-
   pool.connect(function(err, client, done) {
     if(err) {
       console.log("Error connecting: ", err);
@@ -49,5 +46,39 @@ router.post('/', function(req, res, next) {
   }
 });
 
+router.put('/reset/:id', function (req, res, next) {
+  // check if logged in
+  if (req.isAuthenticated() && req.user.is_admin) {  
+  var reset = {
+    username: req.body.resetUser.username,
+    password: encryptLib.encryptPassword(req.body.resetUser.password)
+  };  
+      pool.connect(function (errorConnectingToDb, db, done) {
+          if (errorConnectingToDb) {
+              console.log('Error connecting', errorConnectingToDb);
+              res.sendStatus(500);
+          } else {
+            var queryText = ' UPDATE "users" SET "password" = $1 WHERE "username" = $2;';            
+            db.query(queryText, [reset.password, reset.username], function (errorMakingQuery, result) {
+                  done();
+                  if (errorMakingQuery) {
+                      console.log('Error making query', errorMakingQuery);
+                      res.sendStatus(500);
+                  } else {
+                      res.send(result.rows);
+                      console.log(result.rows);
+                      
+                      console.log('reset');
+                      
+                  }
+              }); // END QUERY
+          }
+      });
+  } else {
+      // failure best handled on the server. do redirect here.
+      console.log('not logged in');
+      res.send(false);
+  }
+});
 
 module.exports = router;

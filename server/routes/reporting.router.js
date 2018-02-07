@@ -150,20 +150,20 @@ router.get('/locmonthly', function (req, res) {
     }
 });
 
-//                      DISPLAY Nurse Reports Table
+//                      DISPLAY  Reports Table
 
 router.get('/nurse', function (req, res) {
     // check if logged in
+    console.log('req');
+    
     if (req.isAuthenticated() && req.user.is_admin) {
         pool.connect(function (errorConnectingToDb, db, done) {
             if (errorConnectingToDb) {
                 console.log('Error connecting', errorConnectingToDb);
                 res.sendStatus(500);
             } else {
-                var queryText = ' SELECT COUNT(n.*), n."nurse_form_location_name" ' +
-                ' FROM "public"."nurse_form_data" n ' +
-                ' WHERE n."nurse_was_adv_dispatched" = TRUE ' +
-                ' GROUP BY n."nurse_form_location_name";';
+                var queryText = 'SELECT * FROM "nurse_form_data";';
+;
                 db.query(queryText, function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
@@ -172,6 +172,8 @@ router.get('/nurse', function (req, res) {
                     } else {
 
                         res.send(result.rows);
+                        console.log(result.rows);
+                        
                     }
                 }); // END QUERY
             }

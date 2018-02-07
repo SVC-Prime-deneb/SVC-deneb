@@ -1,18 +1,20 @@
+<div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
     <h1 class="lead">Reset User Password</h1>
             <div>
                 <label for="username">Username:</label>
-                <input type="text" ng-model="lc.user.username" />
+                <input type="text" ng-model="res.resetUser.username" />
             </div>
             <div>
                 <label for="password">New Password:</label>
-                <input type="password" ng-model="lc.user.password" />
+                <input type="password" ng-model="res.resetUser.password" />
             </div>
             <div>
                 <label for="password">Confirm Password:</label>
-                <input type="password" ng-model="lc.user.password" />
+                <input type="password" ng-model="res.resetUser.password1" />
             </div>
-            
-            <a href="#/user">Cancel</a>
-
+    <div>
+        <md-button class="md-primary md-raised" ng-click='res.resetUserPass(res.resetUser)'>Reset</md-button>
+        <a href="#adminmanage">Cancel</a>
+    </div>
 </div>
