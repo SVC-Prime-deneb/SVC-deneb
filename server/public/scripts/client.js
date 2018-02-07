@@ -129,6 +129,15 @@ myApp.config(function ($routeProvider, $locationProvider) {
         }
       }
     })
+    .when('/reset', {
+      templateUrl: '/views/templates/reset.html',
+      controller: 'resetController as res',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
     .otherwise({
       redirectTo: 'home'
     });

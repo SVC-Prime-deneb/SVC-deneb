@@ -9,12 +9,10 @@ myApp.controller('CreateNurseReportController', function (UserService, ReportSer
     };
 
     vm.submitNurseReport = function (objectTosend) {
-        console.log(objectTosend);
         $http.post('/report/new/nursereport', objectTosend).then(function (response) {
-            console.log('success adding new nurse report');
             vm.viewNurseReport();    
         }).catch(function (err) {
-            console.log('failure', error);
+            console.log('failure adding new nurse report', error);
         });
     }
 })

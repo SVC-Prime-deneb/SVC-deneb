@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var pool = require('../modules/pool.js');
+var path = require('path');
 var pg = require('pg');
+var encryptLib = require('../modules/encryption');
 
 
 //                    GET ROUTES
@@ -132,5 +134,12 @@ router.get('/deadline', function (req, res) {
         res.send(false);
     }
 });
+
+
+//                                  PUT ROUTE
+
+
+
+
 
 module.exports = router;
